@@ -1,7 +1,7 @@
 package ui.panel;
 
 import java.awt.*;
-import java.swing.*;
+import javax.swing.*;
 
 public class TemplatePanel extends JPanel {
     public TemplatePanel() {
