@@ -1,6 +1,6 @@
 package Student;
 
-public class Student {
+public class StudentDB {
 
     public static class Builder {
         private String student_name;
@@ -16,8 +16,8 @@ public class Student {
             return this;
         }
 
-        public Student build() {
-            return new Student(student_name, student_id);
+        public StudentDB build() {
+            return new StudentDB(student_name, student_id);
         }
 
     }
@@ -25,7 +25,7 @@ public class Student {
     private String student_name;
     private int student_id;
 
-    public Student(String name, int id) {
+    public StudentDB(String name, int id) {
         this.student_name = name;
         this.student_id = id;
     }

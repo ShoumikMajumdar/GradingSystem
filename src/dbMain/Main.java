@@ -4,8 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import Course.Course;
-import Student.Student;
+import Course.CourseDB;
+import Student.StudentDB;
 import db.ScoresReader;
 import db.CourseReader;
 import db.SectionReader;
@@ -84,7 +84,7 @@ public class Main {
         }
 
         // API 5 : query a certain student [checked]
-        Student student = studentreader.queryStudent(2);
+        StudentDB student = studentreader.queryStudent(2);
         System.out.println(student.toString());
 
 
@@ -116,7 +116,7 @@ public class Main {
         }
 
         // API 6 : query a specific course [checked]
-        Course course = templatereader.queryCourse(2);
+        CourseDB course = templatereader.queryCourse(2);
         System.out.println(course.toString());
 
         // Test : Component Table API tests

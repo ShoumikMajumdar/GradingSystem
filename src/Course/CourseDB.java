@@ -1,6 +1,6 @@
 package Course;
 
-public class Course {
+public class CourseDB {
 
     public static class Builder{
         private int course_id;
@@ -23,8 +23,8 @@ public class Course {
             return this;
         }
 
-        public Course build(){
-            return new Course(course_id,course_name, template_id );
+        public CourseDB build(){
+            return new CourseDB(course_id,course_name, template_id );
         }
 
     }
@@ -34,7 +34,7 @@ public class Course {
     private int course_id;
     private int template_id;
 
-    public Course(int course_id, String course_name, int template_id){
+    public CourseDB(int course_id, String course_name, int template_id){
         this.course_id = course_id;
         this.course_name = course_name;
         this.template_id = template_id;

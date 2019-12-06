@@ -1,5 +1,5 @@
 package db;
-import Course.Course;
+import Course.CourseDB;
 import db.CourseReader;
 import db.ScoresReader;
 
@@ -148,8 +148,8 @@ public class TemplateReader extends BaseDBReader {
 
     // API 6. queryCourse
 
-    public Course queryCourse(int course_id){
-        Course.Builder builder = new Course.Builder();
+    public CourseDB queryCourse(int course_id){
+        CourseDB.Builder builder = new CourseDB.Builder();
         int courseID = -1;
         String courseName = "None";
         int templateId = -1 ;

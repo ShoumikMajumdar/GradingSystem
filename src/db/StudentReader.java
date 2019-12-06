@@ -1,6 +1,6 @@
 package db;
 
-import Student.Student;
+import Student.StudentDB;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -116,8 +116,8 @@ public class StudentReader extends BaseDBReader{
 
     // API 5. return a student object
 
-    public Student queryStudent(int student_id){
-        Student.Builder builder = new Student.Builder();
+    public StudentDB queryStudent(int student_id){
+        StudentDB.Builder builder = new StudentDB.Builder();
         int studentId = -1;
         String studentName = "None";
         try {
@@ -134,7 +134,7 @@ public class StudentReader extends BaseDBReader{
             }
             builder.setId(studentId);
             builder.setName(studentName);
-            Student returnStudent = builder.build();
+            StudentDB returnStudent = builder.build();
             return returnStudent;
 
         } catch (SQLException e) {
