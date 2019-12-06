@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class Template {
 
     private static int nextID;
@@ -23,9 +25,11 @@ public class Template {
 
     public static Template create(String name) {
         Component root = Component.create(name, 0, 1.0);
-        Template t = build(nextID, name, root);
-        ++nextID;
-        // db phase
+        Template t = null;
+        if (GradingSystem.templateRd.createTemplate(nextID, name, root.id)) {
+            t = build(nextID, name, root);
+            ++nextID;
+        }
         return t;
     }
 
@@ -33,6 +37,11 @@ public class Template {
         // query courses using this template
         // if no courses using this template
         // remove the template from db
+        ArrayList<Integer> courses = GradingSystem.templateRd.queryCoursesUsingTemplate(id);
+        if (!courses.isEmpty()) {
+            return false;
+        }
+        GradingSystem.templateRd.deleteTemplate(id);
         return true;
     }
 }
