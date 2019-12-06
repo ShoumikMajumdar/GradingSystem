@@ -1,5 +1,7 @@
 package logic;
 
+import db.StudentReader;
+
 public class Student {
 
     private static int nextID;
@@ -14,9 +16,11 @@ public class Student {
     }
 
     public static Student create(String name) {
-        Student s = Student.build(nextID, name);
-        ++nextID;
-        // db phase
+        Student s = null;
+        if (GradingSystem.studentRd.createStudent(nextID, name)) {
+            s = Student.build(nextID, name);
+            ++nextID;
+        }
         return s;
     }
 

@@ -1,5 +1,7 @@
 package logic;
 
+import db.SectionReader;
+
 import java.util.*;
 
 public class Section {
@@ -16,9 +18,11 @@ public class Section {
     }
 
     public static Section create() {
-        Section s = Section.build(nextID);
-        ++nextID;
-        // db phase
+        Section s = null;
+        if (GradingSystem.sectionRd.createSection(nextID)) {
+            s = Section.build(nextID);
+            ++nextID;
+        }
         return s;
     }
 
@@ -27,12 +31,12 @@ public class Section {
         students = new HashMap<Integer, Student>();
     }
 
-    public static void addNewStudent(int scid, String name) {
-        Student s = Student.create(name);
-        // db phase
+    public static void addNewStudent(int scid, int stid) {
+        // Student s = GradingSystem.studentRd.queryStudent(stid);
+        // GradingSystem.studentRd.addNewStudent(stid, scid, s.name);
     }
 
     public static void deleteStudent(int scid, int stid) {
-        // db phase
+        GradingSystem.studentRd.deleteStudent(stid, scid);
     }
 }
