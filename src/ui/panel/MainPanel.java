@@ -1,18 +1,18 @@
 package ui.panel;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class MainPanel extends JPanel {
     private JButton btnCourse;
     private JButton btnTemplate;
 
-    public MainPanel() {
+    public MainPanel(final UIController uiController) {
         super(true);
         initialize();
         addComponent();
         setContent();
-        addListener();
+        addListener(uiController);
     }
 
     private void initialize() {
@@ -31,12 +31,12 @@ public class MainPanel extends JPanel {
 
     }
 
-    private void addListener() {
+    private void addListener(UIController uiController) {
         btnCourse.addActionListener(e -> {
-
+            uiController.switchCoursePanel();
             });
         btnTemplate.addActionListener(e -> {
-
+            uiController.switchTemplatePanel();
             });
     }
 }

@@ -1,8 +1,8 @@
-import java.awt.*;
-import javax.swing.*;
-
-import ui.UIConsts;
 import ui.panel.MainPanel;
+import ui.panel.UIController;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class App {
     private JFrame frame;
@@ -19,7 +19,7 @@ public class App {
         EventQueue.invokeLater(() -> {
                 try {
                     App window = new App();
-                    window.frame.setVisible(true);
+//                    window.frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -40,20 +40,20 @@ public class App {
                  UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-
-        frame = new JFrame();
-        frame.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
-                        UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
-        frame.setTitle(UIConsts.APP_NAME);
-        // frame.setIconImage();
-        // frame.setBackground();
-
-        mainPanel = new MainPanel();
-
-        holderPanel = new JPanel(true);
-        holderPanel.add(mainPanel);
-        frame.add(holderPanel);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        UIController uiController = new UIController();
+//        frame = new JFrame();
+//        frame.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
+//                        UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
+//        frame.setTitle(UIConsts.APP_NAME);
+//        // frame.setIconImage();
+//        // frame.setBackground();
+//
+//        mainPanel = new MainPanel();
+//
+//        holderPanel = new JPanel(true);
+//        holderPanel.add(mainPanel);
+//        frame.add(holderPanel);
+//
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
