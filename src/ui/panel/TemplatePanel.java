@@ -46,8 +46,11 @@ public class TemplatePanel extends JPanel implements ActionListener {
     }
 
     private void addComponent() {
-        add(getMainTable(), BorderLayout.CENTER);
-//        add(getActionButtons(), BorderLayout.CENTER);
+        JPanel jp = new JPanel();
+        jp.setLayout(new BorderLayout());
+        jp.add(getMainTable(), BorderLayout.NORTH);
+        jp.add(getActionButtons(), BorderLayout.SOUTH);
+        add(jp);
     }
 
     private void setContent() {
@@ -71,6 +74,7 @@ public class TemplatePanel extends JPanel implements ActionListener {
         menuItemRemoveCol.addActionListener(this);
     }
 
+    // !! hard coded table !!
     private JPanel getMainTable(){
         JPanel jp = new JPanel();
         // creates table
@@ -129,6 +133,7 @@ public class TemplatePanel extends JPanel implements ActionListener {
 
     private JPanel getActionButtons(){
         JPanel jp = new JPanel();
+        jp.setSize(300,300);
         JButton btn_stats = new JButton("Statistics");
         JButton btn_curve = new JButton("Curve");
         JLabel l_search = new JLabel("Search");
