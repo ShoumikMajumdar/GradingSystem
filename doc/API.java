@@ -145,3 +145,17 @@ List<Integer> queryStudents(int id);
  * @return data of student (maybe db-side structure?)
  */
 Student queryStudent(int id);
+
+/**
+ * query a template
+ * @param id template id
+ * @return data of template (id, name, root component id)
+ */
+Template queryTemplate(int tid);
+
+/**
+ * query a component
+ * @param id component id
+ * @return data of component (id, percent, name, points)
+ */
+Component queryComponent(int id);
