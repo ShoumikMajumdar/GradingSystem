@@ -43,10 +43,16 @@ public class MySQLTableCreation {
             sql = "DROP TABLE IF EXISTS template_table";
             stmt.executeUpdate(sql);
 
-            sql = "DROP TABLE IF EXISTS component";
+            sql = "DROP TABLE IF EXISTS component_table";
             stmt.executeUpdate(sql);
 
             sql = "DROP TABLE IF EXISTS scores_table";
+            stmt.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS bonus_table";
+            stmt.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS comment_table";
             stmt.executeUpdate(sql);
 
 
@@ -81,7 +87,7 @@ public class MySQLTableCreation {
                     + "template_name varchar(255), "
                     + "root_id INTEGER, "
                     //+ "PRIMARY KEY (template_id, template_name, root_id, course_id) )";
-                    + "PRIMARY KEY (course_id) )";
+                    + "PRIMARY KEY (template_id, template_name, root_id) )";
             stmt.executeUpdate(sql);
 
             // component table
@@ -100,6 +106,25 @@ public class MySQLTableCreation {
                     + "student_id INTEGER ,"
                     + "component_id INTEGER , "
                     + "points DOUBLE, "
+                    + "PRIMARY KEY (course_id, student_id, component_id) )";
+            stmt.executeUpdate(sql);
+
+            // bonus table
+            sql = "CREATE TABLE bonus_table ("
+                    + "course_id INTEGER,"
+                    + "student_id INTEGER ,"
+                    + "component_id INTEGER , "
+                    + "bonus DOUBLE, "
+                    + "PRIMARY KEY (course_id, student_id, component_id) )";
+            stmt.executeUpdate(sql);
+
+
+            // comment table
+            sql = "CREATE TABLE comment_table ("
+                    + "course_id INTEGER,"
+                    + "student_id INTEGER ,"
+                    + "component_id INTEGER , "
+                    + "comment varchar(255), "
                     + "PRIMARY KEY (course_id, student_id, component_id) )";
             stmt.executeUpdate(sql);
 

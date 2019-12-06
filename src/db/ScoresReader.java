@@ -80,6 +80,27 @@ public class ScoresReader extends BaseDBReader {
 
     }
 
+    // API 4 get a score
+    public double getScore(int course_id, int student_id, int component_id){
+        double score = 0.0;
+        try {
+            String sql = "SELECT points FROM scores_table WHERE course_id = ? AND student_id = ? AND component_id = ? ";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, course_id);
+            stmt.setInt(2, student_id);
+            stmt.setInt(3, component_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                score = rs.getDouble(1);
+            }
+            return score;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return score;
+
+    }
+
 
 
 
