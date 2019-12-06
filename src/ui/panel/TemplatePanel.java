@@ -6,14 +6,16 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TemplatePanel extends JPanel implements ActionListener {
 
-    private JTableHeader header;
+    private GroupableTableHeader header;
     private JTable table;
+    private JScrollPane jsp;
     private DefaultTableModel tableModel;
 
     private JPopupMenu rowPopupMenu;
@@ -27,23 +29,20 @@ public class TemplatePanel extends JPanel implements ActionListener {
     private JMenuItem menuItemAddCol;
     private JMenuItem menuItemRemoveCol;
 
-    private String[][] tableData;
-    private String[] tableHeader;
+    private Object[][] tableData;
+    private Object[] tableHeader;
 
-    public TemplatePanel() {
+    public TemplatePanel(Object[][] tableData, Object[] tableHeader) {
         super(true);
-        initialize();
+        initialize(tableData, tableHeader);
         addComponent();
         setContent();
         addListener();
     }
 
-    private void initialize() {
-        tableData = new String[][]{{"Fuqing Wang", "99","98","96","54","20"},
-                {"Xiaoduan Chang", "96","94","98","54","20"},
-                {"Zhezhong Jiang", "97","98","99","54","20"},
-                {"Shoumik", "99","98","96","51","21"}};
-        tableHeader = new String[]{"Name", "Assignment 1", "Assignment2", "Assignment 3", "Midterm", "Final"};
+    private void initialize(Object[][] tableData, Object[] tableHeader) {
+        this.tableData = tableData;
+        this.tableHeader = tableHeader;
     }
 
     private void addComponent() {
@@ -52,42 +51,79 @@ public class TemplatePanel extends JPanel implements ActionListener {
     }
 
     private void setContent() {
-        
+        table.setComponentPopupMenu(getRowPopup());
+        table.setCellSelectionEnabled(true);
+        table.setRowSelectionAllowed(true);
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        table.setFillsViewportHeight(true);
+
+        header.setComponentPopupMenu(getHeaderPopup());
+
+        jsp.setPreferredSize(new Dimension(UIConsts.TABLE_WIDTH, UIConsts.TABLE_HEIGHT));
     }
 
     private void addListener() {
-//        table.addMouseListener(new TableMouseListener(table));
-
         menuItemAddRow.addActionListener(this);
         menuItemRemoveRow.addActionListener(this);
         menuItemRemoveAllRow.addActionListener(this);
 
         menuItemAddCol.addActionListener(this);
         menuItemRemoveCol.addActionListener(this);
-
-//        table.addMouseListener(new HeaderMouseListener(table));
     }
 
     private JPanel getMainTable(){
         JPanel jp = new JPanel();
         // creates table
-        tableModel = new DefaultTableModel(tableData, tableHeader);
-        table = new JTable(tableModel);
-        table.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
-                UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
-        table.setComponentPopupMenu(getRowPopup());
-        table.setCellSelectionEnabled(true);
-        table.setRowSelectionAllowed(true);
+        tableModel = new DefaultTableModel();
+        tableModel.setDataVector(tableData, tableHeader);
+        table = new JTable(tableModel){
+            protected JTableHeader createDefaultTableHeader(){
+                return new GroupableTableHeader(columnModel);
+            }
+        };
 
-        header = table.getTableHeader();
-        header.setComponentPopupMenu(getHeaderPopup());
+        TableColumnModel cm = table.getColumnModel();
+        ColumnGroup g_name = new ColumnGroup("Name");
+
+        ColumnGroup g_hw = new ColumnGroup("Homework");
+
+        ColumnGroup g_hw1 = new ColumnGroup("hw1");
+        g_hw1.add(cm.getColumn(1));
+        g_hw1.add(cm.getColumn(2));
+
+        ColumnGroup g_hw2 = new ColumnGroup("hw2");
+        g_hw2.add(cm.getColumn(3));
+        g_hw2.add(cm.getColumn(4));
+
+        ColumnGroup g_hw3 = new ColumnGroup("hw3");
+        g_hw3.add(cm.getColumn(5));
+
+        ColumnGroup g_hw4 = new ColumnGroup("hw4");
+        g_hw4.add(cm.getColumn(6));
+
+        g_hw.add(g_hw1);
+        g_hw.add(g_hw2);
+        g_hw.add(g_hw3);
+        g_hw.add(g_hw4);
+
+        ColumnGroup g_midterm = new ColumnGroup("Midterm");
+        g_midterm.add(cm.getColumn(7));
+        g_midterm.add(cm.getColumn(8));
+
+        ColumnGroup g_final = new ColumnGroup("Final");
+        g_final.add(cm.getColumn(9));
+
+        header = (GroupableTableHeader) table.getTableHeader();
+        header.addColumnGroup(g_name);
+        header.addColumnGroup(g_hw);
+        header.addColumnGroup(g_midterm);
+        header.addColumnGroup(g_final);
 
         // creates scroll panel, add table to panel
-        JScrollPane jsp = new JScrollPane(table);
+        jsp = new JScrollPane(table);
 
         // add panel to frame
         jp.add(jsp);
-        jp.setSize(UIConsts.MAIN_WINDOW_X,UIConsts.MAIN_WINDOW_Y);
         return jp;
     }
 
