@@ -20,10 +20,6 @@ public class UIController extends JFrame {
     private Object[] tableHeader = new Object[]{"Name","TTT-I", "TTT-II", "BlackJack-I", "BlackJack-II", "Trianta-ena", "Cave Adventure", "Midterm-Written", "Midterm-Code", "Final"};
 
     public UIController() {
-//        Object data = generateData();
-//        tableData = parseTabledata(data);
-//        tableHeader = parseTableHeader(data);
-
         frame.setTitle(UIConsts.APP_NAME);
         frame.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
                 UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);

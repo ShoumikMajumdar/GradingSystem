@@ -66,12 +66,14 @@ public class TemplatePanel extends JPanel implements ActionListener {
     }
 
     private void addListener() {
+        table.addMouseListener((new TableMouseListener(table)));
         menuItemAddRow.addActionListener(this);
         menuItemRemoveRow.addActionListener(this);
         menuItemRemoveAllRow.addActionListener(this);
 
         menuItemAddCol.addActionListener(this);
         menuItemRemoveCol.addActionListener(this);
+        header.addMouseListener(new HeaderMouseListener(header));
     }
 
     // !! hard coded table !!
@@ -124,8 +126,8 @@ public class TemplatePanel extends JPanel implements ActionListener {
         header.addColumnGroup(g_final);
 
         // creates scroll panel, add table to panel
-        jsp = new JScrollPane(table);
-
+        jsp = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         // add panel to frame
         jp.add(jsp);
         return jp;
