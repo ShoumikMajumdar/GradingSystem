@@ -7,9 +7,11 @@ public class Component {
     private static int nextID = 0;
 
     public static Component create(String name, int points, double percent) {
-        Component c = new Component(nextID, name, points, percent);
-        ++nextID;
-        // db phase
+        Component c = null;
+        if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
+            c = new Component(nextID, name, points, percent);
+            ++nextID;
+        }
         return c;
     }
 
@@ -51,11 +53,10 @@ public class Component {
 
     public void addChild(Component child) {
         children.put(Integer.valueOf(child.id), child);
-        // db phase
     }
 
     public static void addChild(int parentID, int childID) {
-        // db phase
+        GradingSystem.componentRd.addChild(parentID, childID);
     }
 
     public void removeChild(Component child) {
@@ -63,7 +64,7 @@ public class Component {
     }
 
     public static void deleteChild(int parentID, int childID) {
-        // db phase
+        GradingSystem.componentRd.deleteChild(parentID, childID);
     }
 
     public String toString() {
@@ -78,8 +79,7 @@ public class Component {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Testing Components...");
+    public static Component buildTestComponent() {
 
         Component root = Component.create("CS591", 0, 1.0);
 
@@ -119,6 +119,14 @@ public class Component {
         Component midtermPracticum = Component.create("Midterm Practicum", 0, 0.4);
         midtermExam.addChild(midtermWritten);
         midtermExam.addChild(midtermPracticum);
+
+        return root;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Testing Components...");
+
+        Component root = buildTestComponent();
 
         Component.printRoot(root);
     }

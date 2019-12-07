@@ -25,14 +25,16 @@ public class Course {
     }
 
     public static Course create(String name) {
-        // db phase
-        Course c = Course.build(nextID, name);
-        ++nextID;
+        Course c = null;
+        if (GradingSystem.courseRd.createCourse(nextID, name)) {
+            c = Course.build(nextID, name);
+            ++nextID;
+        }
         return c;
     }
 
     public static void delete(int id) {
-        // db phase
+        GradingSystem.courseRd.deleteCourse(id);
     }
 
     protected Course(int id, String name, int tid) {
@@ -48,14 +50,15 @@ public class Course {
 
     public static void addNewSection(int cid) {
         Section s = Section.create();
-        // db phase
+        GradingSystem.sectionRd.addNewSection(cid, s.id);
     }
 
     public static void deleteSection(int cid, int sid) {
-        // db phase
+        GradingSystem.sectionRd.deleteSection(sid);
     }
 
     public static void adaptTemplate(int cid, int tid) {
-        // db phase
+        // Template = // TODO query template
+        // GradingSystem.templateRd.adaptTemplate(cid, tid, );
     }
 }
