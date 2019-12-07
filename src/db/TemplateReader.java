@@ -1,5 +1,6 @@
 package db;
 import Course.CourseDB;
+import Template.TemplateDB;
 import db.CourseReader;
 import db.ScoresReader;
 
@@ -116,8 +117,12 @@ public class TemplateReader extends BaseDBReader {
         }
         ComponentReader cd = new ComponentReader();
         ScoresReader sd = new ScoresReader();
+        BonusReader bd = new BonusReader();
+        ComponentReader cd2 = new ComponentReader();
         cd.deleteComponent(component_id);
         sd.deleteComponent(component_id);
+        bd.deleteComponent(component_id);
+        cd2.deleteComponent(component_id);
 
     }
 
@@ -181,6 +186,46 @@ public class TemplateReader extends BaseDBReader {
         builder.setCourseId(course_id);
         builder.setName(courseName);
         builder.setTemplateId(templateId);
+
+        return builder.build();
+
+    }
+
+
+
+    // API 7. queryTemplate
+
+    public TemplateDB queryTemplate(int template_id){
+        TemplateDB.Builder builder = new TemplateDB.Builder();
+        int templateID = -1;
+        String templateName = "None";
+        int rootId = -1 ;
+        try {
+            String sql = "SELECT DISTINCT t.template_id, t.template_name, t.root_id "+
+                    "FROM template_table AS t " + "WHERE t.template_id = ? ";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, template_id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                templateID = rs.getInt(1);
+                templateName = rs.getString(2);
+                rootId = rs.getInt(3);
+
+            }
+            builder.setId(templateID);
+            builder.setTemplateName(templateName);
+            builder.setRootId(rootId);
+
+            return builder.build();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Template does not exist");
+        builder.setId(templateID);
+        builder.setTemplateName(templateName);
+        builder.setRootId(rootId);
 
         return builder.build();
 
