@@ -8,6 +8,7 @@ public class UIController extends JFrame {
 
     private final CoursePanel coursePanel = new CoursePanel();
     private TemplatePanel templatePanel;
+    private TablePanel tablePanel;
     private final MainPanel mainPanel = new MainPanel(this);
     private final JFrame frame = new JFrame();
     private final JPanel holderPanel = new JPanel();
@@ -42,12 +43,11 @@ public class UIController extends JFrame {
 
     }
 
-    public void switchTemplatePanel(){
+    public void switchTablePanel(){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        templatePanel = new TemplatePanel(tableData, tableHeader);
-        holderPanel.add(templatePanel);
+        holderPanel.add(new TablePanel());
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);

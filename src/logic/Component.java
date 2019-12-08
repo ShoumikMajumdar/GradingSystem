@@ -8,10 +8,10 @@ public class Component {
 
     public static Component create(String name, int points, double percent) {
         Component c = null;
-        if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
+//        if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
             c = new Component(nextID, name, points, percent);
             ++nextID;
-        }
+//        }
         return c;
     }
 
