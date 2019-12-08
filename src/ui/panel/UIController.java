@@ -6,11 +6,15 @@ import javax.swing.*;
 
 public class UIController extends JFrame {
 
-    private final CoursePanel coursePanel = new CoursePanel();
+    private  CoursePanel coursePanel;
+    private SelectTemplatePanel selectTemplatePanel;
     private TemplatePanel templatePanel;
     private final MainPanel mainPanel = new MainPanel(this);
     private final JFrame frame = new JFrame();
     private final JPanel holderPanel = new JPanel();
+    private UIController uiController;
+    private  CreateCoursePanel createCoursePanel;
+    private TemplateListPanel templateListPanel;
 
     private Object[][] tableData = new Object[][]{
             {"Fuqing Wang", "99","98","96","54","20","98","96","54","20","1"},
@@ -43,7 +47,14 @@ public class UIController extends JFrame {
     }
 
     public void switchCoursePanel(){
-
+        frame.getContentPane().removeAll();
+        holderPanel.removeAll();
+        holderPanel.revalidate();
+        coursePanel = new CoursePanel(this);
+        holderPanel.add(coursePanel);
+        frame.add(holderPanel);
+        frame.repaint();
+        frame.setVisible(true);
     }
 
     public void switchTemplatePanel(){
@@ -52,6 +63,47 @@ public class UIController extends JFrame {
         holderPanel.revalidate();
         templatePanel = new TemplatePanel(tableData, tableHeader);
         holderPanel.add(templatePanel);
+        frame.add(holderPanel);
+        frame.repaint();
+        frame.setVisible(true);
+    }
+
+    public void switchSelectTemplatePanel(){
+        frame.getContentPane().removeAll();
+        holderPanel.removeAll();
+        holderPanel.revalidate();
+        selectTemplatePanel = new SelectTemplatePanel(this);
+        holderPanel.add(selectTemplatePanel);
+        frame.add(holderPanel);
+        frame.repaint();
+        frame.setVisible(true);
+    }
+
+    public void  switchNewTemplatePanel(){
+
+    }
+
+    public void switchEditCoursePanel(){
+
+    }
+
+    public void switchCreateCoursePanel() {
+        frame.getContentPane().removeAll();
+        holderPanel.removeAll();
+        holderPanel.revalidate();
+        createCoursePanel = new CreateCoursePanel(this);
+        holderPanel.add(createCoursePanel);
+        frame.add(holderPanel);
+        frame.repaint();
+        frame.setVisible(true);
+    }
+
+    public void switchTemplateListPanel() {
+        frame.getContentPane().removeAll();
+        holderPanel.removeAll();
+        holderPanel.revalidate();
+        templateListPanel = new TemplateListPanel(this);
+        holderPanel.add(templateListPanel);
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);
