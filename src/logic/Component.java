@@ -79,8 +79,7 @@ public class Component {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Testing Components...");
+    public static Component buildTestComponent() {
 
         Component root = Component.create("CS591", 0, 1.0);
 
@@ -120,6 +119,14 @@ public class Component {
         Component midtermPracticum = Component.create("Midterm Practicum", 0, 0.4);
         midtermExam.addChild(midtermWritten);
         midtermExam.addChild(midtermPracticum);
+
+        return root;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Testing Components...");
+
+        Component root = buildTestComponent();
 
         Component.printRoot(root);
     }

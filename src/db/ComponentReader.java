@@ -1,5 +1,7 @@
 package db;
 
+import Component.ComponentDB;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -127,6 +129,49 @@ public class ComponentReader extends BaseDBReader {
             e.printStackTrace();
         }
         return false;
+    }
+
+    // API 6. queryComponent
+
+    public ComponentDB queryComponent(int component_id){
+        ComponentDB.Builder builder = new ComponentDB.Builder();
+        int componentID = -1;
+        String componentName = "None";
+        double percent = -1;
+        double points = -1 ;
+        try {
+            String sql = "SELECT DISTINCT t.component_id, t.component_name, t.percent, t.points "+
+                    "FROM component_table AS t " + "WHERE t.component_id = ? ";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, component_id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                componentID = rs.getInt(1);
+                componentName = rs.getString(2);
+                percent = rs.getInt(3);
+                points = rs.getInt(4);
+
+
+            }
+            builder.setComponentId(componentID);
+            builder.setComponentNmae(componentName);
+            builder.setPercent(percent);
+            builder.setPoints(points);
+
+            return builder.build();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Component does not exist");
+        builder.setComponentId(componentID);
+        builder.setComponentNmae(componentName);
+        builder.setPercent(percent);
+        builder.setPoints(points);
+
+        return builder.build();
+
     }
 
 

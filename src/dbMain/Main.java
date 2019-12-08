@@ -4,14 +4,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Component.ComponentDB;
 import Course.CourseDB;
 import Student.StudentDB;
-import db.ScoresReader;
-import db.CourseReader;
-import db.SectionReader;
-import db.StudentReader;
-import db.TemplateReader;
-import db.ComponentReader;
+import Template.TemplateDB;
+import db.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -119,6 +116,24 @@ public class Main {
         CourseDB course = templatereader.queryCourse(2);
         System.out.println(course.toString());
 
+
+
+        // API 7 : query Template Test
+        System.out.println("Query Template 1 : \n  " );
+        TemplateDB template = templatereader.queryTemplate(2);
+        System.out.println(template.toString());
+
+        //API 8 : Query all template ids
+
+        System.out.println("ALL templetate ids");
+        ArrayList<Integer> templates_id = templatereader.queryTemplates();
+        for (int i = 0; i < templates_id.size(); i++) {
+            System.out.println(templates_id.get(i));
+        }
+
+
+
+
         // Test : Component Table API tests
 
         // API 1 : create a new component
@@ -144,6 +159,15 @@ public class Main {
             System.out.println(children.get(i));
         }
 
+        // API 5 : query component Test
+        System.out.println("Query Component 3 : \n  " );
+        ComponentDB component = componentreader.queryComponent(3);
+        System.out.println(component.toString());
+
+
+
+
+
         // API tests for Scores table
         // API 1 : add a score for a student given a course and component id
         ScoresReader scorereader = new ScoresReader();
@@ -159,6 +183,67 @@ public class Main {
 
         // API 3 : delete a component
         scorereader.deleteComponent(2);
+
+        // API 4: get a score
+
+        double score = scorereader.getScore(1,2,1);
+        System.out.println(score);
+
+
+
+        // API tests for Bonus table
+        //
+        // API 1 : add a score for a student given a course and component id
+        BonusReader bonusreader = new BonusReader();
+        bonusreader.addBonus(1,1,1,25);
+        bonusreader.addBonus(1,2,1,35);
+        bonusreader.addBonus(1,3,1,45);
+        bonusreader.addBonus(1,2,2,35);
+        bonusreader.addBonus(1,2,2,35);
+        bonusreader.addBonus(1,2,3,35);
+
+        // API 2 :  delete a score [checked]
+        bonusreader.deleteScore(1,1,1);
+
+        // API 3 : delete a component
+        scorereader.deleteComponent(2);
+
+        // API 4: get a score
+
+        double bonus = bonusreader.getBonus(1,2,1);
+        System.out.println(bonus);
+
+
+
+
+        // API tests for comments table
+
+
+        // API 1 : add a score for a student given a course and component id
+        CommentReader commentreader = new CommentReader();
+        commentreader.addComment(1,1,1,"c1");
+        commentreader.addComment(1,2,1,"c2");
+        commentreader.addComment(1,3,1,"c3");
+        commentreader.addComment(1,2,2,"c4");
+        commentreader.addComment(1,2,2,"c5");
+        commentreader.addComment(1,2,3,"c6");
+
+        // API 2 :  delete a score [checked]
+        commentreader.deleteComment(1,1,1);
+
+        // API 3 : delete a component
+        commentreader.deleteComponent(2);
+
+        // API 4: get a score
+
+        String comment = commentreader.getComment(1,2,1);
+        System.out.println(comment);
+
+
+
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 package ui.panel;
 
 import ui.UIConsts;
+import logic.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +11,8 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Map.Entry;
 
 public class TemplatePanel extends JPanel implements ActionListener {
 
@@ -74,12 +77,17 @@ public class TemplatePanel extends JPanel implements ActionListener {
         menuItemRemoveCol.addActionListener(this);
     }
 
-    // !! hard coded table !!
     private JPanel getMainTable(){
         JPanel jp = new JPanel();
         // creates table
         tableModel = new DefaultTableModel();
-        tableModel.setDataVector(tableData, tableHeader);
+
+        Component root = Component.buildTestComponent();
+        ArrayList<String> tableHeaderStr = new ArrayList<String>();
+        buildTableHeader(root, tableHeaderStr);
+        tableModel.setDataVector(null, tableHeaderStr.toArray());
+
+        // tableModel.setDataVector(tableData, tableHeader);
         table = new JTable(tableModel){
             protected JTableHeader createDefaultTableHeader(){
                 return new GroupableTableHeader(columnModel);
@@ -87,41 +95,10 @@ public class TemplatePanel extends JPanel implements ActionListener {
         };
 
         TableColumnModel cm = table.getColumnModel();
-        ColumnGroup g_name = new ColumnGroup("Name");
-
-        ColumnGroup g_hw = new ColumnGroup("Homework");
-
-        ColumnGroup g_hw1 = new ColumnGroup("hw1");
-        g_hw1.add(cm.getColumn(1));
-        g_hw1.add(cm.getColumn(2));
-
-        ColumnGroup g_hw2 = new ColumnGroup("hw2");
-        g_hw2.add(cm.getColumn(3));
-        g_hw2.add(cm.getColumn(4));
-
-        ColumnGroup g_hw3 = new ColumnGroup("hw3");
-        g_hw3.add(cm.getColumn(5));
-
-        ColumnGroup g_hw4 = new ColumnGroup("hw4");
-        g_hw4.add(cm.getColumn(6));
-
-        g_hw.add(g_hw1);
-        g_hw.add(g_hw2);
-        g_hw.add(g_hw3);
-        g_hw.add(g_hw4);
-
-        ColumnGroup g_midterm = new ColumnGroup("Midterm");
-        g_midterm.add(cm.getColumn(7));
-        g_midterm.add(cm.getColumn(8));
-
-        ColumnGroup g_final = new ColumnGroup("Final");
-        g_final.add(cm.getColumn(9));
-
-        header = (GroupableTableHeader) table.getTableHeader();
-        header.addColumnGroup(g_name);
-        header.addColumnGroup(g_hw);
-        header.addColumnGroup(g_midterm);
-        header.addColumnGroup(g_final);
+        header = (GroupableTableHeader)table.getTableHeader();
+        Int idx = new Int();
+        idx.i = 0;
+        buildColumnGroupStructure(root, header, null, cm, idx);
 
         // creates scroll panel, add table to panel
         jsp = new JScrollPane(table);
@@ -221,5 +198,48 @@ public class TemplatePanel extends JPanel implements ActionListener {
         } else if (menu == menuItemRemoveCol){
             removeCol();
         }
+    }
+
+    static protected void buildColumnGroupStructure(Component root,
+                                                    GroupableTableHeader header,
+                                                    ColumnGroup parentGroup,
+                                                    TableColumnModel columnModel,
+                                                    Int idx) {
+        if (!root.children.isEmpty()) {
+            ColumnGroup group = new ColumnGroup(root.name);
+            if (parentGroup == null) {
+                header.addColumnGroup(group);
+            } else {
+                parentGroup.add(group);
+            }
+            for (Entry<Integer, Component> entry : root.children.entrySet()) {
+                buildColumnGroupStructure(entry.getValue(), header, group, columnModel, idx);
+            }
+        } else {
+            parentGroup.add(columnModel.getColumn(idx.i++));
+        }
+    }
+
+    static protected void buildTableHeader(Component root, ArrayList<String> header) {
+        if (root.children.isEmpty()) {
+            header.add(root.name);
+        } else {
+            for (Entry<Integer, Component> entry : root.children.entrySet()) {
+                buildTableHeader(entry.getValue(), header);
+            }
+        }
+    }
+
+   public static void main(String[] args) {
+        Component root = Component.buildTestComponent();
+        ArrayList<String> header = new ArrayList<String>();
+        buildTableHeader(root, header);
+        for (String s : header) {
+            System.out.println(s);
+        }
+    }
+
+    private class Int {
+        public int i;
     }
 }
