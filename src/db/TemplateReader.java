@@ -232,6 +232,29 @@ public class TemplateReader extends BaseDBReader {
     }
 
 
+    // API 8. query all templates
+    public ArrayList<Integer> queryTemplates(){
+        /**
+         * query all template ids
+         *
+         * @return list of unique template ids
+         */
+        ArrayList<Integer> template_id = new ArrayList<Integer>();
+        try {
+            String sql = "SELECT DISTINCT template_id FROM template_table";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                template_id.add( rs.getInt(1) );
+            }
+            return template_id;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return template_id;
+    }
+
 
 
 

@@ -123,6 +123,14 @@ public class Main {
         TemplateDB template = templatereader.queryTemplate(2);
         System.out.println(template.toString());
 
+        //API 8 : Query all template ids
+
+        System.out.println("ALL templetate ids");
+        ArrayList<Integer> templates_id = templatereader.queryTemplates();
+        for (int i = 0; i < templates_id.size(); i++) {
+            System.out.println(templates_id.get(i));
+        }
+
 
 
 
