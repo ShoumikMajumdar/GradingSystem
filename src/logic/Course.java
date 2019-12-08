@@ -1,5 +1,7 @@
 package logic;
 
+import Template.TemplateDB;
+
 import java.util.*;
 
 public class Course {
@@ -58,7 +60,7 @@ public class Course {
     }
 
     public static void adaptTemplate(int cid, int tid) {
-        // Template = // TODO query template
-        // GradingSystem.templateRd.adaptTemplate(cid, tid, );
+        TemplateDB template = GradingSystem.templateRd.queryTemplate(tid);
+        GradingSystem.templateRd.adaptTemplate(cid, tid, template.getTemplateName(), template.getTemplateId());
     }
 }

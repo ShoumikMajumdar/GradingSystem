@@ -72,6 +72,26 @@ public class Component {
         return s;
     }
 
+    public int getHeight() {
+        int height = 1;
+        int maxChildrenHeight = 0;
+        for (Entry<Integer, Component> entry : children.entrySet()) {
+            maxChildrenHeight = Math.max(maxChildrenHeight, entry.getValue().getHeight());
+        }
+        return height + maxChildrenHeight;
+    }
+
+    public int getWidth() {
+        if (children.isEmpty()) {
+            return 1;
+        }
+        int width = 0;
+        for (Entry<Integer, Component> entry : children.entrySet()) {
+            width += entry.getValue().getWidth();
+        }
+        return width;
+    }
+
     public static void printRoot(Component root) {
         System.out.println(root);
         for (Entry<Integer, Component> e : root.children.entrySet()) {
@@ -79,6 +99,18 @@ public class Component {
         }
     }
 
+    /**
+     * Build a test component
+     * |---------------------------------------------------------------------------------------------------|
+     * |                                                CS 591                                             |
+     * |---------------------------------------------------------------------------------------------------|
+     * |              |              Independent Assignment    | Midterm Exam  |            |              |
+     * |              |----------------------------------------|---------------|            |              |
+     * |              | Tic Tac Toe |  Card   |                |       |       |            |              |
+     * |              |-------------|---------|                |       |       |            |              |
+     * |Participation | TTT1 | TTT2 | BJ | TE | Cave Adventure | Mid W | Mid P | Final Exam | Final Project|
+     * |---------------------------------------------------------------------------------------------------|
+     */
     public static Component buildTestComponent() {
 
         Component root = Component.create("CS591", 0, 1.0);
@@ -129,5 +161,8 @@ public class Component {
         Component root = buildTestComponent();
 
         Component.printRoot(root);
+
+        System.out.println("Height " + root.getHeight());
+        System.out.println("Width " + root.getWidth());
     }
 }

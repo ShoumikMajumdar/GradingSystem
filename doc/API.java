@@ -147,6 +147,12 @@ List<Integer> queryStudents(int id);
 Student queryStudent(int id);
 
 /**
+ * query all templates
+ * @return List of id of templates
+ */
+List<Integer> queryTemplates();
+
+/**
  * query a template
  * @param id template id
  * @return data of template (id, name, root component id)
