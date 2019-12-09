@@ -19,7 +19,7 @@ public class CoursePanel extends JPanel {
     private JList list;
     private DefaultListModel listModel;
     private JLabel label;
-    private ArrayList<String> ListOfCourses_test = new ArrayList<String>();
+    //private ArrayList<Integer> ListOfCourses_test = new ArrayList<Integer>();
     private ArrayList<Integer> ListOfCourses;
 
 
@@ -33,29 +33,30 @@ public class CoursePanel extends JPanel {
 
     private void initialize() {
 
-       //ListOfCourses = new ArrayList<>(GradingSystem.courseRd.queryCourses());                           //ArrayList of course Ids
+       ListOfCourses = new ArrayList<>(GradingSystem.courseRd.queryCourses());                           //ArrayList of course Ids
+
 
         /**
          * Hard Coded List of courses.
          */
 
-        ListOfCourses_test.add("Course1");
-        ListOfCourses_test.add("Course 2");
-        ListOfCourses_test.add("Course 3");
-        ListOfCourses_test.add("Course 4");
-        ListOfCourses_test.add("Course 5");
-        ListOfCourses_test.add("Course 5");
+        /*ListOfCourses_test.add(0);
+        ListOfCourses_test.add(1);
+        ListOfCourses_test.add(2);
+        ListOfCourses_test.add(3);
+        ListOfCourses_test.add(4);
+        ListOfCourses_test.add(5);*/
 
 
 
         listModel = new DefaultListModel();
-        /*for(int i=0;i<ListOfCourses.size();i++){
+        for(int i=0;i<ListOfCourses.size();i++){
             listModel.addElement(GradingSystem.templateRd.queryCourse(i).getCourseName());          //tr.queryCourse return object of type CourseDB
+            System.out.println(listModel.toString());
         }
-*/
-        for(int i=0;i<ListOfCourses_test.size();i++){
-            listModel.addElement(ListOfCourses_test.get(i));
-        }
+        /*for(int i=0;i<ListOfCourses_test.size();i++){
+            listModel.addElement("Course " + ListOfCourses_test.get(i));
+        }*/
 
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -97,13 +98,18 @@ public class CoursePanel extends JPanel {
         });
         btnDeleteCourse.addActionListener(e -> {
             int index = list.getSelectedIndex();
-            //Course.delete(index);                                        //Removes course from database based on course_id called from logic.Course
-            ListOfCourses_test.remove(index);
+            Course.delete(index);                                        //Removes course from database based on course_id called from logic.Course
+            ListOfCourses.remove(index);                                  //Uncomment both
+            //ListOfCourses_test.remove(index);
             listModel.removeElementAt(index);
         });
 
         btnEditCourse.addActionListener(e -> {                          //Work on this when Fuqing is done with the Template
-            uiController.switchEditCoursePanel();
+            int index = list.getSelectedIndex();
+            System.out.println(index);
+            //System.out.println(ListOfCourses_test.get(index));
+            uiController.switchSectionList(ListOfCourses.get(index));
+
         });
 
         back.addActionListener(e -> {

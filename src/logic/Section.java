@@ -26,6 +26,11 @@ public class Section {
         return s;
     }
 
+    public static void delete(int id) {
+        GradingSystem.sectionRd.deleteSection(id);
+    }
+
+
     protected Section(int id) {
         this.id = id;
         students = new HashMap<Integer, Student>();
