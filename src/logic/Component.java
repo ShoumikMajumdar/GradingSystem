@@ -2,6 +2,7 @@ package logic;
 
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.ArrayList;
 
 public class Component {
     private static int nextID = 0;
@@ -92,6 +93,16 @@ public class Component {
         return width;
     }
 
+    public static void getAllLeafChildren(ArrayList<Component> leafChildren, Component root) {
+        if (root.children.isEmpty()) {
+            leafChildren.add(root);
+        } else {
+            for (Entry<Integer, Component> entry : root.children.entrySet()) {
+                getAllLeafChildren(leafChildren, entry.getValue());
+            }
+        }
+    }
+
     public static void printRoot(Component root) {
         System.out.println(root);
         for (Entry<Integer, Component> e : root.children.entrySet()) {
@@ -153,6 +164,29 @@ public class Component {
         midtermExam.addChild(midtermPracticum);
 
         return root;
+    }
+
+    public static void buildTestData(ArrayList<Student> students,
+                                     ArrayList<ArrayList<Grade>> grades,
+                                     ArrayList<Bonus> bonus,
+                                     ArrayList<Comment> comments,
+                                     Component root) {
+        students.add(Student.build(1, "Fuqing Wang"));
+
+        ArrayList<Component> leafComponent = new ArrayList<Component>();
+        getAllLeafChildren(leafComponent, root);
+
+        for (Student s : students) {
+            ArrayList<Grade> gradesOfStudent = new ArrayList<Grade>();
+            for (Component c : leafComponent) {
+                Grade g = Grade.build(0, s.id, c.id, c.points);
+                gradesOfStudent.add(g);
+            }
+            grades.add(gradesOfStudent);
+        }
+
+        bonus.add(Bonus.build(0, students.get(0).id, leafComponent.get(0).id, 10));
+        comments.add(Comment.build(0, students.get(0).id, leafComponent.get(0).id, "Well Done!"));
     }
 
     public static void main(String[] args) {
