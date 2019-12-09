@@ -10,13 +10,37 @@ public class GTable extends JPanel{
 
     public GTable(){
         super(true);
-        update();
+        setLayout(new GridBagLayout());
+        update(Component.buildTestComponent());
     }
 
-    public void update(){
-        setLayout(new GridBagLayout());
-        Component root = Component.buildTestComponent();
-        buildHeader(root, 0, 0, root.getWidth(), root.getHeight());
+    public void update(Component root) {
+        int xStart = 0;
+        int maxHeight = root.getHeight();
+        int templateWidth = root.getWidth();
+        GridBagConstraints gbcName = new GridBagConstraints(xStart, 0, 1, maxHeight, 0.0, 0.0,
+                                                            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                                                            new Insets(0, 0, 0, 0), 0, 0);
+        JButton btnName = new JButton("Name");
+        add(btnName, gbcName);
+        ++xStart;
+
+        buildHeader(root, xStart, 0, templateWidth, maxHeight);
+        xStart += templateWidth;
+
+        GridBagConstraints gbcFinal = new GridBagConstraints(xStart, 0, 1, maxHeight, 0.0, 0.0,
+                                                             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                                                             new Insets(0, 0, 0, 0), 0, 0);
+        JButton btnFinal = new JButton("Final");
+        add(btnFinal, gbcFinal);
+        ++xStart;
+
+        GridBagConstraints gbcBonus = new GridBagConstraints(xStart, 0, 1, maxHeight, 0.0, 0.0,
+                                                             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                                                             new Insets(0, 0, 0, 0), 0, 0);
+        JButton btnBonus = new JButton("Bonus");
+        add(btnBonus, gbcBonus);
+        ++xStart;
     }
 
     private void buildHeader(Component root, int x, int y, int w, int max_h){
