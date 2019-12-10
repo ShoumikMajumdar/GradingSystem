@@ -1,16 +1,12 @@
 package ui.component;
 
 import logic.Component;
-import logic.Student;
-import logic.Grade;
-import logic.Bonus;
-import logic.Comment;
+import logic.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Map;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class GTable extends JPanel{
 
@@ -34,7 +30,7 @@ public class GTable extends JPanel{
                 xStart, yStart + i, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 0), 0, 0);
-            JLabel lblStudent = new JLabel(students.get(i).name);
+            GLabel lblStudent = new GLabel(students.get(i).name, i+1);
             add(lblStudent, gbcStudent);
 
             ArrayList<Grade> grd = grades.get(i);

@@ -34,7 +34,9 @@ public class GTextField
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("" + e.getButton());
+        if(e.getButton() == 3){
+            showPopUp(e);
+        }
     }
 
     @Override
@@ -59,5 +61,10 @@ public class GTextField
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
 
+    }
+
+    public void showPopUp(MouseEvent e){
+        GCellPopUp Popup = new GCellPopUp(this.studentID, this.componentID);
+        Popup.show(e.getComponent(), e.getX(), e.getY());
     }
 }

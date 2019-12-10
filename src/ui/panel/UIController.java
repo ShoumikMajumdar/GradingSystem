@@ -1,9 +1,9 @@
 package ui.panel;
 
-import logic.Course;
 import ui.UIConsts;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class UIController extends JFrame {
 
@@ -113,7 +113,7 @@ public class UIController extends JFrame {
         holderPanel.removeAll();
         holderPanel.revalidate();
         createTemplatePanel = new CreateTemplatePanel(this,flag, cid);
-        holderPanel.add(createTemplatePanel);
+        holderPanel.add(createTemplatePanel, BorderLayout.NORTH);
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);

@@ -12,9 +12,11 @@ public class GButton extends JButton
         super(name);
         this.componentID = componentID;
         this.addActionListener(this);
+        this.setComponentPopupMenu(new GHeadPopUp(this.componentID));
     }
 
     public void actionPerformed(ActionEvent e) {
         System.out.println("Show Popup Menu for componentID " + componentID);
     }
+
 }
