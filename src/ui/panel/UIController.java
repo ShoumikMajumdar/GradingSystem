@@ -1,5 +1,6 @@
 package ui.panel;
 
+import logic.Course;
 import ui.UIConsts;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ public class UIController extends JFrame {
     private UIController uiController;
     private  CreateCoursePanel createCoursePanel;
     private TemplateListPanel templateListPanel;
+    private CreateTemplatePanel createTemplatePanel;
+    private SectionsList sectionsList;
 
     private Object[][] tableData = new Object[][]{
             {"Fuqing Wang", "99","98","96","54","20","98","96","54","20","1"},
@@ -64,11 +67,11 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void switchSelectTemplatePanel(){
+    public void switchSelectTemplatePanel(int c_id){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        selectTemplatePanel = new SelectTemplatePanel(this);
+        selectTemplatePanel = new SelectTemplatePanel(this,c_id);
         holderPanel.add(selectTemplatePanel);
         frame.add(holderPanel);
         frame.repaint();
@@ -100,6 +103,28 @@ public class UIController extends JFrame {
         holderPanel.revalidate();
         templateListPanel = new TemplateListPanel(this);
         holderPanel.add(templateListPanel);
+        frame.add(holderPanel);
+        frame.repaint();
+        frame.setVisible(true);
+    }
+
+    public void switchCreateTemplatePanel(int flag, int cid) {    //flag = 0 mean call made from TemplateListPanel || flag = 1 means call made after creating course
+        frame.getContentPane().removeAll();
+        holderPanel.removeAll();
+        holderPanel.revalidate();
+        createTemplatePanel = new CreateTemplatePanel(this,flag, cid);
+        holderPanel.add(createTemplatePanel);
+        frame.add(holderPanel);
+        frame.repaint();
+        frame.setVisible(true);
+    }
+
+    public void switchSectionList(int cid) {
+        frame.getContentPane().removeAll();
+        holderPanel.removeAll();
+        holderPanel.revalidate();
+        sectionsList = new SectionsList(this,cid);
+        holderPanel.add(sectionsList);
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);

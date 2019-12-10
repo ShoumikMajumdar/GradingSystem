@@ -38,8 +38,11 @@ public class Template {
         // if no courses using this template
         // remove the template from db
         ArrayList<Integer> courses = GradingSystem.templateRd.queryCoursesUsingTemplate(id);
-        if (!courses.isEmpty()) {
-            return false;
+        
+        for (int i=0; i<courses.size();i++){
+            if(courses.get(i)>=0){
+                return false;
+            }
         }
         GradingSystem.templateRd.deleteTemplate(id);
         return true;

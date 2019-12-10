@@ -1,6 +1,10 @@
 package ui.panel;
 
 
+import db.TemplateReader;
+import logic.Course;
+import logic.GradingSystem;
+
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -11,49 +15,31 @@ public class SelectTemplatePanel extends JPanel {
     private JPanel jp;
     private JButton CreateTemplate;
     private JButton SelectTemplate;
-    private JButton back;
-    private JButton DeleteTemplate;
     private JScrollPane jsp;
     private DefaultListModel listModel;
-    private ArrayList<String> ListOfTemplates_test= new ArrayList<>();
-    //private ArrayList<Integer> ListOFTemplates;
+    private ArrayList<Integer> ListOFTemplates;
     private JList list;
+    private int cid;
 
 
-    public SelectTemplatePanel(UIController uiController) {
+    public SelectTemplatePanel(UIController uiController, int cid) {
         super(true);
-        initialize();
+        initialize(cid);
         addComponent();
         setContent();
         addListener(uiController);
     }
 
-    private void initialize() {
-
-        //ListOfTemplate = new ArrayList<>(GradingSystem.TemplateRd.queryTemplate());                           //ArrayList of TemplateIds
-
-        /**
-         * Hard Coded List of Templates.
-         */
-
-        ListOfTemplates_test.add("Template 1");
-        ListOfTemplates_test.add("Template 2");
-        ListOfTemplates_test.add("Template 3");
-        ListOfTemplates_test.add("Template 4");
-        ListOfTemplates_test.add("Template 5");
-        ListOfTemplates_test.add("Template 6");
+    private void initialize(int cid) {
+        this.cid = cid;
+        ListOFTemplates = new ArrayList<>(GradingSystem.templateRd.queryTemplates());                          //ArrayList of TemplateIds
 
 
         listModel = new DefaultListModel();
 
-        /***
-         *              Code to query list of templates using API that returns an array list of Template Ids as integers.
-         */
-        //for(int i=0;i<ListOfTemplate.size();i++){
-         //   listModel.addElement(GradingSystem.templateRd.queryCourse(i).getCourseName());          //tr.queryCourse return object of type CourseDB
 
-        for(int i=0;i<ListOfTemplates_test.size();i++){
-            listModel.addElement(ListOfTemplates_test.get(i));              //Hard coded list of templates.
+        for(int i=0;i<ListOFTemplates.size();i++) {
+            listModel.addElement(GradingSystem.templateRd.queryTemplate(i).getTemplateName());          //tr.queryCourse return object of type CourseDB
         }
 
 
@@ -61,13 +47,9 @@ public class SelectTemplatePanel extends JPanel {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         list.setVisibleRowCount(-1);
-        //list.setPreferredSize(new Dimension(250,80));
-
 
         jsp = new JScrollPane(list);
         jsp.setPreferredSize(new Dimension(250, 250));
-
-
 
     }
 
@@ -79,10 +61,8 @@ public class SelectTemplatePanel extends JPanel {
         jp.add(CreateTemplate);
         SelectTemplate = new JButton("Select Existing Template");
         jp.add(SelectTemplate);
-        back = new JButton("Back");
-        add(back);
-        /*DeleteTemplate = new JButton("Delete Template");
-        add(DeleteTemplate);*/
+        /*back = new JButton("Back");
+        add(back);*/
         add(jp);
     }
 
@@ -94,22 +74,21 @@ public class SelectTemplatePanel extends JPanel {
 
 
     private void addListener(UIController uiController){
-        back.addActionListener(e -> {
-            uiController.switchCreateCoursePanel();
+
+        CreateTemplate.addActionListener(e -> {
+            uiController.switchCreateTemplatePanel(1,cid);
         });
-        /**
-         *          Need to change this after we have the template query API
-         */
-        /*CreateTemplate.addActionListener(e -> {
-            uiController.switchCoursePanel();                   //Work on this when fuqing is done with the template.
-        });
+
 
         SelectTemplate.addActionListener(e -> {
-            uiController.switchCoursePanel();                   //Work on this when fuqing is done with the template.
+            int index = list.getSelectedIndex();
+            int tid = ListOFTemplates.get(index);
+            Course.adaptTemplate(cid,tid);
+            uiController.switchSectionList(cid);
         });
 
 
-         */
+
     }
 
 
