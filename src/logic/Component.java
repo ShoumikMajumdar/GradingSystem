@@ -2,16 +2,23 @@ package logic;
 
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.ArrayList;
 
 public class Component {
     private static int nextID = 0;
 
     public static Component create(String name, int points, double percent) {
         Component c = null;
-//        if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
+       if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
             c = new Component(nextID, name, points, percent);
             ++nextID;
-//        }
+       }
+        return c;
+    }
+
+    public static Component createTest(String name, int points, double percent) {
+        Component c = new Component(nextID, name, points, percent);
+        ++nextID;
         return c;
     }
 
@@ -92,6 +99,16 @@ public class Component {
         return width;
     }
 
+    public static void getAllLeafChildren(ArrayList<Component> leafChildren, Component root) {
+        if (root.children.isEmpty()) {
+            leafChildren.add(root);
+        } else {
+            for (Entry<Integer, Component> entry : root.children.entrySet()) {
+                getAllLeafChildren(leafChildren, entry.getValue());
+            }
+        }
+    }
+
     public static void printRoot(Component root) {
         System.out.println(root);
         for (Entry<Integer, Component> e : root.children.entrySet()) {
@@ -113,46 +130,69 @@ public class Component {
      */
     public static Component buildTestComponent() {
 
-        Component root = Component.create("CS591", 0, 1.0);
+        Component root = Component.createTest("CS591", 0, 1.0);
 
-        Component participation = Component.create("Participation", 0, 0.05);
+        Component participation = Component.createTest("Participation", 0, 0.05);
         root.addChild(participation);
 
-        Component assignments = Component.create("Independent Assignments", 0, 0.25);
+        Component assignments = Component.createTest("Independent Assignments", 0, 0.25);
         root.addChild(assignments);
 
-        Component midtermExam = Component.create("Midterm Exam", 0, 0.35);
+        Component midtermExam = Component.createTest("Midterm Exam", 0, 0.35);
         root.addChild(midtermExam);
 
-        Component finalExam = Component.create("Final Exam", 0, 0.15);
+        Component finalExam = Component.createTest("Final Exam", 0, 0.15);
         root.addChild(finalExam);
 
-        Component finalProject = Component.create("Final Project", 0, 0.20);
+        Component finalProject = Component.createTest("Final Project", 0, 0.20);
         root.addChild(finalProject);
 
-        Component tictactoe = Component.create("Tic Tac Toe", 0, 0.2);
-        Component ttt1 = Component.create("Tic Tac Toe V1", 50, 0.5);
-        Component ttt2 = Component.create("Tic Tac Toe V2", 50, 0.5);
+        Component tictactoe = Component.createTest("Tic Tac Toe", 0, 0.2);
+        Component ttt1 = Component.createTest("Tic Tac Toe V1", 50, 0.5);
+        Component ttt2 = Component.createTest("Tic Tac Toe V2", 50, 0.5);
         tictactoe.addChild(ttt1);
         tictactoe.addChild(ttt2);
         assignments.addChild(tictactoe);
 
-        Component cardGame = Component.create("Card Game", 0, 0.2);
-        Component bj = Component.create("Black Jack", 100, 0.5);
-        Component te = Component.create("Trianta Ena", 100, 0.5);
+        Component cardGame = Component.createTest("Card Game", 0, 0.2);
+        Component bj = Component.createTest("Black Jack", 100, 0.5);
+        Component te = Component.createTest("Trianta Ena", 100, 0.5);
         cardGame.addChild(bj);
         cardGame.addChild(te);
         assignments.addChild(cardGame);
 
-        Component caveAdventure = Component.create("Cave Adeventure", 100, 0.1);
+        Component caveAdventure = Component.createTest("Cave Adeventure", 100, 0.1);
         assignments.addChild(caveAdventure);
 
-        Component midtermWritten = Component.create("Midterm Written", 0, 0.6);
-        Component midtermPracticum = Component.create("Midterm Practicum", 0, 0.4);
+        Component midtermWritten = Component.createTest("Midterm Written", 0, 0.6);
+        Component midtermPracticum = Component.createTest("Midterm Practicum", 0, 0.4);
         midtermExam.addChild(midtermWritten);
         midtermExam.addChild(midtermPracticum);
 
         return root;
+    }
+
+    public static void buildTestData(ArrayList<Student> students,
+                                     ArrayList<ArrayList<Grade>> grades,
+                                     ArrayList<Bonus> bonus,
+                                     ArrayList<Comment> comments,
+                                     Component root) {
+        students.add(Student.build(1, "Fuqing Wang"));
+
+        ArrayList<Component> leafComponent = new ArrayList<Component>();
+        getAllLeafChildren(leafComponent, root);
+
+        for (Student s : students) {
+            ArrayList<Grade> gradesOfStudent = new ArrayList<Grade>();
+            for (Component c : leafComponent) {
+                Grade g = Grade.build(0, s.id, c.id, c.points);
+                gradesOfStudent.add(g);
+            }
+            grades.add(gradesOfStudent);
+        }
+
+        bonus.add(Bonus.build(0, students.get(0).id, leafComponent.get(0).id, 10));
+        comments.add(Comment.build(0, students.get(0).id, leafComponent.get(0).id, "Well Done!"));
     }
 
     public static void main(String[] args) {

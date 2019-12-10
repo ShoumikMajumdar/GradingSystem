@@ -6,9 +6,15 @@ import java.awt.*;
 public class MainPanel extends JPanel {
     private JButton btnCourse;
     private JButton btnTemplate;
+ //   private static UIController uiController;
 
+   /* public static UIController getUiController() {
+        return uiController;
+    }
+*/
     public MainPanel(final UIController uiController) {
         super(true);
+        //this.uiController = uiController;
         initialize();
         addComponent();
         setContent();
@@ -36,7 +42,7 @@ public class MainPanel extends JPanel {
             uiController.switchCoursePanel();
             });
         btnTemplate.addActionListener(e -> {
-            uiController.switchTablePanel();
+                uiController.switchTablePanel();
             });
     }
 }
