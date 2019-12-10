@@ -46,13 +46,9 @@ public class CreateCoursePanel extends JPanel {
     public void addListener(UIController uiController){
         Submit.addActionListener(e -> {
             String newcourse = CourseName.getText();
-            System.out.println(newcourse);
-            //System.out.println(newcourse + " Added to the data Base ");
             temp = Course.create(newcourse);
             JOptionPane.showMessageDialog(jp,newcourse +" Course added");
             uiController.switchSelectTemplatePanel(temp.id);
-            //uiController.switchSelectTemplatePanel(591);        //Hard Coded value of course ID
-
 
         });
 

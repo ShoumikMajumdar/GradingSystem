@@ -123,7 +123,7 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void switchSectionList(Integer cid) {
+    public void switchSectionList(int cid) {
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();

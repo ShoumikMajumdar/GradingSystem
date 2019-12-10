@@ -1,5 +1,6 @@
 package ui.panel;
 
+import logic.Course;
 import logic.GradingSystem;
 import logic.Section;
 
@@ -30,13 +31,8 @@ public class SectionsList extends JPanel {
     }
 
     public void initialize(int cid){
-        ListOfSections = new ArrayList<>(GradingSystem.sectionRd.querySections(cid));
         this.cid = cid;
-        /*ListOfSections_test.add(0);
-        ListOfSections_test.add(1);
-        ListOfSections_test.add(2);
-        ListOfSections_test.add(1);
-*/
+        ListOfSections = new ArrayList<>(GradingSystem.sectionRd.querySections(cid));
         listModel = new DefaultListModel();
 
 
@@ -44,12 +40,6 @@ public class SectionsList extends JPanel {
             listModel.addElement("Section " + ListOfSections.get(i));
         }
 
-
-/*
-        for(int i=0;i<ListOfSections_test.size();i++){
-            listModel.addElement("Section " + ListOfSections_test.get(i));
-        }
-*/
 
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -84,16 +74,17 @@ public class SectionsList extends JPanel {
     public void addListener(UIController uiController){
 
         btnCreateSection.addActionListener(e -> {
-            Section.create();
+            Course.addNewSection(cid);
             JOptionPane.showMessageDialog(jp,"Section added");
+            uiController.switchSectionList(cid);
 
         });
 
         btnDeleteSection.addActionListener(e -> {
             int index = list.getSelectedIndex();
-            Section.delete(index);                                        //Removes course from database based on course_id called from logic.Course
-            ListOfSections.remove(index);                                  //Uncomment both
-            //ListOfSections_test.remove(index);
+            Course.deleteSection(cid,index);                                        //Removes course from database based on course_id called from logic.Course
+            JOptionPane.showMessageDialog(jp,listModel.get(index) + " Removed");
+            ListOfSections.remove(index);
             listModel.removeElementAt(index);
 
         });

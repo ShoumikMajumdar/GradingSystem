@@ -61,7 +61,7 @@ public class CreateTemplatePanel extends JPanel {
                 Template t = Template.create(newTemplate);
                 Course.adaptTemplate(cid,t.id);
                 System.out.println(cid);
-                JOptionPane.showMessageDialog(jp,"Fuqings pages");
+                uiController.switchSectionList(cid);
 
             }
 
@@ -69,11 +69,9 @@ public class CreateTemplatePanel extends JPanel {
 
         Back.addActionListener(e -> {
             if(flag==0) {                           //Call  made from template pages
-                //System.out.println("Back from Template pages to TemplateList");
                 uiController.switchTemplateListPanel();
             }
             else{                                   // call made from course page
-                //System.out.println("Back from course added page");
                 uiController.switchSelectTemplatePanel(cid);
             }
         });

@@ -15,11 +15,8 @@ public class SelectTemplatePanel extends JPanel {
     private JPanel jp;
     private JButton CreateTemplate;
     private JButton SelectTemplate;
-    private JButton back;
-    private JButton DeleteTemplate;
     private JScrollPane jsp;
     private DefaultListModel listModel;
-    //private ArrayList<String> ListOfTemplates_test= new ArrayList<>();
     private ArrayList<Integer> ListOFTemplates;
     private JList list;
     private int cid;
@@ -37,13 +34,6 @@ public class SelectTemplatePanel extends JPanel {
         this.cid = cid;
         ListOFTemplates = new ArrayList<>(GradingSystem.templateRd.queryTemplates());                          //ArrayList of TemplateIds
 
-        /*ListOfTemplates_test.add("Template 1");
-        ListOfTemplates_test.add("Template 2");
-        ListOfTemplates_test.add("Template 3");
-        ListOfTemplates_test.add("Template 4");
-        ListOfTemplates_test.add("Template 5");
-        ListOfTemplates_test.add("Template 6");
-*/
 
         listModel = new DefaultListModel();
 
@@ -51,13 +41,6 @@ public class SelectTemplatePanel extends JPanel {
         for(int i=0;i<ListOFTemplates.size();i++) {
             listModel.addElement(GradingSystem.templateRd.queryTemplate(i).getTemplateName());          //tr.queryCourse return object of type CourseDB
         }
-
-
-/*
-        for(int i=0;i<ListOfTemplates_test.size();i++){
-            listModel.addElement(ListOfTemplates_test.get(i));              //Hard coded list of templates.
-        }
-*/
 
 
         list = new JList(listModel);
@@ -78,8 +61,8 @@ public class SelectTemplatePanel extends JPanel {
         jp.add(CreateTemplate);
         SelectTemplate = new JButton("Select Existing Template");
         jp.add(SelectTemplate);
-        back = new JButton("Back");
-        add(back);
+        /*back = new JButton("Back");
+        add(back);*/
         add(jp);
     }
 
@@ -91,23 +74,21 @@ public class SelectTemplatePanel extends JPanel {
 
 
     private void addListener(UIController uiController){
-        back.addActionListener(e -> {
-            uiController.switchCreateCoursePanel();
-        });
-        /**
-         *          Need to change this after we have the template query API
-         */
+
         CreateTemplate.addActionListener(e -> {
-            uiController.switchCreateTemplatePanel(1,cid);                   //Work on this when fuqing is done with the template.
+            uiController.switchCreateTemplatePanel(1,cid);
         });
 
-        /*
+
         SelectTemplate.addActionListener(e -> {
-            uiController.switchCoursePanel();                   //Work on this when fuqing is done with the template.
+            int index = list.getSelectedIndex();
+            int tid = ListOFTemplates.get(index);
+            Course.adaptTemplate(cid,tid);
+            uiController.switchSectionList(cid);
         });
 
 
-         */
+
     }
 
 

@@ -1,5 +1,6 @@
 package ui.panel;
 
+
 import logic.GradingSystem;
 import logic.Template;
 
@@ -17,7 +18,6 @@ public class TemplateListPanel extends JPanel {
     private JButton bttnDeleteTemplate;
     private JScrollPane jsp;
     private DefaultListModel listModel;
-    //private ArrayList<String> ListOfTemplates_test= new ArrayList<>();
     private ArrayList<Integer> ListOFTemplates;
     private JList list;
 
@@ -34,30 +34,10 @@ public class TemplateListPanel extends JPanel {
         ListOFTemplates = new ArrayList<>(GradingSystem.templateRd.queryTemplates());                          //ArrayList of TemplateIds
         listModel = new DefaultListModel();
 
-        /**
-         * Hard Coded List of Templates.
-         */
-
-        /*ListOfTemplates_test.add("Template 1");
-        ListOfTemplates_test.add("Template 2");
-        ListOfTemplates_test.add("Template 3");
-        ListOfTemplates_test.add("Template 4");
-        ListOfTemplates_test.add("Template 5");
-        ListOfTemplates_test.add("Template 6");
-*/
-
-
 
         for(int i=0;i<ListOFTemplates.size();i++) {
             listModel.addElement(GradingSystem.templateRd.queryTemplate(i).getTemplateName());          //tr.queryCourse return object of type CourseDB
         }
-
-
-/*
-        for(int i=0;i<ListOfTemplates_test.size();i++){
-            listModel.addElement(ListOfTemplates_test.get(i));
-        }
-*/
 
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -72,7 +52,6 @@ public class TemplateListPanel extends JPanel {
     public void addComponent(){
         add(jsp);
         jp = new JPanel();
-        //jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
         bttnCreateTemplate = new JButton("Create Template");
         add(bttnCreateTemplate);
         bttnDeleteTemplate = new JButton("Delete Template");
@@ -83,8 +62,6 @@ public class TemplateListPanel extends JPanel {
 
         templateHeader = new JPanel();          //Add Fuqing's Panel
         add(templateHeader);
-
-
 
     }
 
@@ -99,10 +76,16 @@ public class TemplateListPanel extends JPanel {
 
         bttnDeleteTemplate.addActionListener(e -> {
             int index = list.getSelectedIndex();
-            Template.delete(index);
-            ListOFTemplates.remove(index);
-            //ListOfTemplates_test.remove(index);
-            listModel.removeElementAt(index);
+            boolean canDelete = Template.delete(index);
+            if(canDelete==true) {
+                JOptionPane.showMessageDialog(jp,listModel.get(index) + " Removed");
+                ListOFTemplates.remove(index);
+                listModel.removeElementAt(index);
+            }
+            else{
+                JOptionPane.showMessageDialog(jp,"Cannot Delete Template as a course is associated with it");
+            }
+
         });
 
         bttnCreateTemplate.addActionListener(e -> {
