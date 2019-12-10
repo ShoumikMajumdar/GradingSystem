@@ -1,4 +1,4 @@
-package ui.panel;
+package ui.component;
 
 import logic.Component;
 import logic.Student;
@@ -8,6 +8,7 @@ import logic.Comment;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Map;
 import java.util.ArrayList;
 
@@ -42,8 +43,12 @@ public class GTable extends JPanel{
                     xStart + 1 + j, yStart + i, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0);
-                JLabel lblGrade = new JLabel("" + grd.get(i).points);
-                add(lblGrade, gbcGrade);
+
+                GTextField txtGrade = new GTextField(
+                    "" + grd.get(j).points,
+                    grd.get(j).studentID,
+                    grd.get(j).componentID);
+                add(txtGrade, gbcGrade);
             }
         }
     }
@@ -85,7 +90,7 @@ public class GTable extends JPanel{
             GridBagConstraints gbc_new = new GridBagConstraints(
                 x, y, w, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
-            JButton btn = new JButton(root.name);
+            GButton btn = new GButton(root.name, root.id);
             add(btn, gbc_new);
             int i = 0;
             int _w = 0;
@@ -100,7 +105,7 @@ public class GTable extends JPanel{
             GridBagConstraints gbc_new = new GridBagConstraints(
                 x, y, w, max_h - y, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
-            JButton btn = new JButton(root.name);
+            GButton btn = new GButton(root.name, root.id);
             add(btn, gbc_new);
         }
     }

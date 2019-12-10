@@ -1,5 +1,7 @@
 package ui.panel;
 
+import ui.component.*;
+
 import javax.swing.*;
 
 public class TablePanel extends JPanel {
