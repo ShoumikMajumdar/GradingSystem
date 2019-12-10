@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class GTable extends JPanel{
 
+    private GridBagConstraints gbc_new;
+
     public GTable(){
         super(true);
         update();
@@ -17,11 +19,12 @@ public class GTable extends JPanel{
         setLayout(new GridBagLayout());
         Component root = Component.buildTestComponent();
         buildHeader(root, 0, 0, root.getWidth()*5, root.getHeight());
+        buildBody();
     }
 
     private void buildHeader(Component root, int x, int y, int w, int max_h){
         if(!root.children.isEmpty()) {
-            GridBagConstraints gbc_new = new GridBagConstraints(x, y, w, 1, 1.0, 1.0,
+            gbc_new = new GridBagConstraints(x, y, w, 1, 1.0, 1.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
             JButton btn = new JButton(root.name);
             add(btn, gbc_new);
@@ -34,10 +37,14 @@ public class GTable extends JPanel{
                 i++;
             }
         } else {
-            GridBagConstraints gbc_new = new GridBagConstraints(x, y, w, max_h - y, 1.0, 1.0,
+            gbc_new = new GridBagConstraints(x, y, w, max_h - y, 1.0, 1.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
             JButton btn = new JButton(root.name);
             add(btn, gbc_new);
         }
+    }
+
+    private void buildBody(){
+
     }
 }
