@@ -58,6 +58,10 @@ public class Component {
         return sum;
     }
 
+    public Component getComponent(Integer key){
+        return children.get(key);
+    }
+
     public void addChild(Component child) {
         children.put(Integer.valueOf(child.id), child);
     }

@@ -6,23 +6,38 @@ import logic.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class GTable extends JPanel{
 
+    private HashMap<Integer, HashMap<Integer, GTextField>> tableMap = new HashMap<>();
+    private ArrayList<Student> students = new ArrayList<Student>();
+    private ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
+    private ArrayList<Bonus> bonus = new ArrayList<Bonus>();
+    private ArrayList<Comment> comments = new ArrayList<Comment>();
+
     public GTable(){
         super(true);
         setLayout(new GridBagLayout());
+        Component.buildTestData(students, grades, bonus, comments, Component.buildTestComponent());
         update(Component.buildTestComponent());
+    }
+
+    public GTable(Component root){
+        super(true);
+        setLayout(new GridBagLayout());
+        Component.buildTestData(students, grades, bonus, comments, root);
+        update(root);
     }
 
     public void update(Component root) {
         buildTableHeader(root);
-        ArrayList<Student> students = new ArrayList<Student>();
-        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
-        ArrayList<Bonus> bonus = new ArrayList<Bonus>();
-        ArrayList<Comment> comments = new ArrayList<Comment>();
-        Component.buildTestData(students, grades, bonus, comments, root);
+//        ArrayList<Student> students = new ArrayList<Student>();
+//        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
+//        ArrayList<Bonus> bonus = new ArrayList<Bonus>();
+//        ArrayList<Comment> comments = new ArrayList<Comment>();
+//        Component.buildTestData(students, grades, bonus, comments, root);
         int xStart = 0;
         int yStart = root.getHeight();
         for (int i = 0; i < students.size(); ++i) {
@@ -34,6 +49,7 @@ public class GTable extends JPanel{
             add(lblStudent, gbcStudent);
 
             ArrayList<Grade> grd = grades.get(i);
+            HashMap<Integer, GTextField> columns = new HashMap<>();
             for (int j = 0; j < grd.size(); ++j) {
                 GridBagConstraints gbcGrade = new GridBagConstraints(
                     xStart + 1 + j, yStart + i, 1, 1, 0.0, 0.0,
@@ -44,8 +60,10 @@ public class GTable extends JPanel{
                     "" + grd.get(j).points,
                     grd.get(j).studentID,
                     grd.get(j).componentID);
+                columns.put(grd.get(j).componentID, txtGrade);
                 add(txtGrade, gbcGrade);
             }
+            tableMap.put(grd.get(0).studentID, columns);
         }
     }
 
@@ -105,4 +123,9 @@ public class GTable extends JPanel{
             add(btn, gbc_new);
         }
     }
+
+    public GTextField getCell(int sid, int cid){
+        return tableMap.get(sid).get(cid);
+    }
+
 }

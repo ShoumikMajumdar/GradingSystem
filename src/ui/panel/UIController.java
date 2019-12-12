@@ -1,6 +1,9 @@
 package ui.panel;
 
+import logic.Component;
 import ui.UIConsts;
+import ui.component.GTable;
+import ui.component.GTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +22,9 @@ public class UIController extends JFrame {
     private TemplateListPanel templateListPanel;
     private CreateTemplatePanel createTemplatePanel;
     private SectionsList sectionsList;
+
+    private static GTable table;
+    private static Component root;
 
     private Object[][] tableData = new Object[][]{
             {"Fuqing Wang", "99","98","96","54","20","98","96","54","20","1"},
@@ -61,7 +67,9 @@ public class UIController extends JFrame {
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        holderPanel.add(new TablePanel());
+        root = Component.buildTestComponent();
+        table = new GTable(root);
+        holderPanel.add(new TablePanel(table));
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);
@@ -78,7 +86,7 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void  switchNewTemplatePanel(){
+    public void switchNewTemplatePanel(){
 
     }
 
@@ -130,18 +138,52 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-//    private Object generateData() throws FileNotFoundException {
-//        Object json = null;
-//        try {
-//            FileInputStream fileIn = new FileInputStream("./sampleJson.json");
-//            ObjectInputStream in = new ObjectInputStream(fileIn);
-//            json = in.readObject();
-//            in.close();
-//            fileIn.close();
-//        } catch (IOException | ClassNotFoundException i){
-//            i.printStackTrace();
-//            return null;
-//        }
-//        return json;
-//    }
+    public static void addComments(int sid, int cid){
+        //todo: call to update comment on backend needs to be added
+        GTextField cell = table.getCell(sid, cid);
+        String comments = JOptionPane.showInputDialog("Current comment: "+ cell.getComments() + ".\n Change comment to:");
+        cell.setComments(comments);
+    }
+
+    public static void addBonus(int sid, int cid){
+        //todo: call to update bonus on backend needs to be added
+        GTextField cell = table.getCell(sid, cid);
+        String bonus = JOptionPane.showInputDialog("Current bonus: "+ cell.getBonus() + ".\n Change bonus to:");
+        try {
+            if(bonus != null){
+                int num = 0;
+                num = Integer.parseInt(bonus);
+                cell.setBonus(num);
+            }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(table, "Please enter a number!");
+        }
+    }
+
+    public static void addRow(){
+        System.out.println("Add Row");
+        String name = JOptionPane.showInputDialog("Enter a student's name:");
+        //todo: call to update database on backend needs to be added
+    }
+
+    public static void removeRow(){
+        System.out.println("Delete Row");
+    }
+
+    public static void addCol(int ComponentId){
+//        Component.addChild(1,1);
+        Component child = root.getComponent(ComponentId);
+//        root.addChild(child);
+        System.out.println("Add Column");
+    }
+
+    public static void removeCol(int ComponentId){
+        Component child = root.getComponent(ComponentId);
+//        root.removeChild(child);
+        System.out.println("Remove Column");
+    }
+
+    public static void editCol(int ComponentId){
+//        System.out.println("Edit Column");
+    }
 }
