@@ -96,8 +96,7 @@ public class SectionsList extends JPanel {
 
         edit.addActionListener(e -> {
             int index = list.getSelectedIndex();
-            JOptionPane.showMessageDialog(jp,"Fuqing's pages");
-
+            uiController.switchTablePanel(cid,index);
         });
 
     }

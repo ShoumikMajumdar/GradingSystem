@@ -57,11 +57,12 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void switchTablePanel(){
+    public void switchTablePanel(int cid, int sid){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        holderPanel.add(new TablePanel());
+        tablePanel = new TablePanel(this,cid, sid);
+        holderPanel.add(tablePanel);
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);
@@ -129,6 +130,7 @@ public class UIController extends JFrame {
         frame.repaint();
         frame.setVisible(true);
     }
+
 
 //    private Object generateData() throws FileNotFoundException {
 //        Object json = null;

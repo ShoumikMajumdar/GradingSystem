@@ -42,7 +42,7 @@ public class MainPanel extends JPanel {
             uiController.switchCoursePanel();
             });
         btnTemplate.addActionListener(e -> {
-                uiController.switchTablePanel();
+                uiController.switchTemplateListPanel();
             });
     }
 }
