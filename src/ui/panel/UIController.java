@@ -11,7 +11,9 @@ public class UIController extends JFrame {
     private SelectTemplatePanel selectTemplatePanel;
     private TemplatePanel templatePanel;
     private TablePanel tablePanel;
-    private final MainPanel mainPanel = new MainPanel(this);
+    private final LoginPanel loginPanel = new LoginPanel(this);
+    //private final MainPanel mainPanel = new MainPanel(this);
+    private MainPanel mainPanel;
     private final JFrame frame = new JFrame();
     private final JPanel holderPanel = new JPanel();
     private UIController uiController;
@@ -19,6 +21,7 @@ public class UIController extends JFrame {
     private TemplateListPanel templateListPanel;
     private CreateTemplatePanel createTemplatePanel;
     private SectionsList sectionsList;
+
 
     private Object[][] tableData = new Object[][]{
             {"Fuqing Wang", "99","98","96","54","20","98","96","54","20","1"},
@@ -31,7 +34,7 @@ public class UIController extends JFrame {
         frame.setTitle(UIConsts.APP_NAME);
         frame.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
                 UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
-        holderPanel.add(mainPanel);
+        holderPanel.add(loginPanel);
         frame.add(holderPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -41,9 +44,11 @@ public class UIController extends JFrame {
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
+        mainPanel = new MainPanel(this);
         holderPanel.add(mainPanel);
         frame.add(holderPanel);
         frame.repaint();
+        frame.setVisible(true);
     }
 
     public void switchCoursePanel(){
