@@ -1,6 +1,8 @@
 package logic;
 
 import Template.TemplateDB;
+import db.ScoresReader;
+import db.StudentReader;
 
 import java.util.*;
 
@@ -35,8 +37,16 @@ public class Course {
         return c;
     }
 
-    public static void delete(int id) {
-        GradingSystem.courseRd.deleteCourse(id);
+    public static void delete(int cid) {
+        // From CourseID get a list of section IDs
+        //Delete all Sections using Course.deleteSection.
+        
+
+        ArrayList<Integer> SectionList = new ArrayList<>(GradingSystem.sectionRd.querySections(cid));
+        for (int section:SectionList) {
+            deleteSection(cid,section);
+        }
+        GradingSystem.courseRd.deleteCourse(cid);
     }
 
     protected Course(int id, String name, int tid) {
@@ -56,6 +66,17 @@ public class Course {
     }
 
     public static void deleteSection(int cid, int sid) {
+        //Use Section ID to fetch a list of student IDs
+        // Use helper function to fetch list of component ID
+        //Use student IDs, Component IDs and Course ID to delete scores using ScoresReader.deleteScores
+
+        ArrayList<Integer> StudentID = new ArrayList<Integer>(GradingSystem.studentRd.queryStudents(sid));
+
+        for (int i=0;i<sid;i++){
+            for (int j=0;j<componentId;j++){
+                GradingSystem.scoreRd.deleteScore(i,cid,j);
+            }
+        }
         GradingSystem.sectionRd.deleteSection(sid);
     }
 
