@@ -1,5 +1,7 @@
 package logic;
 
+import Component.ComponentDB;
+
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.ArrayList;
@@ -10,16 +12,20 @@ public class Component {
     public static Component create(String name, int points, double percent) {
         Component c = null;
        if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
-            c = new Component(nextID, name, points, percent);
-            ++nextID;
+           c = build(nextID, name, points, percent);
+           ++nextID;
        }
         return c;
     }
 
     public static Component createTest(String name, int points, double percent) {
-        Component c = new Component(nextID, name, points, percent);
+        Component c = build(nextID, name, points, percent);
         ++nextID;
         return c;
+    }
+
+    public static Component build(int id, String name, int points, double percent) {
+        return new Component(id, name, points, percent);
     }
 
     public final int id;
@@ -109,10 +115,53 @@ public class Component {
         }
     }
 
+    public static ArrayList<Integer> getAllLeafChildrenID(int rootID) {
+        Component root = rebuildComponentTree(rootID);
+        ArrayList<Component> leafChildren = new ArrayList<Component>();
+        getAllLeafChildren(leafChildren, root);
+        ArrayList<Integer> leafChildrenID = new ArrayList<Integer>();
+        for (Component c : leafChildren) {
+            leafChildrenID.add(c.id);
+        }
+        return leafChildrenID;
+    }
+
     public static void printRoot(Component root) {
         System.out.println(root);
         for (Entry<Integer, Component> e : root.children.entrySet()) {
             printRoot(e.getValue());
+        }
+    }
+
+    public static Component rebuildComponentTree(int rootID) {
+        ComponentDB rootDB = GradingSystem.componentRd.queryComponent(rootID);
+        if (rootDB == null) {
+            return null;
+        }
+        Component root = build(rootDB.getComponentId(),
+                               rootDB.getComponentName(),
+                               (int)rootDB.getPoints(),
+                               rootDB.getPercent());
+        rebuildChildren(root);
+        return root;
+    }
+
+    private static void rebuildChildren(Component parent) {
+        if (parent == null) {
+            return;
+        }
+        ArrayList<Integer> children = GradingSystem.componentRd.queryChildren(parent.id);
+        for (Integer i : children) {
+            ComponentDB childDB = GradingSystem.componentRd.queryComponent(i.intValue());
+            if (childDB == null) {
+                continue;
+            }
+            Component child = build(childDB.getComponentId(),
+                                    childDB.getComponentName(),
+                                    (int)childDB.getPoints(),
+                                    childDB.getPercent());
+            parent.addChild(child);
+            rebuildChildren(child);
         }
     }
 
