@@ -1,8 +1,12 @@
 package logic;
 
 import Template.TemplateDB;
+
 import db.ScoresReader;
 import db.StudentReader;
+
+import Course.CourseDB;
+
 
 import java.util.*;
 
@@ -71,9 +75,10 @@ public class Course {
         //Use student IDs, Component IDs and Course ID to delete scores using ScoresReader.deleteScores
 
         ArrayList<Integer> StudentID = new ArrayList<Integer>(GradingSystem.studentRd.queryStudents(sid));
+        ArrayList<Integer> componentId = new ArrayList<>(getAllLeafComponentID(cid));
 
         for (int i=0;i<sid;i++){
-            for (int j=0;j<componentId;j++){
+            for (int j=0;j<componentId.size();j++){
                 GradingSystem.scoreRd.deleteScore(i,cid,j);
             }
         }
@@ -83,5 +88,14 @@ public class Course {
     public static void adaptTemplate(int cid, int tid) {
         TemplateDB template = GradingSystem.templateRd.queryTemplate(tid);
         GradingSystem.templateRd.adaptTemplate(cid, tid, template.getTemplateName(), template.getTemplateId());
+    }
+
+    public static ArrayList<Integer> getAllLeafComponentID(int cid) {
+        CourseDB cdb = GradingSystem.templateRd.queryCourse(cid);
+        if (cdb == null) {
+            return null;
+        }
+        TemplateDB tdb = GradingSystem.templateRd.queryTemplate(cdb.getTemplateId());
+        return Component.getAllLeafChildrenID(tdb.getRootId());
     }
 }
