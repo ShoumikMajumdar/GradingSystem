@@ -40,6 +40,8 @@ public class ComponentReader extends BaseDBReader {
         return false;
     }
 
+
+
     // API 2. add a child
     public boolean addChild(int parent_id, int child_id){
         /**
@@ -49,6 +51,9 @@ public class ComponentReader extends BaseDBReader {
          * for a new child that does not have name, percent, points , assign -1 for those 3 fields
          */
         try {
+
+
+
             String sql = "UPDATE component_table " +
                     "SET  parent  = ? " +
                     "WHERE component_id = ?";
@@ -56,6 +61,11 @@ public class ComponentReader extends BaseDBReader {
             stmt.setInt(1, parent_id);
             stmt.setInt(2, child_id);
             stmt.executeUpdate();
+
+
+
+
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

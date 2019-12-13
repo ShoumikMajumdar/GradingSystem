@@ -91,13 +91,15 @@ public class Main {
         templatereader.createTemplate(1,"template 1",1);
         templatereader.createTemplate(2,"template 2",1);
         templatereader.createTemplate(3,"template 3",1);
+
         templatereader.createTemplate(4,"template 4",2);
         // API 2 : adapt Template, associate course id for a template id [checked]
 
         templatereader.adaptTemplate(1,1,"template 1",1);
         templatereader.adaptTemplate(2,2,"template 2",1);
         templatereader.adaptTemplate(3,3,"template 3",1);
-        templatereader.adaptTemplate(4,3,"template 4",1);
+        templatereader.adaptTemplate(4,3,"template 3",1);
+
 
         // API 3 : delete template 【checked】
         templatereader.deleteTemplate(1);
@@ -238,6 +240,7 @@ public class Main {
 
         String comment = commentreader.getComment(1,2,1);
         System.out.println(comment);
+
 
 
 

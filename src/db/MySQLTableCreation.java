@@ -87,7 +87,8 @@ public class MySQLTableCreation {
                     + "template_name varchar(255), "
                     + "root_id INTEGER, "
                     //+ "PRIMARY KEY (template_id, template_name, root_id, course_id) )";
-                    + "PRIMARY KEY (template_id, template_name, root_id) )";
+                    //+ "PRIMARY KEY (course_id, template_id, template_name, root_id) )";
+                    + "PRIMARY KEY (course_id, template_id) )";
             stmt.executeUpdate(sql);
 
             // component table
