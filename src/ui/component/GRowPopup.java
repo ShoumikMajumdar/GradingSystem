@@ -7,8 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GRowPopup extends JPopupMenu{
-    public GRowPopup(int rid){
+    private int sid;
+    public GRowPopup(int sid){
         super();
+        this.sid = sid;
         JMenuItem addRow = new JMenuItem("Add Row");
         addRow.addActionListener(new PopUpListener());
         add(addRow);
@@ -24,7 +26,7 @@ public class GRowPopup extends JPopupMenu{
             if (e.getActionCommand().equals("Add Row")){
                 UIController.addRow();
             }else if (e.getActionCommand().equals("Delete Row")){
-                UIController.removeRow();
+                UIController.removeRow(sid);
             }
         }
     }

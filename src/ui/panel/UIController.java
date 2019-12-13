@@ -1,5 +1,6 @@
 package ui.panel;
 
+import logic.*;
 import logic.Component;
 import ui.UIConsts;
 import ui.component.GTable;
@@ -26,19 +27,13 @@ public class UIController extends JFrame {
     private static GTable table;
     private static Component root;
 
-    private Object[][] tableData = new Object[][]{
-            {"Fuqing Wang", "99","98","96","54","20","98","96","54","20","1"},
-            {"Xiaoduan Chang", "96","94","98","54","20","98","96","54","20","2"},
-            {"Zhezhong Jiang", "97","98","99","54","20","98","96","54","20","3"},
-            {"Shoumik", "99","98","96","51","21","98","96","54","20","4"}};
-    private Object[] tableHeader = new Object[]{"Name","TTT-I", "TTT-II", "BlackJack-I", "BlackJack-II", "Trianta-ena", "Cave Adventure", "Midterm-Written", "Midterm-Code", "Final"};
-
     public UIController() {
         frame.setTitle(UIConsts.APP_NAME);
         frame.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
                 UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
         holderPanel.add(mainPanel);
         frame.add(holderPanel);
+        frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
@@ -49,6 +44,7 @@ public class UIController extends JFrame {
         holderPanel.revalidate();
         holderPanel.add(mainPanel);
         frame.add(holderPanel);
+        frame.pack();
         frame.repaint();
     }
 
@@ -59,6 +55,7 @@ public class UIController extends JFrame {
         coursePanel = new CoursePanel(this);
         holderPanel.add(coursePanel);
         frame.add(holderPanel);
+        frame.pack();
         frame.repaint();
         frame.setVisible(true);
     }
@@ -71,6 +68,7 @@ public class UIController extends JFrame {
         table = new GTable(root);
         holderPanel.add(new TablePanel(table));
         frame.add(holderPanel);
+        frame.pack();
         frame.repaint();
         frame.setVisible(true);
     }
@@ -82,6 +80,7 @@ public class UIController extends JFrame {
         selectTemplatePanel = new SelectTemplatePanel(this,c_id);
         holderPanel.add(selectTemplatePanel);
         frame.add(holderPanel);
+        frame.pack();
         frame.repaint();
         frame.setVisible(true);
     }
@@ -139,14 +138,15 @@ public class UIController extends JFrame {
     }
 
     public static void addComments(int sid, int cid){
-        //todo: call to update comment on backend needs to be added
+        //todo: couse id
         GTextField cell = table.getCell(sid, cid);
         String comments = JOptionPane.showInputDialog("Current comment: "+ cell.getComments() + ".\n Change comment to:");
         cell.setComments(comments);
+        Comment.create(0, sid, cid, comments);
     }
 
     public static void addBonus(int sid, int cid){
-        //todo: call to update bonus on backend needs to be added
+        //todo: course id
         GTextField cell = table.getCell(sid, cid);
         String bonus = JOptionPane.showInputDialog("Current bonus: "+ cell.getBonus() + ".\n Change bonus to:");
         try {
@@ -154,6 +154,7 @@ public class UIController extends JFrame {
                 int num = 0;
                 num = Integer.parseInt(bonus);
                 cell.setBonus(num);
+                Bonus.create(0, sid, cid, num);
             }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(table, "Please enter a number!");
@@ -161,31 +162,34 @@ public class UIController extends JFrame {
     }
 
     public static void addRow(){
+        //todo: course id
         System.out.println("Add Row");
         String name = JOptionPane.showInputDialog("Enter a student's name:");
+        Student s = Student.create(name);
+        Section.addNewStudent(0, s.id);
         //todo: call to update database on backend needs to be added
     }
 
-    public static void removeRow(){
+    public static void removeRow(int sid){
+        //todo: course id
         System.out.println("Delete Row");
+        Section.deleteStudent(0, sid);
     }
 
     public static void addCol(int ComponentId){
-//        Component.addChild(1,1);
-//        Component child = root.getComponent(ComponentId);
-//        root.addChild(child);
         System.out.println("Add Column");
+        String name = JOptionPane.showInputDialog("Enter column name:");
+        Component child = Component.create(name, 0, 0);
+        Component.addChild(ComponentId, child.id);
     }
 
-    public static void removeCol(int ComponentId){
-//        Component child = root.getComponent(ComponentId);
-//        root.removeChild(child);
-//        table.update(root);
+    public static void removeCol(int parentID, int ComponentId){
         System.out.println("Remove Column");
+        Component.deleteChild(parentID, ComponentId);
     }
 
-    public static void editCol(int ComponentId){
-        String name = JOptionPane.showInputDialog("Enter new name: ");
-        System.out.println("Edit Column");
-    }
+//    public static void editCol(int ComponentId){
+//        String name = JOptionPane.showInputDialog("Enter new name: ");
+//        System.out.println("Edit Column");
+//    }
 }

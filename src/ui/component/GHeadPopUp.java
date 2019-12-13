@@ -7,21 +7,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GHeadPopUp extends JPopupMenu{
+    private int parentId;
     private int cid;
-    public GHeadPopUp(int cid){
+    public GHeadPopUp(int parentId, int cid){
         super();
+        this.parentId = parentId;
         this.cid = cid;
         JMenuItem addCol = new JMenuItem("Add Column");
         addCol.addActionListener(new PopUpListener());
 
-        JMenuItem editCol = new JMenuItem("Edit Column");
-        editCol.addActionListener(new PopUpListener());
+//        JMenuItem editCol = new JMenuItem("Edit Column");
+//        editCol.addActionListener(new PopUpListener());
 
         JMenuItem removeCol = new JMenuItem("Delete Column");
         removeCol.addActionListener(new PopUpListener());
 
         add(addCol);
-        add(editCol);
+//        add(editCol);
         add(removeCol);
     }
 
@@ -31,9 +33,9 @@ public class GHeadPopUp extends JPopupMenu{
             if (e.getActionCommand().equals("Add Column")){
                 UIController.addCol(cid);
             } else if (e.getActionCommand().equals("Edit Column")){
-                UIController.editCol(cid);
+//                UIController.editCol(cid);
             } else if (e.getActionCommand().equals("Delete Column")){
-                UIController.removeCol(cid);
+                UIController.removeCol(parentId, cid);
             }
         }
     }
