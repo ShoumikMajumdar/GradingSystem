@@ -172,18 +172,20 @@ public class UIController extends JFrame {
 
     public static void addCol(int ComponentId){
 //        Component.addChild(1,1);
-        Component child = root.getComponent(ComponentId);
+//        Component child = root.getComponent(ComponentId);
 //        root.addChild(child);
         System.out.println("Add Column");
     }
 
     public static void removeCol(int ComponentId){
-        Component child = root.getComponent(ComponentId);
+//        Component child = root.getComponent(ComponentId);
 //        root.removeChild(child);
+//        table.update(root);
         System.out.println("Remove Column");
     }
 
     public static void editCol(int ComponentId){
-//        System.out.println("Edit Column");
+        String name = JOptionPane.showInputDialog("Enter new name: ");
+        System.out.println("Edit Column");
     }
 }

@@ -45,7 +45,6 @@ public class GTextField
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("GT " + studentID + " " + componentID);
         if(e.getButton() == 3){
             showPopUp(e);
         }
