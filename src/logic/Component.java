@@ -165,6 +165,31 @@ public class Component {
         }
     }
 
+    public static Component filterComponent(Component root, String keyword) {
+        if (root.name.indexOf(keyword) != -1) {
+            return root;
+        }
+
+        ArrayList<Component> remove = new ArrayList<Component>();
+        boolean apply = false;
+
+        for (Entry<Integer, Component> entry : root.children.entrySet()) {
+            if (filterComponent(entry.getValue(), keyword) == null) {
+                remove.add(entry.getValue());
+            } else {
+                apply = true;
+            }
+        }
+
+        if (!apply) {
+            return null;
+        }
+        for (Component c : remove) {
+            root.children.remove(c);
+        }
+        return root;
+    }
+
     /**
      * Build a test component
      * |---------------------------------------------------------------------------------------------------|

@@ -1,6 +1,9 @@
 package logic;
 
-import java.util.HashMap;
+import db.SectionReader;
+import Student.StudentDB;
+
+import java.util.*;
 
 public class Section {
 
@@ -28,16 +31,14 @@ public class Section {
         GradingSystem.sectionRd.deleteSection(id);
     }
 
-
     protected Section(int id) {
         this.id = id;
         students = new HashMap<Integer, Student>();
     }
 
     public static void addNewStudent(int scid, int stid) {
-//         Student s = GradingSystem.studentRd.queryStudent(stid);
-//         GradingSystem.studentRd.addNewStudent(stid, scid, s.name);
-        System.out.println(scid + " " + stid);
+        StudentDB s = GradingSystem.studentRd.queryStudent(stid);
+        GradingSystem.studentRd.addNewStudent(stid, scid, s.getName());
     }
 
     public static void deleteStudent(int scid, int stid) {
