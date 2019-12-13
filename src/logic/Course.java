@@ -1,6 +1,7 @@
 package logic;
 
 import Template.TemplateDB;
+import Course.CourseDB;
 
 import java.util.*;
 
@@ -62,5 +63,14 @@ public class Course {
     public static void adaptTemplate(int cid, int tid) {
         TemplateDB template = GradingSystem.templateRd.queryTemplate(tid);
         GradingSystem.templateRd.adaptTemplate(cid, tid, template.getTemplateName(), template.getTemplateId());
+    }
+
+    public static ArrayList<Integer> getAllLeafComponentID(int cid) {
+        CourseDB cdb = GradingSystem.templateRd.queryCourse(cid);
+        if (cdb == null) {
+            return null;
+        }
+        TemplateDB tdb = GradingSystem.templateRd.queryTemplate(cdb.getTemplateId());
+        return Component.getAllLeafChildrenID(tdb.getRootId());
     }
 }

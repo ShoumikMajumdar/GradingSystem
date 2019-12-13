@@ -17,6 +17,10 @@ public class GradingSystem {
 
     public static final ScoresReader scoreRd = new ScoresReader();
 
+    public static final BonusReader bonusRd = new BonusReader();
+
+    public static final CommentReader commentRd = new CommentReader();
+
     public GradingSystem() {
     }
 
