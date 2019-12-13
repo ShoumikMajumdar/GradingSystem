@@ -57,6 +57,7 @@ public class TemplateReader extends BaseDBReader {
          * repeatedly call for different unqiue course id
          */
         try{
+            /*
             String sql = "INSERT " +
                     "INTO template_table " +
                     "(course_id, template_id, template_name, root_id) "+
@@ -73,6 +74,34 @@ public class TemplateReader extends BaseDBReader {
             stmt.setInt(4, root_id);
             stmt.execute();
             return true;
+            */
+            // delete the -1 row first
+            String sql = "DELETE " +
+                         "FROM template_table "+
+                         "WHERE template_id = ? AND template_name = ? and root_id = ? AND course_id = -1";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, template_id);
+            stmt.setString(2, template_name);
+            stmt.setInt(3, root_id);
+            stmt.executeUpdate();
+
+            String sql2 = "INSERT " +
+                    "INTO template_table " +
+                    "(course_id, template_id, template_name, root_id) "+
+                    "VALUES (?, ?, ?, ?)" +
+                    "ON DUPLICATE KEY UPDATE " +
+                    "course_id = VALUES(course_id), " +
+                    "template_id = VALUES(template_id)," +
+                    "template_name = VALUES(template_name), " +
+                    "root_id = VALUES(root_id) ";
+            PreparedStatement stmt2 = conn.prepareStatement(sql2);
+            stmt2.setInt(1, course_id);
+            stmt2.setInt(2, template_id);
+            stmt2.setString(3, template_name);
+            stmt2.setInt(4, root_id);
+            stmt2.execute();
+
+
         } catch(Exception e){
             e.printStackTrace();
         }
