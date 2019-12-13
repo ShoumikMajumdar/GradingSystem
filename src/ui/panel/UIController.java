@@ -1,15 +1,16 @@
 package ui.panel;
 
-import logic.Course;
 import ui.UIConsts;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class UIController extends JFrame {
 
     private  CoursePanel coursePanel;
     private SelectTemplatePanel selectTemplatePanel;
     private TemplatePanel templatePanel;
+    private TablePanel tablePanel;
     private final MainPanel mainPanel = new MainPanel(this);
     private final JFrame frame = new JFrame();
     private final JPanel holderPanel = new JPanel();
@@ -27,10 +28,6 @@ public class UIController extends JFrame {
     private Object[] tableHeader = new Object[]{"Name","TTT-I", "TTT-II", "BlackJack-I", "BlackJack-II", "Trianta-ena", "Cave Adventure", "Midterm-Written", "Midterm-Code", "Final"};
 
     public UIController() {
-//        Object data = generateData();
-//        tableData = parseTabledata(data);
-//        tableHeader = parseTableHeader(data);
-
         frame.setTitle(UIConsts.APP_NAME);
         frame.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
                 UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
@@ -60,12 +57,11 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void switchTemplatePanel(){
+    public void switchTablePanel(){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        templatePanel = new TemplatePanel(tableData, tableHeader);
-        holderPanel.add(templatePanel);
+        holderPanel.add(new TablePanel());
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);
@@ -117,7 +113,7 @@ public class UIController extends JFrame {
         holderPanel.removeAll();
         holderPanel.revalidate();
         createTemplatePanel = new CreateTemplatePanel(this,flag, cid);
-        holderPanel.add(createTemplatePanel);
+        holderPanel.add(createTemplatePanel, BorderLayout.NORTH);
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);
