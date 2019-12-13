@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2b1ae1ee-13a6-4c97-b325-12b96f0fb553" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/logic/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Component.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/component/GTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/component/GTable.java" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1URmrI0BqO3DZKfgwvXQqEuAqd1" />
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="GradingSystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Table creation" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="db.MySQLTableCreation" />
+      <module name="GradingSystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="db" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="dbMain.Main" />
+      <module name="GradingSystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="Application.db" />
+      <item itemvalue="Application.Table creation" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2b1ae1ee-13a6-4c97-b325-12b96f0fb553" name="Default Changelist" comment="" />
+      <created>1575327978155</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575327978155</updated>
+    </task>
+    <task id="LOCAL-00001" summary="UI basic">
+      <created>1575398586621</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1575398586621</updated>
+    </task>
+    <task id="LOCAL-00002" summary="UI basic">
+      <created>1575398670438</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1575398670438</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add/remove col/row, visually workable">
+      <created>1575527708154</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1575527708154</updated>
+    </task>
+    <task id="LOCAL-00004" summary="had a blocker on add/remove columns">
+      <created>1575594763408</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1575594763408</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fixed some layout">
+      <created>1575596235353</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575596235353</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fixed some layout">
+      <created>1575692145370</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575692145371</updated>
+    </task>
+    <task id="LOCAL-00007" summary="redoing graph header">
+      <created>1575837441892</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575837441892</updated>
+    </task>
+    <task id="LOCAL-00008" summary="graph header done">
+      <created>1575843478712</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1575843478712</updated>
+    </task>
+    <task id="LOCAL-00009" summary="graph header done">
+      <created>1575936806057</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1575936806057</updated>
+    </task>
+    <task id="LOCAL-00010" summary="graph header done">
+      <created>1575937778422</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1575937778422</updated>
+    </task>
+    <task id="LOCAL-00011" summary="right click pop up done">
+      <created>1576009181166</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1576009181166</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add comment/bonus done&#10;Add col blocker">
+      <created>1576111075590</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1576111075590</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add comment/bonus done&#10;Add col blocker">
+      <created>1576254676468</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1576254676468</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Integration with Tim">
+      <created>1576269707213</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1576269707213</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Integration part ...">
+      <created>1576276624881</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1576276624881</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Integration part ...">
+      <created>1576276814981</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1576276814981</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="UI basic" />
+    <MESSAGE value="add/remove col/row, visually workable" />
+    <MESSAGE value="had a blocker on add/remove columns" />
+    <MESSAGE value="fixed some layout" />
+    <MESSAGE value="redoing graph header" />
+    <MESSAGE value="graph header done" />
+    <MESSAGE value="right click pop up done" />
+    <MESSAGE value="Add comment/bonus done&#10;Add col blocker" />
+    <MESSAGE value="Integration with Tim" />
+    <MESSAGE value="Integration part ..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Integration part ..." />
+  </component>
+</project>

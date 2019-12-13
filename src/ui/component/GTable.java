@@ -39,6 +39,10 @@ public class GTable extends JPanel{
     public void update() {
         this.root = Course.getRoot(courseId);
         GradingSystem.queryTableData(courseId, sectionId, root, students, grades, bonus, comments);
+        if(students.isEmpty()){
+            Component.buildTestData(students, grades, bonus, comments, Component.buildTestComponent());
+        }
+
         buildTableHeader(root);
 //        ArrayList<Student> students = new ArrayList<Student>();
 //        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();

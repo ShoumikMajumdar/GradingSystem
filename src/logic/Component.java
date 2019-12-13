@@ -251,7 +251,7 @@ public class Component {
                                      ArrayList<Bonus> bonus,
                                      ArrayList<Comment> comments,
                                      Component root) {
-        students.add(Student.build(1, "Fuqing Wang"));
+        students.add(Student.build(1, "Default User"));
 
         ArrayList<Component> leafComponent = new ArrayList<Component>();
         getAllLeafChildren(leafComponent, root);
