@@ -81,7 +81,7 @@ public class CommentReader extends BaseDBReader {
 
     // API 4 get a comment
     public String getComment(int course_id, int student_id, int component_id){
-        String comment  = "None";
+        String comment  = "";
         try {
             String sql = "SELECT comment FROM comment_table WHERE course_id = ? AND student_id = ? AND component_id = ? ";
             PreparedStatement stmt = conn.prepareStatement(sql);

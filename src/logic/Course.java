@@ -96,6 +96,21 @@ public class Course {
             return null;
         }
         TemplateDB tdb = GradingSystem.templateRd.queryTemplate(cdb.getTemplateId());
+        if (tdb == null) {
+            return null;
+        }
         return Component.getAllLeafChildrenID(tdb.getRootId());
+    }
+
+    public static Component getRoot(int cid) {
+        CourseDB cdb = GradingSystem.templateRd.queryCourse(cid);
+        if (cdb == null) {
+            return null;
+        }
+        TemplateDB tdb = GradingSystem.templateRd.queryTemplate(cdb.getTemplateId());
+        if (tdb == null) {
+            return null;
+        }
+        return Component.rebuildComponentTree(tdb.getRootId());
     }
 }

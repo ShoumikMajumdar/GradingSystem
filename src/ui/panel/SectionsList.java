@@ -2,7 +2,6 @@ package ui.panel;
 
 import logic.Course;
 import logic.GradingSystem;
-import logic.Section;
 
 import javax.swing.*;
 import java.awt.*;
