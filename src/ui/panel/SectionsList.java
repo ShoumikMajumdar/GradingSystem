@@ -2,7 +2,6 @@ package ui.panel;
 
 import logic.Course;
 import logic.GradingSystem;
-import logic.Section;
 
 import javax.swing.*;
 import java.awt.*;
@@ -96,8 +95,7 @@ public class SectionsList extends JPanel {
 
         edit.addActionListener(e -> {
             int index = list.getSelectedIndex();
-            JOptionPane.showMessageDialog(jp,"Fuqing's pages");
-
+            uiController.switchTablePanel(cid,index);
         });
 
     }

@@ -36,8 +36,9 @@ public class StudentReader extends BaseDBReader{
             stmt.execute();
         } catch(Exception e){
             e.printStackTrace();
+            return false;
         }
-        return false;
+        return true;
     }
 
     // API 2. add a new student

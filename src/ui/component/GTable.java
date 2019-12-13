@@ -16,6 +16,8 @@ public class GTable extends JPanel{
     private ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
     private ArrayList<Bonus> bonus = new ArrayList<Bonus>();
     private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private int courseId;
+    private int sectionId;
 
     public GTable(){
         super(true);
@@ -24,8 +26,10 @@ public class GTable extends JPanel{
         update(Component.buildTestComponent());
     }
 
-    public GTable(Component root){
+    public GTable(Component root, int courseId, int sectionId){
         super(true);
+        this.courseId = courseId;
+        this.sectionId = sectionId;
         setLayout(new GridBagLayout());
         Component.buildTestData(students, grades, bonus, comments, root);
         update(root);
@@ -45,7 +49,7 @@ public class GTable extends JPanel{
                 xStart, yStart + i, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 0), 0, 0);
-            GLabel lblStudent = new GLabel(students.get(i).name, i+1);
+            GLabel lblStudent = new GLabel(students.get(i).name, i+1, sectionId);
             add(lblStudent, gbcStudent);
 
             ArrayList<Grade> grd = grades.get(i);
@@ -128,4 +132,7 @@ public class GTable extends JPanel{
         return tableMap.get(sid).get(cid);
     }
 
+    public void repaint(){
+
+    }
 }

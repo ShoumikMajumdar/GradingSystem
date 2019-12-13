@@ -32,6 +32,7 @@ public class TemplateListPanel extends JPanel {
     public void initialize(){
 
         ListOFTemplates = new ArrayList<>(GradingSystem.templateRd.queryTemplates());                          //ArrayList of TemplateIds
+
         listModel = new DefaultListModel();
 
 

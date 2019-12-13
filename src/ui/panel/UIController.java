@@ -33,7 +33,6 @@ public class UIController extends JFrame {
                 UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
         holderPanel.add(mainPanel);
         frame.add(holderPanel);
-        frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
@@ -44,7 +43,6 @@ public class UIController extends JFrame {
         holderPanel.revalidate();
         holderPanel.add(mainPanel);
         frame.add(holderPanel);
-        frame.pack();
         frame.repaint();
     }
 
@@ -55,20 +53,19 @@ public class UIController extends JFrame {
         coursePanel = new CoursePanel(this);
         holderPanel.add(coursePanel);
         frame.add(holderPanel);
-        frame.pack();
         frame.repaint();
         frame.setVisible(true);
     }
 
-    public void switchTablePanel(){
+    public void switchTablePanel(int cid, int sid){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
         root = Component.buildTestComponent();
-        table = new GTable(root);
+        table = new GTable(root, cid, sid);
+        System.out.println("course id: "+ cid +"section id: " + sid);
         holderPanel.add(new TablePanel(table));
         frame.add(holderPanel);
-        frame.pack();
         frame.repaint();
         frame.setVisible(true);
     }
@@ -80,7 +77,6 @@ public class UIController extends JFrame {
         selectTemplatePanel = new SelectTemplatePanel(this,c_id);
         holderPanel.add(selectTemplatePanel);
         frame.add(holderPanel);
-        frame.pack();
         frame.repaint();
         frame.setVisible(true);
     }
@@ -138,15 +134,14 @@ public class UIController extends JFrame {
     }
 
     public static void addComments(int sid, int cid){
-        //todo: couse id
         GTextField cell = table.getCell(sid, cid);
         String comments = JOptionPane.showInputDialog("Current comment: "+ cell.getComments() + ".\n Change comment to:");
         cell.setComments(comments);
         Comment.create(0, sid, cid, comments);
+        table.repaint();
     }
 
     public static void addBonus(int sid, int cid){
-        //todo: course id
         GTextField cell = table.getCell(sid, cid);
         String bonus = JOptionPane.showInputDialog("Current bonus: "+ cell.getBonus() + ".\n Change bonus to:");
         try {
@@ -159,21 +154,21 @@ public class UIController extends JFrame {
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(table, "Please enter a number!");
         }
+        table.repaint();
     }
 
-    public static void addRow(){
-        //todo: course id
-        System.out.println("Add Row");
+    public static void addRow(int sectionId){
+        System.out.println("Add Row" + " " + sectionId);
         String name = JOptionPane.showInputDialog("Enter a student's name:");
         Student s = Student.create(name);
-        Section.addNewStudent(0, s.id);
-        //todo: call to update database on backend needs to be added
+        Section.addNewStudent(sectionId, s.id);
+        table.repaint();
     }
 
-    public static void removeRow(int sid){
-        //todo: course id
+    public static void removeRow(int sid, int sectionId){
         System.out.println("Delete Row");
-        Section.deleteStudent(0, sid);
+        Section.deleteStudent(sectionId, sid);
+        table.repaint();
     }
 
     public static void addCol(int ComponentId){
@@ -181,15 +176,12 @@ public class UIController extends JFrame {
         String name = JOptionPane.showInputDialog("Enter column name:");
         Component child = Component.create(name, 0, 0);
         Component.addChild(ComponentId, child.id);
+        table.repaint();
     }
 
     public static void removeCol(int parentID, int ComponentId){
         System.out.println("Remove Column");
         Component.deleteChild(parentID, ComponentId);
+        table.repaint();
     }
-
-//    public static void editCol(int ComponentId){
-//        String name = JOptionPane.showInputDialog("Enter new name: ");
-//        System.out.println("Edit Column");
-//    }
 }

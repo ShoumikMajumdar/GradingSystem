@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 
 public class GRowPopup extends JPopupMenu{
     private int sid;
-    public GRowPopup(int sid){
+    private int sectionId;
+    public GRowPopup(int sid, int sectionId){
         super();
         this.sid = sid;
+        this.sectionId = sectionId;
         JMenuItem addRow = new JMenuItem("Add Row");
         addRow.addActionListener(new PopUpListener());
         add(addRow);
@@ -24,9 +26,9 @@ public class GRowPopup extends JPopupMenu{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("Add Row")){
-                UIController.addRow();
+                UIController.addRow(sectionId);
             }else if (e.getActionCommand().equals("Delete Row")){
-                UIController.removeRow(sid);
+                UIController.removeRow(sid, sectionId);
             }
         }
     }

@@ -1,8 +1,6 @@
 package logic;
 
-import db.SectionReader;
-
-import java.util.*;
+import java.util.HashMap;
 
 public class Section {
 
@@ -37,8 +35,9 @@ public class Section {
     }
 
     public static void addNewStudent(int scid, int stid) {
-        // Student s = GradingSystem.studentRd.queryStudent(stid);
-        // GradingSystem.studentRd.addNewStudent(stid, scid, s.name);
+//         Student s = GradingSystem.studentRd.queryStudent(stid);
+//         GradingSystem.studentRd.addNewStudent(stid, scid, s.name);
+        System.out.println(scid + " " + stid);
     }
 
     public static void deleteStudent(int scid, int stid) {
