@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class GTable extends JPanel{
 
+    private Component root;
     private HashMap<Integer, HashMap<Integer, GTextField>> tableMap = new HashMap<>();
     private ArrayList<Student> students = new ArrayList<Student>();
     private ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
@@ -23,19 +24,21 @@ public class GTable extends JPanel{
         super(true);
         setLayout(new GridBagLayout());
         Component.buildTestData(students, grades, bonus, comments, Component.buildTestComponent());
-        update(Component.buildTestComponent());
+        Component.buildTestComponent();
+        update();
     }
 
-    public GTable(Component root, int courseId, int sectionId){
+    public GTable(int courseId, int sectionId){
         super(true);
         this.courseId = courseId;
         this.sectionId = sectionId;
         setLayout(new GridBagLayout());
-        Component.buildTestData(students, grades, bonus, comments, root);
-        update(root);
+        update();
     }
 
-    public void update(Component root) {
+    public void update() {
+//        this.root = ???;
+        GradingSystem.queryTableData(courseId, sectionId, root, students, grades, bonus, comments);
         buildTableHeader(root);
 //        ArrayList<Student> students = new ArrayList<Student>();
 //        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();

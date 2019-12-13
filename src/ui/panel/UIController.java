@@ -61,8 +61,7 @@ public class UIController extends JFrame {
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        root = Component.buildTestComponent();
-        table = new GTable(root, cid, sid);
+        table = new GTable(cid, sid);
         System.out.println("course id: "+ cid +"section id: " + sid);
         holderPanel.add(new TablePanel(table));
         frame.add(holderPanel);
@@ -74,7 +73,7 @@ public class UIController extends JFrame {
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        selectTemplatePanel = new SelectTemplatePanel(this,c_id);
+        selectTemplatePanel = new SelectTemplatePanel(this, c_id);
         holderPanel.add(selectTemplatePanel);
         frame.add(holderPanel);
         frame.repaint();
@@ -154,7 +153,7 @@ public class UIController extends JFrame {
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(table, "Please enter a number!");
         }
-        table.repaint();
+        table.update();
     }
 
     public static void addRow(int sectionId){
