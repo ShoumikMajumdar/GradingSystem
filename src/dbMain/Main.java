@@ -242,6 +242,44 @@ public class Main {
         System.out.println(comment);
 
 
+        // INFO TABLE TEST
+        InfoReader inforeader = new InfoReader();
+        inforeader.setData("key1", 1);
+        inforeader.setData("key1",2);
+        inforeader.setData("key2", 3);
+
+        // get
+        int res1 = inforeader.getData("key1");
+        int res2 = inforeader.getData("key2");
+
+        System.out.println(res1);
+        System.out.println(res2);
+
+
+        // curve table test
+        CurveReader curvereader = new CurveReader();
+        curvereader.setCurve(1,30);
+        curvereader.setCurve(2,35);
+        curvereader.setCurve(3,45);
+
+
+        int curve_1 = curvereader.getCurve(1);
+        int curve_2 = curvereader.getCurve(2);
+
+        System.out.println(curve_1);
+        System.out.println(curve_2);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
