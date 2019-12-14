@@ -69,7 +69,8 @@ public class GTable extends JPanel{
                 GTextField txtGrade = new GTextField(
                     "" + grd.get(j).points,
                     grd.get(j).studentID,
-                    grd.get(j).componentID);
+                    grd.get(j).componentID,
+                        grd.get(j).courseID);
                 columns.put(grd.get(j).componentID, txtGrade);
                 add(txtGrade, gbcGrade);
             }
