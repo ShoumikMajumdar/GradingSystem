@@ -165,3 +165,32 @@ Template queryTemplate(int tid);
  * @return data of component (id, percent, name, points)
  */
 Component queryComponent(int id);
+
+/**
+ * query a logic part defined data
+ * @param key key of the data
+ * @return data
+ */
+int getData(String key);
+
+
+/**
+ * store data with a specific key
+ * @param key key of the data
+ * @param data data
+ */
+void setData(String key, int data);
+
+/**
+ * get the cureve points of a section
+ * @param sid section ID
+ * @return curve points of this section
+ */
+int getCurve(int sid);
+
+/**
+ * store the curve points of a section
+ * @param sid section ID
+ * @param points cureve points for this section
+ */
+void setCurve(int sid, int points);
