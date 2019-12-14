@@ -13,17 +13,13 @@ public class GTable extends JPanel{
 
     private Component root;
     private HashMap<Integer, HashMap<Integer, GTextField>> tableMap = new HashMap<>();
-    private ArrayList<Student> students = new ArrayList<Student>();
-    private ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
-    private ArrayList<Bonus> bonus = new ArrayList<Bonus>();
-    private ArrayList<Comment> comments = new ArrayList<Comment>();
     private int courseId;
     private int sectionId;
 
     public GTable(){
         super(true);
         setLayout(new GridBagLayout());
-        Component.buildTestData(students, grades, bonus, comments, Component.buildTestComponent());
+//        Component.buildTestData(students, grades, bonus, comments, Component.buildTestComponent());
         Component.buildTestComponent();
         update();
     }
@@ -37,18 +33,21 @@ public class GTable extends JPanel{
     }
 
     public void update() {
-        this.root = Course.getRoot(courseId);
+        removeAll();
+        SwingUtilities.updateComponentTreeUI(this);
+        root = Course.getRoot(courseId);
+        ArrayList<Student> students = new ArrayList<Student>();
+        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
+        ArrayList<Bonus> bonus = new ArrayList<Bonus>();
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+//        Component.buildTestData(students, grades, bonus, comments, root);
         GradingSystem.queryTableData(courseId, sectionId, root, students, grades, bonus, comments);
         if(students.isEmpty()){
-            Component.buildTestData(students, grades, bonus, comments, Component.buildTestComponent());
+            System.out.println("buidlign data....");
+            Component.buildTestData(students, grades, bonus, comments, root);
         }
 
         buildTableHeader(root);
-//        ArrayList<Student> students = new ArrayList<Student>();
-//        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
-//        ArrayList<Bonus> bonus = new ArrayList<Bonus>();
-//        ArrayList<Comment> comments = new ArrayList<Comment>();
-//        Component.buildTestData(students, grades, bonus, comments, root);
         int xStart = 0;
         int yStart = root.getHeight();
         for (int i = 0; i < students.size(); ++i) {
@@ -56,7 +55,7 @@ public class GTable extends JPanel{
                 xStart, yStart + i, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 0), 0, 0);
-            GLabel lblStudent = new GLabel(students.get(i).name, i+1, sectionId);
+            GLabel lblStudent = new GLabel(students.get(i).name, students.get(i).id, sectionId);
             add(lblStudent, gbcStudent);
 
             ArrayList<Grade> grd = grades.get(i);
@@ -76,6 +75,7 @@ public class GTable extends JPanel{
             }
             tableMap.put(grd.get(0).studentID, columns);
         }
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     protected void buildTableHeader(Component root) {
@@ -110,12 +110,12 @@ public class GTable extends JPanel{
         ++xStart;
     }
 
-    private void buildTemplateHeader(Component root, int parentid, int x, int y, int w, int max_h){
+    private void buildTemplateHeader(Component root, int parentId, int x, int y, int w, int max_h){
         if(!root.children.isEmpty()) {
             GridBagConstraints gbc_new = new GridBagConstraints(
                 x, y, w, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
-            GButton btn = new GButton(root.name, parentid, root.id);
+            GButton btn = new GButton(root.name, parentId, root.id);
             add(btn, gbc_new);
             int i = 0;
             int _w = 0;
@@ -130,7 +130,7 @@ public class GTable extends JPanel{
             GridBagConstraints gbc_new = new GridBagConstraints(
                 x, y, w, max_h - y, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
-            GButton btn = new GButton(root.name, parentid, root.id);
+            GButton btn = new GButton(root.name, parentId, root.id);
             add(btn, gbc_new);
         }
     }

@@ -14,7 +14,7 @@ public class UIController extends JFrame {
     private  CoursePanel coursePanel;
     private SelectTemplatePanel selectTemplatePanel;
     private TemplatePanel templatePanel;
-    private TablePanel tablePanel;
+    private static TablePanel tablePanel;
     private final MainPanel mainPanel = new MainPanel(this);
     private final JFrame frame = new JFrame();
     private final JPanel holderPanel = new JPanel();
@@ -63,7 +63,8 @@ public class UIController extends JFrame {
         holderPanel.revalidate();
         table = new GTable(cid, sid);
         System.out.println("course id: "+ cid +"section id: " + sid);
-        holderPanel.add(new TablePanel(table));
+        tablePanel = new TablePanel(table);
+        holderPanel.add(tablePanel);
         frame.add(holderPanel);
         frame.repaint();
         frame.setVisible(true);
@@ -161,26 +162,62 @@ public class UIController extends JFrame {
         String name = JOptionPane.showInputDialog("Enter a student's name:");
         Student s = Student.create(name);
         Section.addNewStudent(sectionId, s.id);
-        table.repaint();
+        table.update();
+        tablePanel.revalidate();
+        tablePanel.repaint();
     }
 
     public static void removeRow(int sid, int sectionId){
         System.out.println("Delete Row");
         Section.deleteStudent(sectionId, sid);
-        table.repaint();
+        table.update();
+        tablePanel.revalidate();
+        tablePanel.repaint();
     }
 
     public static void addCol(int ComponentId){
         System.out.println("Add Column");
-        String name = JOptionPane.showInputDialog("Enter column name:");
-        Component child = Component.create(name, 0, 0);
-        Component.addChild(ComponentId, child.id);
-        table.repaint();
+
+        JTextField tf_name = new JTextField(5);
+        JTextField tf_maxPoints = new JTextField(5);
+        JTextField tf_percent = new JTextField(5);
+        JPanel tmp = new JPanel();
+        tmp.add(new JLabel("Column Name: "));
+        tmp.add(tf_name);
+        tmp.add(new JLabel("Max Points: "));
+        tmp.add(tf_maxPoints);
+        tmp.add(Box.createHorizontalStrut(15));
+        tmp.add(new JLabel("Percentage: "));
+        tmp.add(tf_percent);
+
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                tmp,
+                "Please Enter the max points and rubrics",
+                JOptionPane.OK_CANCEL_OPTION
+                );
+
+        if(result == JOptionPane.OK_OPTION){
+            try{
+                String name = tf_name.getText();
+                int maxPoints = Integer.parseInt(tf_maxPoints.getText());
+                float percentage = Float.parseFloat(tf_maxPoints.getText());
+                Component child = Component.create(name, maxPoints, percentage);
+                Component.addChild(ComponentId, child.id);
+            }catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(table, "Please enter a number and a percentile!");
+            }
+            table.update();
+            tablePanel.revalidate();
+            tablePanel.repaint();
+        }
     }
 
     public static void removeCol(int parentID, int ComponentId){
         System.out.println("Remove Column");
         Component.deleteChild(parentID, ComponentId);
-        table.repaint();
+        table.update();
+        tablePanel.revalidate();
+        tablePanel.repaint();
     }
 }
