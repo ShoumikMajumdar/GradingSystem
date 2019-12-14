@@ -9,11 +9,20 @@ import java.util.ArrayList;
 public class Component {
     private static int nextID = 0;
 
+    private static final String DATA_KEY = "component_next_id";
+
+    public static void restore() {
+        nextID = GradingSystem.infoRd.getData(DATA_KEY);
+        if (nextID < 0) {
+            nextID = 0;
+        }
+    }
     public static Component create(String name, int points, double percent) {
         Component c = null;
        if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
            c = build(nextID, name, points, percent);
            ++nextID;
+           GradingSystem.infoRd.setData(DATA_KEY, nextID);
        }
         return c;
     }

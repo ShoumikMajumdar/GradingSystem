@@ -23,7 +23,19 @@ public class GradingSystem {
 
     public static final CommentReader commentRd = new CommentReader();
 
+    public static final CurveReader curveRd = new CurveReader();
+
+    public static final InfoReader infoRd = new InfoReader();
+
     public GradingSystem() {
+    }
+
+    public static void init() {
+        Component.restore();
+        Course.restore();
+        Section.restore();
+        Template.restore();
+        Student.restore();
     }
 
     public static void queryTableData(int cid, int sid, Component root,

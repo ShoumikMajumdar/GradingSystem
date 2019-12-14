@@ -22,6 +22,8 @@ public class Course {
 
     public int tid; // template id
 
+    private static final String DATA_KEY = "course_next_id";
+
     public static Course build(int id, String name) {
         Course c = new Course(id, name);
         return c;
@@ -37,8 +39,16 @@ public class Course {
         if (GradingSystem.courseRd.createCourse(nextID, name)) {
             c = Course.build(nextID, name);
             ++nextID;
+            GradingSystem.infoRd.setData(DATA_KEY, nextID);
         }
         return c;
+    }
+
+    public static void restore() {
+        nextID = GradingSystem.infoRd.getData(DATA_KEY);
+        if (nextID < 0) {
+            nextID = 0;
+        }
     }
 
     public static void delete(int cid) {
@@ -113,4 +123,5 @@ public class Course {
         }
         return Component.rebuildComponentTree(tdb.getRootId());
     }
+
 }

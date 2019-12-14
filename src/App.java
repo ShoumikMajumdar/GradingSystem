@@ -1,5 +1,6 @@
 import ui.panel.MainPanel;
 import ui.panel.UIController;
+import logic.GradingSystem;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,9 @@ public class App {
             e.printStackTrace();
         }
         UIController uiController = new UIController();
+
+        GradingSystem.init();
+
 //        frame = new JFrame();
 //        frame.setBounds(UIConsts.MAIN_WINDOW_X, UIConsts.MAIN_WINDOW_Y,
 //                        UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
