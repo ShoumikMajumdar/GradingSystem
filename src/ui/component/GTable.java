@@ -34,13 +34,12 @@ public class GTable extends JPanel{
 
     public void update() {
         removeAll();
-        SwingUtilities.updateComponentTreeUI(this);
+        // SwingUtilities.updateComponentTreeUI(this);
         root = Course.getRoot(courseId);
         ArrayList<Student> students = new ArrayList<Student>();
         ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
         ArrayList<Bonus> bonus = new ArrayList<Bonus>();
         ArrayList<Comment> comments = new ArrayList<Comment>();
-//        Component.buildTestData(students, grades, bonus, comments, root);
         GradingSystem.queryTableData(courseId, sectionId, root, students, grades, bonus, comments);
         if(students.isEmpty()){
             System.out.println("buidlign data....");
@@ -73,10 +72,20 @@ public class GTable extends JPanel{
                         grd.get(j).courseID);
                 columns.put(grd.get(j).componentID, txtGrade);
                 add(txtGrade, gbcGrade);
+
             }
             tableMap.put(grd.get(0).studentID, columns);
+
+            int finalGrade = root.calculateFinalGrade(grd);
+            GridBagConstraints gbcFinal = new GridBagConstraints(
+                xStart + 1 + grd.size(), yStart + i, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0), 0, 0
+                );
+            JLabel lblFinalGrade = new JLabel("" + finalGrade);
+            add(lblFinalGrade, gbcFinal);
         }
-        SwingUtilities.updateComponentTreeUI(this);
+        // SwingUtilities.updateComponentTreeUI(this);
     }
 
     protected void buildTableHeader(Component root) {

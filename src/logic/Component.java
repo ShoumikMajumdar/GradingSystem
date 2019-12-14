@@ -190,6 +190,18 @@ public class Component {
         return root;
     }
 
+    public int calculateFinalGrade(ArrayList<Grade> grades) {
+        if (children.isEmpty()) {
+            return grades.remove(0).points;
+        }
+        double finalGrade = 0;
+        for (Entry<Integer, Component> e : children.entrySet()) {
+            finalGrade += e.getValue().calculateFinalGrade(grades) * e.getValue().percent;
+        }
+
+        return (int)finalGrade;
+    }
+
     /**
      * Build a test component
      * |---------------------------------------------------------------------------------------------------|
@@ -279,4 +291,5 @@ public class Component {
         System.out.println("Height " + root.getHeight());
         System.out.println("Width " + root.getWidth());
     }
+
 }
