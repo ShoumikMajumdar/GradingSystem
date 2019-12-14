@@ -55,6 +55,13 @@ public class MySQLTableCreation {
             sql = "DROP TABLE IF EXISTS comment_table";
             stmt.executeUpdate(sql);
 
+            sql = "DROP TABLE IF EXISTS  info_table";
+            stmt.execute(sql);
+
+            sql = "DROP TABLE IF EXISTS  curve_table";
+            stmt.execute(sql);
+
+
 
             // Step 3 Create new tables
 
@@ -128,6 +135,22 @@ public class MySQLTableCreation {
                     + "comment varchar(255), "
                     + "PRIMARY KEY (course_id, student_id, component_id) )";
             stmt.executeUpdate(sql);
+
+            // info table
+            sql = "CREATE TABLE info_table ("
+                    + "key_ varchar (255),"
+                    + "value_ INTEGER ,"
+                    + "PRIMARY KEY (key_) )";
+            stmt.executeUpdate(sql);
+
+            // curve table
+            sql = "CREATE TABLE curve_table ("
+                    + "session_id INTEGER ,"
+                    + "points INTEGER ,"
+                    + "PRIMARY KEY (session_id) )";
+            stmt.executeUpdate(sql);
+
+
 
             System.out.println("Import is done successfully.");
 
