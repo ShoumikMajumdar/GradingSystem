@@ -13,6 +13,8 @@ public class Section {
 
     public HashMap<Integer, Student> students;
 
+    private static final String DATA_KEY = "section_next_id";
+
     public static Section build(int id) {
         Section s = new Section(id);
         return s;
@@ -23,8 +25,16 @@ public class Section {
         if (GradingSystem.sectionRd.createSection(nextID)) {
             s = Section.build(nextID);
             ++nextID;
+            GradingSystem.infoRd.setData(DATA_KEY, nextID);
         }
         return s;
+    }
+
+    public static void restore() {
+        nextID = GradingSystem.infoRd.getData(DATA_KEY);
+        if (nextID < 0) {
+            nextID = 0;
+        }
     }
 
     public static void delete(int id) {

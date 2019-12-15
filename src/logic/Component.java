@@ -9,11 +9,20 @@ import java.util.ArrayList;
 public class Component {
     private static int nextID = 0;
 
+    private static final String DATA_KEY = "component_next_id";
+
+    public static void restore() {
+        nextID = GradingSystem.infoRd.getData(DATA_KEY);
+        if (nextID < 0) {
+            nextID = 0;
+        }
+    }
     public static Component create(String name, int points, double percent) {
         Component c = null;
        if (GradingSystem.componentRd.createComponent(nextID, name, percent, points)) {
            c = build(nextID, name, points, percent);
            ++nextID;
+           GradingSystem.infoRd.setData(DATA_KEY, nextID);
        }
         return c;
     }
@@ -190,6 +199,18 @@ public class Component {
         return root;
     }
 
+    public int calculateFinalGrade(ArrayList<Grade> grades) {
+        if (children.isEmpty()) {
+            return grades.remove(0).points;
+        }
+        double finalGrade = 0;
+        for (Entry<Integer, Component> e : children.entrySet()) {
+            finalGrade += e.getValue().calculateFinalGrade(grades) * e.getValue().percent;
+        }
+
+        return (int)finalGrade;
+    }
+
     /**
      * Build a test component
      * |---------------------------------------------------------------------------------------------------|
@@ -248,8 +269,6 @@ public class Component {
 
     public static void buildTestData(ArrayList<Student> students,
                                      ArrayList<ArrayList<Grade>> grades,
-                                     ArrayList<Bonus> bonus,
-                                     ArrayList<Comment> comments,
                                      Component root) {
         students.add(Student.build(1, "Default User"));
 
@@ -264,9 +283,6 @@ public class Component {
             }
             grades.add(gradesOfStudent);
         }
-
-        bonus.add(Bonus.build(0, students.get(0).id, leafComponent.get(0).id, 10));
-        comments.add(Comment.build(0, students.get(0).id, leafComponent.get(0).id, "Well Done!"));
     }
 
     public static void main(String[] args) {
@@ -279,4 +295,5 @@ public class Component {
         System.out.println("Height " + root.getHeight());
         System.out.println("Width " + root.getWidth());
     }
+
 }

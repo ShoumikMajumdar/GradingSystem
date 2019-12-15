@@ -22,6 +22,8 @@ public class Course {
 
     public int tid; // template id
 
+    private static final String DATA_KEY = "course_next_id";
+
     public static Course build(int id, String name) {
         Course c = new Course(id, name);
         return c;
@@ -37,8 +39,16 @@ public class Course {
         if (GradingSystem.courseRd.createCourse(nextID, name)) {
             c = Course.build(nextID, name);
             ++nextID;
+            GradingSystem.infoRd.setData(DATA_KEY, nextID);
         }
         return c;
+    }
+
+    public static void restore() {
+        nextID = GradingSystem.infoRd.getData(DATA_KEY);
+        if (nextID < 0) {
+            nextID = 0;
+        }
     }
 
     public static void delete(int cid) {
@@ -74,11 +84,11 @@ public class Course {
         // Use helper function to fetch list of component ID
         //Use student IDs, Component IDs and Course ID to delete scores using ScoresReader.deleteScores
 
-        ArrayList<Integer> StudentID = new ArrayList<Integer>(GradingSystem.studentRd.queryStudents(sid));
-        ArrayList<Integer> componentId = new ArrayList<>(getAllLeafComponentID(cid));
+        ArrayList<Integer> ListStudentID = new ArrayList<>(GradingSystem.studentRd.queryStudents(sid));
+        ArrayList<Integer> ListcomponentId = new ArrayList<>(getAllLeafComponentID(cid));
 
-        for (int i=0;i<sid;i++){
-            for (int j=0;j<componentId.size();j++){
+        for (int i=0;i<ListStudentID.size();i++){
+            for (int j=0;j<ListcomponentId.size();j++){
                 GradingSystem.scoreRd.deleteScore(i,cid,j);
             }
         }
@@ -113,4 +123,5 @@ public class Course {
         }
         return Component.rebuildComponentTree(tdb.getRootId());
     }
+
 }

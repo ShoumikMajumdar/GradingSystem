@@ -6,6 +6,8 @@ public class Template {
 
     private static int nextID;
 
+    private static final String DATA_KEY = "template_next_id";
+
     public int id;
 
     public String name;
@@ -29,8 +31,16 @@ public class Template {
         if (GradingSystem.templateRd.createTemplate(nextID, name, root.id)) {
             t = build(nextID, name, root);
             ++nextID;
+            GradingSystem.infoRd.setData(DATA_KEY, nextID);
         }
         return t;
+    }
+
+    public static void restore() {
+        nextID = GradingSystem.infoRd.getData(DATA_KEY);
+        if (nextID < 0) {
+            nextID = 0;
+        }
     }
 
     public static boolean delete(int id) {

@@ -21,6 +21,8 @@ customize the template as much as possible. It feels like MS EXcel but
 the template you created is persisten and reusealbe in different
 courses.
 
+# Scope
+
 # Class Design
 
 In this program, we split classes into three categories. The frist
@@ -98,5 +100,13 @@ use these variables everywhere easily in the program.
 This class defines some methods which might be used by the panel
 classes. These methods makes switching from different panels much more
 easier.
+
+### Components
+
+We extend some components from Swing to help us do our work much more
+easier. An important part of the extension is the `GTable` which
+almost contain all the main features of our program. Other components
+defined some reusable callback functions which are extensively used in
+the `GTable` component.
 
 ## Database
