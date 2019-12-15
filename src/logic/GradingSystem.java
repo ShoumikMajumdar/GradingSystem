@@ -4,6 +4,7 @@ import db.*;
 import Student.StudentDB;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GradingSystem {
 
@@ -60,5 +61,39 @@ public class GradingSystem {
             }
             grades.add(g);
         }
+    }
+
+    public static double average(ArrayList<Double> data) {
+        double sum = 0;
+        for (Double d : data) {
+            sum += d.doubleValue();
+        }
+        sum /= data.size();
+        return sum;
+    }
+
+    public static double mean(ArrayList<Double> data) {
+        double mean = 0;
+        int n = data.size();
+        Collections.sort(data);
+        if (data.size() % 2 == 0) {
+            mean = (data.get(n / 2) + data.get(n / 2 - 1)) / 2;
+        } else {
+            mean = data.get(n / 2);
+        }
+        return mean;
+    }
+
+    public static double stddev(ArrayList<Double> data) {
+        double avg = average(data);
+        double stddev = 0;
+        double diff;
+        for (Double d : data) {
+            diff = avg - d.doubleValue();
+            stddev += diff * diff;
+        }
+        stddev /= data.size();
+        stddev = Math.sqrt(stddev);
+        return stddev;
     }
 }

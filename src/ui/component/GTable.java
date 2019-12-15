@@ -98,7 +98,7 @@ public class GTable extends JPanel{
         }
 
         ArrayList<Double> average = new ArrayList<Double>();
-        ArrayList<Integer> finals = new ArrayList<Integer>();
+        ArrayList<Double> finals = new ArrayList<Double>();
 
         int xStart = 0;
         int yStart = root.getHeight();
@@ -131,7 +131,7 @@ public class GTable extends JPanel{
             }
 
             int finalGrade = root.calculateFinalGrade(grdClone);
-            finals.add(finalGrade);
+            finals.add(Double.valueOf(finalGrade));
             GridBagConstraints gbcFinal = getConstraints(xStart, yStart, 1, 1);
             JLabel lblFinalGrade = new JLabel("" + finalGrade);
             add(lblFinalGrade, gbcFinal);
@@ -146,11 +146,11 @@ public class GTable extends JPanel{
         ++xStart;
 
         for (int i = 0; i < grades.get(0).size(); ++i) {
-            int total = 0;
+            ArrayList<Double> data = new ArrayList<Double>();
             for (int j = 0; j < grades.size(); ++j) {
-                total += grades.get(j).get(i).points;
+                data.add(Double.valueOf(grades.get(j).get(i).points));
             }
-            double avg = (double)total / grades.size();
+            double avg = GradingSystem.average(data);
             average.add(Double.valueOf(avg));
             GridBagConstraints gbcAvg = getConstraints(xStart, yStart, 1, 1);
             JLabel lblAvg = new JLabel("" + (int)avg);
@@ -158,11 +158,7 @@ public class GTable extends JPanel{
             ++xStart;
         }
 
-        double finalAvg = 0;
-        for (int i = 0; i < finals.size(); ++i) {
-            finalAvg += finals.get(i);
-        }
-        finalAvg /= finals.size();
+        double finalAvg = GradingSystem.average(finals);
         GridBagConstraints gbcFinAvgLbl = getConstraints(xStart, yStart, 1, 1);
         JLabel lblFinAvg = new JLabel("" + (int)finalAvg);
         add(lblFinAvg, gbcFinAvgLbl);
@@ -177,30 +173,18 @@ public class GTable extends JPanel{
         ++xStart;
 
         for (int i = 0; i < grades.get(0).size(); ++i) {
-            ArrayList<Integer> p = new ArrayList<Integer>();
+            ArrayList<Double> data = new ArrayList<Double>();
             for (int j = 0; j < grades.size(); ++j) {
-                p.add(grades.get(j).get(i).points);
+                data.add(Double.valueOf(grades.get(j).get(i).points));
             }
-            Collections.sort(p);
-            double mean = 0;
-            if (p.size() % 2 == 0) {
-                mean = (p.get(p.size() / 2) + p.get(p.size() / 2 - 1)) / 2;;
-            } else {
-                mean = p.get(p.size() / 2);
-            }
+            double mean = GradingSystem.mean(data);
             GridBagConstraints gbcMean = getConstraints(xStart, yStart, 1, 1);
             JLabel lblMean = new JLabel("" + (int)mean);
             add(lblMean, gbcMean);
             ++xStart;
         }
 
-        double finMean = 0;
-        Collections.sort(finals);
-        if (finals.size() % 2 == 0) {
-            finMean = (finals.get(finals.size() / 2) + finals.get(finals.size() / 2 - 1)) / 2;
-        } else {
-            finMean = finals.get(finals.size() / 2);
-        }
+        double finMean = GradingSystem.mean(finals);
         GridBagConstraints gbcFinMeanLbl = getConstraints(xStart, yStart, 1, 1);
         JLabel lblFinMean= new JLabel("" + (int)finMean);
         add(lblFinMean, gbcFinMeanLbl);
@@ -215,26 +199,18 @@ public class GTable extends JPanel{
         ++xStart;
 
         for (int i = 0; i < grades.get(0).size(); ++i) {
-            double std = 0;
+            ArrayList<Double> data = new ArrayList<Double>();
             for (int j = 0; j < grades.size(); ++j) {
-                double diff = grades.get(j).get(i).points - average.get(i);
-                std += diff * diff;
+                data.add(Double.valueOf(grades.get(j).get(i).points));
             }
-            std /= grades.size();
-            std = Math.sqrt(std);
+            double std = GradingSystem.stddev(data);
             GridBagConstraints gbcStdDev = getConstraints(xStart, yStart, 1, 1);
             JLabel lblStdDev = new JLabel("" + (int)std);
             add(lblStdDev, gbcStdDev);
             ++xStart;
         }
 
-        double finStdDev = 0;
-        for (int i = 0; i < finals.size(); ++i) {
-            double diff = finals.get(i) - finalAvg;
-            finStdDev += diff * diff;
-        }
-        finStdDev /= finals.size();
-        finStdDev = Math.sqrt(finStdDev);
+        double finStdDev = GradingSystem.stddev(finals);
         GridBagConstraints gbcFinStdLbl = getConstraints(xStart, yStart, 1, 1);
         JLabel lblFinStdDev = new JLabel("" + (int)finStdDev);
         add(lblFinStdDev, gbcFinStdLbl);
