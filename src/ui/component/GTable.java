@@ -74,6 +74,7 @@ public class GTable extends JPanel{
                 add(txtGrade, gbcGrade);
             }
             tableMap.put(grd.get(0).studentID, columns);
+
         }
         SwingUtilities.updateComponentTreeUI(this);
     }
