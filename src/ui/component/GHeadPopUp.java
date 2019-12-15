@@ -1,5 +1,6 @@
 package ui.component;
 
+import logic.Component;
 import ui.panel.UIController;
 
 import javax.swing.*;
@@ -16,15 +17,18 @@ public class GHeadPopUp extends JPopupMenu{
         JMenuItem addCol = new JMenuItem("Add Column");
         addCol.addActionListener(new PopUpListener());
 
-//        JMenuItem editCol = new JMenuItem("Edit Column");
-//        editCol.addActionListener(new PopUpListener());
 
         JMenuItem removeCol = new JMenuItem("Delete Column");
         removeCol.addActionListener(new PopUpListener());
 
+        JMenuItem editR = new JMenuItem("Edit Rubric");
+        editR.addActionListener(new PopUpListener());
+
         add(addCol);
-//        add(editCol);
         add(removeCol);
+        if(!Component.rebuildComponentTree(parentId).children.isEmpty()){
+            add(editR);
+        }
     }
 
     public class PopUpListener implements ActionListener {
@@ -32,8 +36,8 @@ public class GHeadPopUp extends JPopupMenu{
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("Add Column")){
                 UIController.addCol(cid);
-            } else if (e.getActionCommand().equals("Edit Column")){
-//                UIController.editCol(cid);
+            } else if (e.getActionCommand().equals("Edit Rubric")){
+                UIController.editRubric(parentId, cid);
             } else if (e.getActionCommand().equals("Delete Column")){
                 UIController.removeCol(parentId, cid);
             }

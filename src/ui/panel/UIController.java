@@ -8,6 +8,7 @@ import ui.component.GTextField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class UIController extends JFrame {
 
@@ -210,6 +211,37 @@ public class UIController extends JFrame {
                 Component.addChild(ComponentId, child.id);
             }catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(table, "Please enter a number and a percentile!");
+            }
+            table.update();
+            tablePanel.revalidate();
+            tablePanel.repaint();
+        }
+    }
+
+    public static void editRubric(int parentID, int ComponentId){
+        System.out.println("Edit Rubrics");
+        Component parent = Component.rebuildComponentTree(parentID);
+        JPanel tmp = new JPanel();
+        Object[] arr = new Object[parent.children.size()]; // store JTextfileds
+        for (Map.Entry<Integer, Component> entry : parent.children.entrySet()){
+            tmp.add(new JLabel(entry.getValue().name));
+            tmp.add(new JTextField(5));
+        }
+
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                tmp,
+                "Please Enter the rubrics",
+                JOptionPane.OK_CANCEL_OPTION
+        );
+
+        if(result == JOptionPane.OK_OPTION){
+            try{
+                for (Map.Entry<Integer, Component> entry : parent.children.entrySet()){
+                    // TODO: 12/15/19 update component rubrics
+                }
+            }catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(table, "Invalid input");
             }
             table.update();
             tablePanel.revalidate();
