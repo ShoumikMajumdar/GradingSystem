@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collections;
 
 public class GTable extends JPanel{
 
@@ -118,7 +117,8 @@ public class GTable extends JPanel{
                     "" + grd.get(j).points,
                     grd.get(j).studentID,
                     grd.get(j).componentID,
-                        grd.get(j).courseID);
+                        grd.get(j).courseID,
+                        sectionId);
                 columns.put(grd.get(j).componentID, txtGrade);
                 add(txtGrade, gbcGrade);
                 ++xStart;

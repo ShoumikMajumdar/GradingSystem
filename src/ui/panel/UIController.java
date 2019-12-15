@@ -62,13 +62,13 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void switchTablePanel(int cid, int sid){
+    public void switchTablePanel(int cid, int GTable){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        table = new GTable(cid, sid);
-        System.out.println("course id: "+ cid +"section id: " + sid);
-        tablePanel = new TablePanel(table);
+        table = new GTable(cid, GTable);
+        System.out.println("course id: "+ cid +"section id: " + GTable);
+        tablePanel = new TablePanel(this, table, cid);
         holderPanel.add(tablePanel);
         frame.add(holderPanel);
         frame.repaint();
@@ -138,15 +138,17 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void addComments(int sid, int cid){
+    public static void addComments(int sid, int cid, int sectionId){
         GTextField cell = table.getCell(sid, cid);
         String comments = JOptionPane.showInputDialog("Current comment: "+ cell.getComments() + ".\n Change comment to:");
         cell.setComments(comments);
-        Comment.create(0, sid, cid, comments);
-        table.repaint();
+        Comment.create(sectionId, sid, cid, comments);
+        table.update();
+        tablePanel.revalidate();
+        tablePanel.repaint();
     }
 
-    public static void addBonus(int sid, int cid){
+    public static void addBonus(int sid, int cid, int sectionId){
         GTextField cell = table.getCell(sid, cid);
         String bonus = JOptionPane.showInputDialog("Current bonus: "+ cell.getBonus() + ".\n Change bonus to:");
         try {
@@ -154,12 +156,14 @@ public class UIController extends JFrame {
                 int num = 0;
                 num = Integer.parseInt(bonus);
                 cell.setBonus(num);
-                Bonus.create(0, sid, cid, num);
+                Bonus.create(sectionId, sid, cid, num);
             }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(table, "Please enter a number!");
         }
         table.update();
+        tablePanel.revalidate();
+        tablePanel.repaint();
     }
 
     public static void addRow(int sectionId){

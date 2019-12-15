@@ -14,24 +14,28 @@ public class GTextField
     private int bonus;
     private String comments;
     private int courseID;
+    private int sectionId;
 
 
-    public GTextField(String s, int sid, int cid, int courseID) {
+    public GTextField(String s, int sid, int cid, int courseID, int sectionId) {
         super(s);
         studentID = sid;
         componentID = cid;
         this.courseID = courseID;
+        this.sectionId = sectionId;
         bonus = 0;
         comments = "";
         addActionListener(this);
         addFocusListener(this);
         addMouseListener(this);
-
     }
 
-    public GTextField(String s, int sid, int cid, int bonus, String comments) {
-        new GTextField(s, sid, cid,bonus,comments);
+    public GTextField(String s, int sid, int cid, int sectionId, int bonus, String comments) {
+        new GTextField(s, sid, cid, sectionId, bonus, comments);
         this.bonus = bonus;
+        if(bonus > 0){
+            this.setBackground(Color.YELLOW);
+        }
         this.comments = comments;
     }
 
@@ -81,7 +85,7 @@ public class GTextField
     }
 
     private void showPopUp(MouseEvent e){
-        GCellPopUp Popup = new GCellPopUp(this.studentID, this.componentID);
+        GCellPopUp Popup = new GCellPopUp(this.studentID, this.componentID, this.sectionId);
         Popup.show(e.getComponent(), e.getX(), e.getY());
     }
 
