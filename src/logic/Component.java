@@ -269,8 +269,6 @@ public class Component {
 
     public static void buildTestData(ArrayList<Student> students,
                                      ArrayList<ArrayList<Grade>> grades,
-                                     ArrayList<Bonus> bonus,
-                                     ArrayList<Comment> comments,
                                      Component root) {
         students.add(Student.build(1, "Default User"));
 
@@ -285,9 +283,6 @@ public class Component {
             }
             grades.add(gradesOfStudent);
         }
-
-        bonus.add(Bonus.build(0, students.get(0).id, leafComponent.get(0).id, 10));
-        comments.add(Comment.build(0, students.get(0).id, leafComponent.get(0).id, "Well Done!"));
     }
 
     public static void main(String[] args) {

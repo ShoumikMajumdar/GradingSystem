@@ -40,9 +40,7 @@ public class GradingSystem {
 
     public static void queryTableData(int cid, int sid, Component root,
                                       ArrayList<Student> students,
-                                      ArrayList<ArrayList<Grade>> grades,
-                                      ArrayList<Bonus> bonus,
-                                      ArrayList<Comment> comments) {
+                                      ArrayList<ArrayList<Grade>> grades) {
         ArrayList<Integer> studentID = studentRd.queryStudents(sid);
 
         // first we build the student array
@@ -53,21 +51,12 @@ public class GradingSystem {
 
         // then we fill the grades, bonus and comments
         ArrayList<Integer> leafChildrenID = Component.getAllLeafChildrenID(root.id);
+
         for (Student s  : students) {
             ArrayList<Grade> g = new ArrayList<Grade>();
             for (Integer i : leafChildrenID) {
                 double points = scoreRd.getScore(cid, s.id, i.intValue());
                 g.add(Grade.build(cid, s.id, i.intValue(), (int)points));
-
-                double b = bonusRd.getBonus(cid, s.id, i.intValue());
-                if (b != 0) {
-                    bonus.add(Bonus.build(cid, s.id, i.intValue(), (int)b));
-                }
-
-                String comment = commentRd.getComment(cid, s.id, i.intValue());
-                if (!comment.isEmpty()) {
-                    comments.add(Comment.build(cid, s.id, i.intValue(), comment));
-                }
             }
             grades.add(g);
         }

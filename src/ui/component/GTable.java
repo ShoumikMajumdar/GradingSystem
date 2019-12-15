@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Collections;
 
 public class GTable extends JPanel{
 
@@ -15,14 +16,6 @@ public class GTable extends JPanel{
     private HashMap<Integer, HashMap<Integer, GTextField>> tableMap = new HashMap<>();
     private int courseId;
     private int sectionId;
-
-    public GTable(){
-        super(true);
-        setLayout(new GridBagLayout());
-//        Component.buildTestData(students, grades, bonus, comments, Component.buildTestComponent());
-        Component.buildTestComponent();
-        update();
-    }
 
     public GTable(int courseId, int sectionId){
         super(true);
@@ -34,68 +27,20 @@ public class GTable extends JPanel{
 
     public void update() {
         removeAll();
-        // SwingUtilities.updateComponentTreeUI(this);
+
         root = Course.getRoot(courseId);
-        ArrayList<Student> students = new ArrayList<Student>();
-        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
-        ArrayList<Bonus> bonus = new ArrayList<Bonus>();
-        ArrayList<Comment> comments = new ArrayList<Comment>();
-        GradingSystem.queryTableData(courseId, sectionId, root, students, grades, bonus, comments);
-        if(students.isEmpty()){
-            System.out.println("buidlign data....");
-            Component.buildTestData(students, grades, bonus, comments, root);
-        }
+
 
         buildTableHeader(root);
-        int xStart = 0;
-        int yStart = root.getHeight();
-        for (int i = 0; i < students.size(); ++i) {
-            GridBagConstraints gbcStudent = new GridBagConstraints(
-                xStart, yStart + i, 1, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 0), 0, 0);
-            GLabel lblStudent = new GLabel(students.get(i).name, students.get(i).id, sectionId);
-            add(lblStudent, gbcStudent);
 
-            ArrayList<Grade> grd = grades.get(i);
-            HashMap<Integer, GTextField> columns = new HashMap<>();
-            for (int j = 0; j < grd.size(); ++j) {
-                GridBagConstraints gbcGrade = new GridBagConstraints(
-                    xStart + 1 + j, yStart + i, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0);
-
-                GTextField txtGrade = new GTextField(
-                    "" + grd.get(j).points,
-                    grd.get(j).studentID,
-                    grd.get(j).componentID,
-                        grd.get(j).courseID);
-                columns.put(grd.get(j).componentID, txtGrade);
-                add(txtGrade, gbcGrade);
-
-            }
-            tableMap.put(grd.get(0).studentID, columns);
-
-            int finalGrade = root.calculateFinalGrade(grd);
-            GridBagConstraints gbcFinal = new GridBagConstraints(
-                xStart + 1 + grd.size(), yStart + i, 1, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 0), 0, 0
-                );
-            JLabel lblFinalGrade = new JLabel("" + finalGrade);
-            add(lblFinalGrade, gbcFinal);
-        }
-        // SwingUtilities.updateComponentTreeUI(this);
+        buildTableData(root);
     }
 
     protected void buildTableHeader(Component root) {
         int xStart = 0;
         int maxHeight = root.getHeight();
         int templateWidth = root.getWidth();
-        GridBagConstraints gbcName = new GridBagConstraints(
-            xStart, 0, 1, maxHeight, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 0, 0), 0, 0);
+        GridBagConstraints gbcName = getConstraints(xStart, 0, 1, maxHeight);
         JButton btnName = new JButton("Name");
         add(btnName, gbcName);
         ++xStart;
@@ -103,18 +48,12 @@ public class GTable extends JPanel{
         buildTemplateHeader(root, root.id, xStart, 0, templateWidth, maxHeight);
         xStart += templateWidth;
 
-        GridBagConstraints gbcFinal = new GridBagConstraints(
-            xStart, 0, 1, maxHeight, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 0, 0), 0, 0);
+        GridBagConstraints gbcFinal = getConstraints(xStart, 0, 1, maxHeight);
         JButton btnFinal = new JButton("Final");
         add(btnFinal, gbcFinal);
         ++xStart;
 
-        GridBagConstraints gbcBonus = new GridBagConstraints(
-            xStart, 0, 1, maxHeight, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 0, 0), 0, 0);
+        GridBagConstraints gbcBonus = getConstraints(xStart, 0, 1, maxHeight);
         JButton btnBonus = new JButton("Bonus");
         add(btnBonus, gbcBonus);
         ++xStart;
@@ -122,9 +61,7 @@ public class GTable extends JPanel{
 
     private void buildTemplateHeader(Component root, int parentId, int x, int y, int w, int max_h){
         if(!root.children.isEmpty()) {
-            GridBagConstraints gbc_new = new GridBagConstraints(
-                x, y, w, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
+            GridBagConstraints gbc_new = getConstraints(x, y, w, 1);
             GButton btn = new GButton(root.name, parentId, root.id);
             add(btn, gbc_new);
             int i = 0;
@@ -137,9 +74,7 @@ public class GTable extends JPanel{
                 ++i;
             }
         } else {
-            GridBagConstraints gbc_new = new GridBagConstraints(
-                x, y, w, max_h - y, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0);
+            GridBagConstraints gbc_new = getConstraints(x, y, w, max_h - y);
             GButton btn = new GButton(root.name, parentId, root.id);
             add(btn, gbc_new);
         }
@@ -151,5 +86,167 @@ public class GTable extends JPanel{
 
     public void repaint(){
 
+    }
+
+    protected void buildTableData(Component root) {
+
+        ArrayList<Student> students = new ArrayList<Student>();
+        ArrayList<ArrayList<Grade>> grades = new ArrayList<ArrayList<Grade>>();
+        GradingSystem.queryTableData(courseId, sectionId, root, students, grades);
+        if(students.isEmpty()){
+            Component.buildTestData(students, grades, root);
+        }
+
+        ArrayList<Double> average = new ArrayList<Double>();
+        ArrayList<Integer> finals = new ArrayList<Integer>();
+
+        int xStart = 0;
+        int yStart = root.getHeight();
+        for (int i = 0; i < students.size(); ++i) {
+            xStart = 0;
+            GridBagConstraints gbcStudent = getConstraints(xStart, yStart, 1, 1);
+            GLabel lblStudent = new GLabel(students.get(i).name, students.get(i).id, sectionId);
+            add(lblStudent, gbcStudent);
+            ++xStart;
+
+            ArrayList<Grade> grd = grades.get(i);
+            HashMap<Integer, GTextField> columns = new HashMap<>();
+            for (int j = 0; j < grd.size(); ++j) {
+                GridBagConstraints gbcGrade = getConstraints(xStart, yStart, 1, 1);
+
+                GTextField txtGrade = new GTextField(
+                    "" + grd.get(j).points,
+                    grd.get(j).studentID,
+                    grd.get(j).componentID,
+                        grd.get(j).courseID);
+                columns.put(grd.get(j).componentID, txtGrade);
+                add(txtGrade, gbcGrade);
+                ++xStart;
+            }
+            tableMap.put(grd.get(0).studentID, columns);
+
+            ArrayList<Grade> grdClone = new ArrayList<Grade>();
+            for (int x = 0; x < grd.size(); ++x) {
+                grdClone.add(grd.get(x));
+            }
+
+            int finalGrade = root.calculateFinalGrade(grdClone);
+            finals.add(finalGrade);
+            GridBagConstraints gbcFinal = getConstraints(xStart, yStart, 1, 1);
+            JLabel lblFinalGrade = new JLabel("" + finalGrade);
+            add(lblFinalGrade, gbcFinal);
+            ++xStart;
+            ++yStart;
+        }
+
+        xStart = 0;
+        GridBagConstraints gbcAvgLbl = getConstraints(xStart, yStart, 1, 1);
+        JLabel lblAvgName = new JLabel("Average");
+        add(lblAvgName, gbcAvgLbl);
+        ++xStart;
+
+        for (int i = 0; i < grades.get(0).size(); ++i) {
+            int total = 0;
+            for (int j = 0; j < grades.size(); ++j) {
+                total += grades.get(j).get(i).points;
+            }
+            double avg = (double)total / grades.size();
+            average.add(Double.valueOf(avg));
+            GridBagConstraints gbcAvg = getConstraints(xStart, yStart, 1, 1);
+            JLabel lblAvg = new JLabel("" + (int)avg);
+            add(lblAvg, gbcAvg);
+            ++xStart;
+        }
+
+        double finalAvg = 0;
+        for (int i = 0; i < finals.size(); ++i) {
+            finalAvg += finals.get(i);
+        }
+        finalAvg /= finals.size();
+        GridBagConstraints gbcFinAvgLbl = getConstraints(xStart, yStart, 1, 1);
+        JLabel lblFinAvg = new JLabel("" + (int)finalAvg);
+        add(lblFinAvg, gbcFinAvgLbl);
+        ++xStart;
+
+        ++yStart;
+
+        xStart = 0;
+        GridBagConstraints gbcMeanLbl = getConstraints(xStart, yStart, 1, 1);
+        JLabel lblMeanName = new JLabel("Mean");
+        add(lblMeanName, gbcMeanLbl);
+        ++xStart;
+
+        for (int i = 0; i < grades.get(0).size(); ++i) {
+            ArrayList<Integer> p = new ArrayList<Integer>();
+            for (int j = 0; j < grades.size(); ++j) {
+                p.add(grades.get(j).get(i).points);
+            }
+            Collections.sort(p);
+            double mean = 0;
+            if (p.size() % 2 == 0) {
+                mean = (p.get(p.size() / 2) + p.get(p.size() / 2 - 1)) / 2;;
+            } else {
+                mean = p.get(p.size() / 2);
+            }
+            GridBagConstraints gbcMean = getConstraints(xStart, yStart, 1, 1);
+            JLabel lblMean = new JLabel("" + (int)mean);
+            add(lblMean, gbcMean);
+            ++xStart;
+        }
+
+        double finMean = 0;
+        Collections.sort(finals);
+        if (finals.size() % 2 == 0) {
+            finMean = (finals.get(finals.size() / 2) + finals.get(finals.size() / 2 - 1)) / 2;
+        } else {
+            finMean = finals.get(finals.size() / 2);
+        }
+        GridBagConstraints gbcFinMeanLbl = getConstraints(xStart, yStart, 1, 1);
+        JLabel lblFinMean= new JLabel("" + (int)finMean);
+        add(lblFinMean, gbcFinMeanLbl);
+        ++xStart;
+
+        ++yStart;
+
+        xStart = 0;
+        GridBagConstraints gbcStdLbl = getConstraints(xStart, yStart, 1, 1);
+        JLabel lblStdName = new JLabel("Std Dev");
+        add(lblStdName, gbcStdLbl);
+        ++xStart;
+
+        for (int i = 0; i < grades.get(0).size(); ++i) {
+            double std = 0;
+            for (int j = 0; j < grades.size(); ++j) {
+                double diff = grades.get(j).get(i).points - average.get(i);
+                std += diff * diff;
+            }
+            std /= grades.size();
+            std = Math.sqrt(std);
+            GridBagConstraints gbcStdDev = getConstraints(xStart, yStart, 1, 1);
+            JLabel lblStdDev = new JLabel("" + (int)std);
+            add(lblStdDev, gbcStdDev);
+            ++xStart;
+        }
+
+        double finStdDev = 0;
+        for (int i = 0; i < finals.size(); ++i) {
+            double diff = finals.get(i) - finalAvg;
+            finStdDev += diff * diff;
+        }
+        finStdDev /= finals.size();
+        finStdDev = Math.sqrt(finStdDev);
+        GridBagConstraints gbcFinStdLbl = getConstraints(xStart, yStart, 1, 1);
+        JLabel lblFinStdDev = new JLabel("" + (int)finStdDev);
+        add(lblFinStdDev, gbcFinStdLbl);
+        ++xStart;
+
+        ++yStart;
+    }
+
+    protected GridBagConstraints getConstraints(int x, int y, int w, int h) {
+        return new GridBagConstraints(
+            x, y, w, h, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 0, 0), 0, 0);
     }
 }
