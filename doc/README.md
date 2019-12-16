@@ -118,6 +118,7 @@ This is the Base class which is responsible for initializing the connection to l
 This is the class which initialize the all the empty tables 
 
 ### Child class of BaseDBReader 
+All the child class of BaseDBReader will provide a set of API that returns the information associated with each entity in this project such as a course, an assignment, a particular student etc. 
 - CourseReader 
 - StudentReader 
 - ComponentReader etc.. 
