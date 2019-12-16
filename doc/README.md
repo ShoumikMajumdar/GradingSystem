@@ -110,3 +110,16 @@ defined some reusable callback functions which are extensively used in
 the `GTable` component.
 
 ## Database
+
+### BaseDBReader 
+This is the Base class which is responsible for initializing the connection to local database and stores the credentials for login information. 
+
+### MySQLTableCreation 
+This is the class which initialize the all the empty tables 
+
+### Child class of BaseDBReader 
+All the child class of BaseDBReader will provide a set of API that returns the information associated with each entity in this project such as a course, an assignment, a particular student etc. 
+- CourseReader 
+- StudentReader 
+- ComponentReader etc.. 
+All API definition can be found in `doc/API.java`
