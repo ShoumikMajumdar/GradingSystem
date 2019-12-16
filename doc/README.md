@@ -29,9 +29,9 @@ This is the Base class which is responsible for initializing the connection to l
 This is the class which initialize the all the empty tables 
 
 ### Child class of BaseDBReader 
--CourseReader 
--StudentReader 
--ComponentReader 
+- CourseReader 
+- StudentReader 
+- ComponentReader 
 etc.. 
 All API definition can be found in doc
 
