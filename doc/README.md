@@ -1,5 +1,5 @@
 # Overview
-  High level overview of the document and what I should expect to get out of reading this document
+  This documents will help you understand the details about our software. In this document we talk about the scope of our system. The reason why we made this software and how it helps the user with her tasks. We also talk abour our understanding of the users requirements and how we categorized it in terms of priority. We mention our goals - what we hope to achieve and also mention how much we managed to achieve in the time we were alloted. We mention the Additional features which are basically functionalities we hoped to add if given more time. This defines our future scope and potential room for inprovement. We further list the various packages and objects of our system and show how they interact with each other. The specefic functionalities of these objects are stated below in their respective sections.
 
 # Scope
   The user/client is looking for a grading system that can make it easier for her to organize the grades of the students enrolled in her courses at the end of the semester. She currently uses Microsoft Excel which is very flexible. However Microsoft Excel does not provide her the reusability and functionalities she is looking for. We are creating a software that provides her with the flexibilty of Microsoft Excel and provide reusability at the same time.
@@ -46,6 +46,7 @@ This package contatins all the necessary classes for the User Interface.
 
 ### Component
   This is the package that has the classes for our header components. They are responsible for the pop up features and the basic building blocks of our Tempalte header/table. The classes in this package are:
+    
     - GButton
     - GTextField
     - GLabel
@@ -56,6 +57,7 @@ This package contatins all the necessary classes for the User Interface.
 
 ### Panel
   The Panel Package hold the various classes for the UI panels. They are controlled by the UIController class that acts as a controller while swtiching between all the panels. The classes in this package are:
+  
     - UIController (Controller that helps switch between Panels)
     - MainPanel
     - CoursePanel
@@ -70,6 +72,7 @@ This package contatins all the necessary classes for the User Interface.
     
  ## Logic
   This package contains the classes necessary for logic. This is where we define the classes for our students, courses and templates to name a few. They also act as an interface between the UI and the Database. None of the UI components communicate with the Database directly. They only communicate with the database through the various logic classes. For instance, the CourseReader class (db Package) is responsible for inserting and deleting from the course table in the database. The UI panels can access the CourseReader only through the Course Class. The remaining logic classes also act as an interface between the UserInterface and Database in a similar way. The various classes in this package are: 
+  
     - Course
     - Component
     - Template
