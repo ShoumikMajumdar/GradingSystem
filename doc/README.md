@@ -109,7 +109,7 @@ almost contain all the main features of our program. Other components
 defined some reusable callback functions which are extensively used in
 the `GTable` component.
 
-## Database
+## DataBase Design 
 
 ### BaseDBReader 
 This is the Base class which is responsible for initializing the connection to local database and stores the credentials for login information. 
@@ -122,4 +122,6 @@ All the child class of BaseDBReader will provide a set of API that returns the i
 - CourseReader 
 - StudentReader 
 - ComponentReader etc.. 
+
 All API definition can be found in `doc/API.java`
+
