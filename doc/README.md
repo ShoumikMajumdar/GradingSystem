@@ -33,12 +33,54 @@
 # Goals
   Our goal was to make sure our software has all of the Non Negotiable features that we categorized. In addition we hoped to include most of the features from the Good to Have section.
   
+  We achieved our goal of making sure our software has all the Non Negotiables. In addition to that, our software has a Login Function, Statistics function and Bonus Point function.
+  
   
 # Object Diagrams
 UML diagram
 
 # Object Justification
 
+## UI
+This package contatins all the necessary classes for the User Interface.
+
+### Component
+  This is the package that has the classes for our header components. They are responsible for the pop up features and the basic building blocks of our Tempalte header/table. The classes in this package are:
+    - GButton
+    - GTextField
+    - GLabel
+    - GTable
+    - GRowPopup (Initialize pop up on rows)
+    - GCellPopup (Initialize pop up on cells)
+    - GHeadPopup (Initialize pop up on Headers)
+
+### Panel
+  The Panel Package hold the various classes for the UI panels. They are controlled by the UIController class that acts as a controller while swtiching between all the panels. The classes in this package are:
+    - UIController (Controller that helps switch between Panels)
+    - MainPanel
+    - CoursePanel
+    - TemplatePanel
+    - TabelPanel
+    - SectionList
+    - CreateCoursePanel
+    - CreateTemplatePanel
+    - SelectTemplatePanel
+    - LoginPanel
+    
+    
+ ## Logic
+  This package contains the classes necessary for logic. This is where we define the classes for our students, courses and templates to name a few. They also act as an interface between the UI and the Database. None of the UI components communicate with the Database directly. They only communicate with the database through the various logic classes. For instance, the CourseReader class (db Package) is responsible for inserting and deleting from the course table in the database. The UI panels can access the CourseReader only through the Course Class. The remaining logic classes also act as an interface between the UserInterface and Database in a similar way. The various classes in this package are: 
+    - Course
+    - Component
+    - Template
+    - Cell
+    - Comment
+    - Student
+    - Section
+    - Grade
+    - Bonus
+    - GradingSystem
+    
 ## DataBase Design 
 ### BaseDBReader 
 This is the Base class which is responsible for initializing the connection to local database and stores the credentials for login information. 
