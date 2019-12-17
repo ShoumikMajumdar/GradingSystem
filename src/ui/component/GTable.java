@@ -29,7 +29,6 @@ public class GTable extends JPanel{
 
         root = Course.getRoot(courseId);
 
-
         buildTableHeader(root);
 
         buildTableData(root);
@@ -112,13 +111,17 @@ public class GTable extends JPanel{
             HashMap<Integer, GTextField> columns = new HashMap<>();
             for (int j = 0; j < grd.size(); ++j) {
                 GridBagConstraints gbcGrade = getConstraints(xStart, yStart, 1, 1);
-
+                double bonus = GradingSystem.bonusRd.getBonus(grd.get(j).courseID, grd.get(j).studentID, grd.get(j).componentID);
+                String comments = GradingSystem.commentRd.getComment(grd.get(j).courseID, grd.get(j).studentID, grd.get(j).componentID);
                 GTextField txtGrade = new GTextField(
                     "" + grd.get(j).points,
                     grd.get(j).studentID,
                     grd.get(j).componentID,
                         grd.get(j).courseID,
-                        sectionId);
+                        sectionId,
+                        bonus,
+                        comments
+                        );
                 columns.put(grd.get(j).componentID, txtGrade);
                 add(txtGrade, gbcGrade);
                 ++xStart;

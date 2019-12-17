@@ -23,7 +23,6 @@ public class CreateTemplatePanel extends JPanel {
         addComponent();
         setContent();
         addListener(uiController);
-
     }
 
     public void initialize(int flag, int cid){
