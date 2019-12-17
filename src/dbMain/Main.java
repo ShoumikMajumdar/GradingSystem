@@ -1,14 +1,12 @@
 package dbMain;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import Component.ComponentDB;
 import Course.CourseDB;
 import Student.StudentDB;
 import Template.TemplateDB;
 import db.*;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -174,7 +172,6 @@ public class Main {
 
         // API 8. update component name given componnet id
         componentreader.changePoints(1,666);
-
 
 
 

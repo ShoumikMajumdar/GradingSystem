@@ -63,7 +63,7 @@ public class LoginPanel extends JPanel {
             if(uname.equals("admin")) {
                 if (pass.equals("admin")) {
                     JOptionPane.showMessageDialog(jp, "Welcome");
-                    uiController.switchMainPanel();
+                    uiController.switchCoursePanel();
                 }
                 else
                 {
