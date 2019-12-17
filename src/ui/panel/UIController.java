@@ -256,7 +256,13 @@ public class UIController extends JFrame {
     }
 
     public static void refreshTable(){
-        table.update();
+        table.update("");
+        tablePanel.revalidate();
+        tablePanel.repaint();
+    }
+
+    public static void refreshTable(String keyword) {
+        table.update(keyword);
         tablePanel.revalidate();
         tablePanel.repaint();
     }

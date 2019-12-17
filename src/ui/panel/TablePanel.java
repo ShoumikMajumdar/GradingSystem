@@ -11,6 +11,7 @@ public class TablePanel extends JPanel {
 
     private JButton Back = new JButton("Back");
     private JButton Curve = new JButton("Curve");
+    private JTextField txtSearch = new JTextField();
     private int cid;
     private int sid;
 
@@ -20,11 +21,15 @@ public class TablePanel extends JPanel {
         this.cid = cid;
         this.sid = sid;
         JScrollPane jsp = new JScrollPane(table);
-        jsp.setPreferredSize(new Dimension(UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT));
+        // jsp.setPreferredSize(new Dimension(UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT));
         jsp.setBounds(0,0, UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
         add(jsp, BorderLayout.CENTER);
-        add(Back, BorderLayout.NORTH);
-        add(Curve, BorderLayout.SOUTH);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(Back);
+        panel.add(Curve);
+        panel.add(txtSearch);
+        add(panel, BorderLayout.SOUTH);
         addListener(uiController);
     }
 
@@ -50,6 +55,11 @@ public class TablePanel extends JPanel {
                 }
 
                 GradingSystem.setCurve(sid, x);
+            });
+
+        txtSearch.addActionListener(e -> {
+                String keyword = txtSearch.getText();
+                uiController.refreshTable(keyword);
             });
     }
 }

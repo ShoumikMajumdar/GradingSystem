@@ -42,6 +42,9 @@ public class GTextField
             this.setBackground(Color.YELLOW);
         }
         this.comments = comments;
+        addActionListener(this);
+        addFocusListener(this);
+        addMouseListener(this);
     }
 
     @Override
