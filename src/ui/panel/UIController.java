@@ -236,10 +236,9 @@ public class UIController extends JFrame {
             try{
                 int i = 0;
                 for (Map.Entry<Integer, Component> entry : parent.children.entrySet()){
-                    // TODO: 12/15/19 update component rubrics
-                    Component component = entry.getValue();
                     JTextField tf = (JTextField) arr.get(i);
                     double percent = Double.parseDouble(tf.getText());
+                    GradingSystem.componentRd.changePercent(entry.getKey(), percent);
                     i++;
                 }
             }catch (NumberFormatException e){
@@ -247,6 +246,16 @@ public class UIController extends JFrame {
             }
             refreshTable();
         }
+    }
+
+    public static void editCol(int componentId, String name){
+        GradingSystem.componentRd.changeName(componentId, name);
+        refreshTable();
+    }
+
+    public static void changeColPoints(int componentId, double points){
+        GradingSystem.componentRd.changePoints(componentId, points);
+        refreshTable();
     }
 
     public static void removeCol(int parentID, int ComponentId){
