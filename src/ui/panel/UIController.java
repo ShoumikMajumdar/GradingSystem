@@ -8,6 +8,7 @@ import ui.component.GTextField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class UIController extends JFrame {
@@ -62,13 +63,13 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void switchTablePanel(int cid, int sid){
+    public void switchTablePanel(int cid, int sectionId){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        table = new GTable(cid, sid);
-        System.out.println("course id: "+ cid +"section id: " + sid);
-        tablePanel = new TablePanel(this, table, cid, sid);
+        table = new GTable(cid, sectionId);
+        System.out.println("course id: "+ cid +"section id: " + sectionId);
+        tablePanel = new TablePanel(this, table, cid, sectionId);
         holderPanel.add(tablePanel);
         frame.add(holderPanel);
         frame.repaint();
@@ -143,9 +144,7 @@ public class UIController extends JFrame {
         String comments = JOptionPane.showInputDialog("Current comment: "+ cell.getComments() + ".\n Change comment to:");
         cell.setComments(comments);
         Comment.create(sectionId, sid, cid, comments);
-        table.update();
-        tablePanel.revalidate();
-        tablePanel.repaint();
+        refreshTable();
     }
 
     public static void addBonus(int sid, int cid, int sectionId){
@@ -161,9 +160,7 @@ public class UIController extends JFrame {
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(table, "Please enter a number!");
         }
-        table.update();
-        tablePanel.revalidate();
-        tablePanel.repaint();
+        refreshTable();
     }
 
     public static void addRow(int sectionId){
@@ -171,17 +168,13 @@ public class UIController extends JFrame {
         String name = JOptionPane.showInputDialog("Enter a student's name:");
         Student s = Student.create(name);
         Section.addNewStudent(sectionId, s.id);
-        table.update();
-        tablePanel.revalidate();
-        tablePanel.repaint();
+        refreshTable();
     }
 
     public static void removeRow(int sid, int sectionId){
         System.out.println("Delete Row");
         Section.deleteStudent(sectionId, sid);
-        table.update();
-        tablePanel.revalidate();
-        tablePanel.repaint();
+        refreshTable();
     }
 
     public static void addCol(int ComponentId){
@@ -216,9 +209,7 @@ public class UIController extends JFrame {
             }catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(table, "Please enter a number and a percentile!");
             }
-            table.update();
-            tablePanel.revalidate();
-            tablePanel.repaint();
+            refreshTable();
         }
     }
 
@@ -226,10 +217,12 @@ public class UIController extends JFrame {
         System.out.println("Edit Rubrics");
         Component parent = Component.rebuildComponentTree(parentID);
         JPanel tmp = new JPanel();
-        Object[] arr = new Object[parent.children.size()]; // store JTextfileds
+        ArrayList<Object> arr = new ArrayList<>(); // store JTextfileds
         for (Map.Entry<Integer, Component> entry : parent.children.entrySet()){
             tmp.add(new JLabel(entry.getValue().name));
-            tmp.add(new JTextField(5));
+            JTextField tf = new JTextField(5);
+            tmp.add(tf);
+            arr.add(tf);
         }
 
         int result = JOptionPane.showConfirmDialog(
@@ -241,21 +234,28 @@ public class UIController extends JFrame {
 
         if(result == JOptionPane.OK_OPTION){
             try{
+                int i = 0;
                 for (Map.Entry<Integer, Component> entry : parent.children.entrySet()){
                     // TODO: 12/15/19 update component rubrics
+                    Component component = entry.getValue();
+                    JTextField tf = (JTextField) arr.get(i);
+                    double percent = Double.parseDouble(tf.getText());
+                    i++;
                 }
             }catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(table, "Invalid input");
             }
-            table.update();
-            tablePanel.revalidate();
-            tablePanel.repaint();
+            refreshTable();
         }
     }
 
     public static void removeCol(int parentID, int ComponentId){
         System.out.println("Remove Column");
         Component.deleteChild(parentID, ComponentId);
+        refreshTable();
+    }
+
+    public static void refreshTable(){
         table.update();
         tablePanel.revalidate();
         tablePanel.repaint();

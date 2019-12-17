@@ -1,6 +1,7 @@
 package ui.component;
 
 import logic.GradingSystem;
+import ui.panel.UIController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class GTextField
     implements ActionListener, FocusListener, MouseListener {
     private int studentID;
     private int componentID;
-    private int bonus;
+    private double bonus;
     private String comments;
     private int courseID;
     private int sectionId;
@@ -30,8 +31,12 @@ public class GTextField
         addMouseListener(this);
     }
 
-    public GTextField(String s, int sid, int cid, int sectionId, int bonus, String comments) {
-        new GTextField(s, sid, cid, sectionId, bonus, comments);
+    public GTextField(String s, int sid, int cid, int courseID, int sectionId, double bonus, String comments) {
+        super(s);
+        studentID = sid;
+        componentID = cid;
+        this.courseID = courseID;
+        this.sectionId = sectionId;
         this.bonus = bonus;
         if(bonus > 0){
             this.setBackground(Color.YELLOW);
@@ -98,7 +103,7 @@ public class GTextField
         }
     }
 
-    public int getBonus(){
+    public double getBonus(){
         return this.bonus;
     }
 
@@ -123,5 +128,6 @@ public class GTextField
         {
             GradingSystem.scoreRd.addScore(courseID,studentID,componentID,temp);
         }
+        UIController.refreshTable();
     }
 }
