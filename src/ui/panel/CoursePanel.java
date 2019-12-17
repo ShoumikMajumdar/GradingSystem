@@ -58,7 +58,7 @@ public class CoursePanel extends JPanel {
         label = new JLabel("Select Course");
         jp.add(label);
         back = new JButton("Back");
-        // jp.add(back);
+        jp.add(back);
         btnCreateCourse = new JButton("Create Course");
         jp.add(btnCreateCourse);
         btnDeleteCourse = new JButton("Delete Course");
@@ -94,7 +94,7 @@ public class CoursePanel extends JPanel {
         });
 
         back.addActionListener(e -> {
-            uiController.switchMainPanel();
+            uiController.switchLogin();
         });
 
     }
