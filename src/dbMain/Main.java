@@ -145,6 +145,7 @@ public class Main {
         componentreader.createComponent(3,"assignment 3",50.0, 30);
         componentreader.createComponent(4,"assignment 4",50.0, 30);
 
+
         // API 2 : add a child mapping [checked]
         componentreader.addChild(1,2);
         componentreader.addChild(2,3);
@@ -167,7 +168,13 @@ public class Main {
         System.out.println(component.toString());
 
         // API 6. update percent given componnet id
-        componentreader.changePercent(1,45);
+        componentreader.createComponent(5,"assignment 5",30.0, 15);
+        componentreader.changePercent(5,0.05);
+        ComponentDB component_2 = componentreader.queryComponent(5);
+        System.out.println("---------");
+        System.out.println(component_2.getPercent());
+        System.out.println("---------");
+
 
         // API 7. update component name given componnet id
         componentreader.changeName(1,"changed name");
