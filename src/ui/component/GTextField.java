@@ -40,9 +40,9 @@ public class GTextField
         this.bonus = bonus;
         this.comments = comments;
 
-        if(!comments.equals("") && bonus > 0){
+        if(comments != null && !comments.equals("") && bonus > 0){
             this.setBackground(Color.GREEN);
-        }else if(!comments.equals("")){
+        }else if(comments != null && !comments.equals("")){
             this.setBackground(Color.BLUE.brighter());
         }else if(bonus > 0){
             this.setBackground(Color.YELLOW);
@@ -105,13 +105,13 @@ public class GTextField
     public void setBonus(int bonus){
         this.bonus = bonus;
         if(bonus > 0){
-            if(!comments.equals("")){
+            if(comments != null && !comments.equals("")){
                 this.setBackground(Color.GREEN);
             }else{
                 this.setBackground(Color.YELLOW);
             }
         }else{
-            if(!comments.equals("")){
+            if(comments != null && !comments.equals("")){
                 this.setBackground(Color.BLUE.brighter());
             }else{
                 this.setBackground(null);
@@ -125,7 +125,7 @@ public class GTextField
 
     public void setComments(String comments){
         this.comments = comments;
-        if(!comments.equals("")){
+        if(comments != null && !comments.equals("")){
             if(bonus > 0){
                 this.setBackground(Color.GREEN);
             }else{
