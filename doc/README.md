@@ -40,7 +40,7 @@
 
 UML
 
-![alt text]{https://github.com/drcxd/GradingSystem/blob/master/doc/UML.png}
+![alt text](https://github.com/drcxd/GradingSystem/blob/master/doc/UML.png)
 
 # Object Justification
 
