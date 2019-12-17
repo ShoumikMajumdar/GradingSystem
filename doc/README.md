@@ -33,7 +33,7 @@
 # Goals
   Our goal was to make sure our software has all of the Non Negotiable features that we categorized. In addition we hoped to include most of the features from the Good to Have section.
   
-  We achieved our goal of making sure our software has all the Non Negotiables. In addition to that, our software has a Login Function, Statistics function and Bonus Point function.
+  We achieved our goal of making sure our software has all the Non Negotiables. Aditionally, our software has a Login Function, Statistics function and Bonus Point function that we categorized as the Good To Have features. We did not manage to include any of our Aditional Featues but we believe that some of them are achievable if we had more time on our hands.
   
   
 # Object Diagrams
