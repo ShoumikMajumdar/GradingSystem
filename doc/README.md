@@ -37,7 +37,10 @@
   
   
 # Object Diagrams
-UML diagram
+
+UML
+
+![alt text]{https://github.com/drcxd/GradingSystem/blob/master/doc/UML.png}
 
 # Object Justification
 
