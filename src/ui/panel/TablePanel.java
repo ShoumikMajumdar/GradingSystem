@@ -21,7 +21,7 @@ public class TablePanel extends JPanel {
         this.cid = cid;
         this.sid = sid;
         JScrollPane jsp = new JScrollPane(table);
-        // jsp.setPreferredSize(new Dimension(UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT));
+        jsp.setPreferredSize(new Dimension(UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT));
         jsp.setBounds(0,0, UIConsts.MAIN_WINDOW_WIDTH, UIConsts.MAIN_WINDOW_HEIGHT);
         add(jsp, BorderLayout.CENTER);
         JPanel panel = new JPanel();
