@@ -95,6 +95,8 @@ public class GTable extends JPanel{
             Component.buildTestData(students, grades, root);
         }
 
+        int curve = GradingSystem.getCurve(sectionId);
+
         ArrayList<Double> average = new ArrayList<Double>();
         ArrayList<Double> finals = new ArrayList<Double>();
 
@@ -134,6 +136,7 @@ public class GTable extends JPanel{
             }
 
             int finalGrade = root.calculateFinalGrade(grdClone);
+            finalGrade += curve;
             finals.add(Double.valueOf(finalGrade));
             GridBagConstraints gbcFinal = getConstraints(xStart, yStart, 1, 1);
             JLabel lblFinalGrade = new JLabel("" + finalGrade);
