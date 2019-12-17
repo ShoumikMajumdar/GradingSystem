@@ -51,13 +51,14 @@ public class GradingSystem {
         }
 
         // then we fill the grades, bonus and comments
-        ArrayList<Integer> leafChildrenID = Component.getAllLeafChildrenID(root.id);
+        ArrayList<Component> leafChildren = new ArrayList<Component>();
+        Component.getAllLeafChildren(leafChildren, root);
 
         for (Student s  : students) {
             ArrayList<Grade> g = new ArrayList<Grade>();
-            for (Integer i : leafChildrenID) {
-                double points = scoreRd.getScore(cid, s.id, i.intValue());
-                g.add(Grade.build(cid, s.id, i.intValue(), (int)points));
+            for (Component i : leafChildren) {
+                double points = scoreRd.getScore(cid, s.id, i.id);
+                g.add(Grade.build(cid, s.id, i.id, (int)points));
             }
             grades.add(g);
         }
@@ -103,5 +104,21 @@ public class GradingSystem {
 
     public static int getCurve(int sid) {
         return curveRd.getCurve(sid);
+    }
+
+    public static String digitToLetter(int i) {
+        if (i >= 90) {
+            return "A+";
+        }
+        if (i >= 85) {
+            return "A";
+        }
+        if (i >= 75) {
+            return "B+";
+        }
+        if (i >= 65) {
+            return "B-";
+        }
+        return "F";
     }
 }

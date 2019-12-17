@@ -49,11 +49,6 @@ public class TablePanel extends JPanel {
                     ex.printStackTrace();
                 }
 
-                if (x == 0) {
-                    JOptionPane.showMessageDialog(this, "Please input a number other than 0");
-                    return;
-                }
-
                 GradingSystem.setCurve(sid, x);
                 uiController.refreshTable();
             });

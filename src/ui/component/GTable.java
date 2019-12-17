@@ -59,6 +59,11 @@ public class GTable extends JPanel{
         JButton btnBonus = new JButton("Bonus");
         add(btnBonus, gbcBonus);
         ++xStart;
+
+        GridBagConstraints gbcLetter = getConstraints(xStart, 0, 1, maxHeight);
+        JButton btnLetter = new JButton("Letter");
+        add(btnLetter, gbcLetter);
+        ++xStart;
     }
 
     private void buildTemplateHeader(Component root, int parentId, int x, int y, int w, int max_h){
@@ -114,10 +119,12 @@ public class GTable extends JPanel{
             ++xStart;
 
             ArrayList<Grade> grd = grades.get(i);
+            double totalBonus = 0;
             HashMap<Integer, GTextField> columns = new HashMap<>();
             for (int j = 0; j < grd.size(); ++j) {
                 GridBagConstraints gbcGrade = getConstraints(xStart, yStart, 1, 1);
                 double bonus = GradingSystem.bonusRd.getBonus(grd.get(j).courseID, grd.get(j).studentID, grd.get(j).componentID);
+                totalBonus += bonus;
                 String comments = GradingSystem.commentRd.getComment(grd.get(j).courseID, grd.get(j).studentID, grd.get(j).componentID);
                 GTextField txtGrade = new GTextField(
                     "" + grd.get(j).points,
@@ -145,6 +152,16 @@ public class GTable extends JPanel{
             GridBagConstraints gbcFinal = getConstraints(xStart, yStart, 1, 1);
             JLabel lblFinalGrade = new JLabel("" + finalGrade);
             add(lblFinalGrade, gbcFinal);
+            ++xStart;
+
+            GridBagConstraints gbcBonus = getConstraints(xStart, yStart, 1, 1);
+            JLabel lblBonus = new JLabel("" + (int)totalBonus);
+            add(lblBonus, gbcBonus);
+            ++xStart;
+
+            GridBagConstraints gbcLetter = getConstraints(xStart, yStart, 1, 1);
+            JLabel lblLetter = new JLabel(GradingSystem.digitToLetter(finalGrade));
+            add(lblLetter, gbcLetter);
             ++xStart;
             ++yStart;
         }
@@ -178,7 +195,7 @@ public class GTable extends JPanel{
 
         xStart = 0;
         GridBagConstraints gbcMeanLbl = getConstraints(xStart, yStart, 1, 1);
-        JLabel lblMeanName = new JLabel("Mean");
+        JLabel lblMeanName = new JLabel("Median");
         add(lblMeanName, gbcMeanLbl);
         ++xStart;
 
