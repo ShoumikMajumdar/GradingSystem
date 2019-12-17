@@ -38,10 +38,15 @@ public class GTextField
         this.courseID = courseID;
         this.sectionId = sectionId;
         this.bonus = bonus;
-        if(bonus > 0){
+        this.comments = comments;
+
+        if(!comments.equals("") && bonus > 0){
+            this.setBackground(Color.GREEN);
+        }else if(!comments.equals("")){
+            this.setBackground(Color.BLUE.brighter());
+        }else if(bonus > 0){
             this.setBackground(Color.YELLOW);
         }
-        this.comments = comments;
         addActionListener(this);
         addFocusListener(this);
         addMouseListener(this);
@@ -100,9 +105,17 @@ public class GTextField
     public void setBonus(int bonus){
         this.bonus = bonus;
         if(bonus > 0){
-            this.setBackground(Color.YELLOW);
+            if(!comments.equals("")){
+                this.setBackground(Color.GREEN);
+            }else{
+                this.setBackground(Color.YELLOW);
+            }
         }else{
-            this.setBackground(null);
+            if(!comments.equals("")){
+                this.setBackground(Color.BLUE.brighter());
+            }else{
+                this.setBackground(null);
+            }
         }
     }
 
@@ -112,6 +125,19 @@ public class GTextField
 
     public void setComments(String comments){
         this.comments = comments;
+        if(!comments.equals("")){
+            if(bonus > 0){
+                this.setBackground(Color.GREEN);
+            }else{
+                this.setBackground(Color.BLUE.brighter());
+            }
+        }else{
+            if(bonus > 0){
+                this.setBackground(Color.YELLOW);
+            }else{
+                this.setBackground(null);
+            }
+        }
     }
 
     public String getComments(){
