@@ -69,7 +69,7 @@ public class UIController extends JFrame {
         holderPanel.revalidate();
         table = new GTable(cid, sectionId);
         System.out.println("course id: "+ cid +"section id: " + sectionId);
-        tablePanel = new TablePanel(this, table, cid);
+        tablePanel = new TablePanel(this, table, cid, sectionId);
         holderPanel.add(tablePanel);
         frame.add(holderPanel);
         frame.repaint();
