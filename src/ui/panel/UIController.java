@@ -62,13 +62,13 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
-    public void switchTablePanel(int cid, int GTable){
+    public void switchTablePanel(int cid, int sid){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
         holderPanel.revalidate();
-        table = new GTable(cid, GTable);
-        System.out.println("course id: "+ cid +"section id: " + GTable);
-        tablePanel = new TablePanel(this, table, cid);
+        table = new GTable(cid, sid);
+        System.out.println("course id: "+ cid +"section id: " + sid);
+        tablePanel = new TablePanel(this, table, cid, sid);
         holderPanel.add(tablePanel);
         frame.add(holderPanel);
         frame.repaint();

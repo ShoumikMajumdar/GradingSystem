@@ -33,7 +33,7 @@ public class CurveReader extends  BaseDBReader {
 
     // get curve
     public int getCurve(int session_id){
-        int result = -1 ;
+        int result = 0;
         try {
             String sql = "SELECT * FROM curve_table WHERE session_id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);

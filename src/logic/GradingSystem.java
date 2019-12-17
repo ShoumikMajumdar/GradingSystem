@@ -96,4 +96,12 @@ public class GradingSystem {
         stddev = Math.sqrt(stddev);
         return stddev;
     }
+
+    public static void setCurve(int sid, int points) {
+        curveRd.setCurve(sid, points);
+    }
+
+    public static int getCurve(int sid) {
+        return curveRd.getCurve(sid);
+    }
 }
