@@ -5,6 +5,7 @@ import logic.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +66,8 @@ public class GTable extends JPanel{
         if(!root.children.isEmpty()) {
             GridBagConstraints gbc_new = getConstraints(x, y, w, 1);
             double rubric = root.percent;
-            String percent = root.percent != 1 ? (" " + rubric * 100 + "%") : "";
+            DecimalFormat dec = new DecimalFormat("0.00");
+            String percent = root.percent != 1 ? (" " + Double.parseDouble(dec.format(rubric * 100)) + "%") : "";
             String name = root.name + percent;
             GButton btn = new GButton(name, parentId, root.id);
             add(btn, gbc_new);
@@ -81,7 +83,8 @@ public class GTable extends JPanel{
         } else {
             GridBagConstraints gbc_new = getConstraints(x, y, w, max_h - y);
             double rubric = root.percent;
-            String percent = root.percent != 1 ? (" " + rubric * 100 + "%") : "";
+            DecimalFormat dec = new DecimalFormat("0.00");
+            String percent = root.percent != 1 ? (" " + Double.parseDouble(dec.format(rubric * 100)) + "%") : "";
             String name = root.name + percent;
             GButton btn = new GButton(name, parentId, root.id);
             add(btn, gbc_new);
