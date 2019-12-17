@@ -1,15 +1,12 @@
 package ui.panel;
 
-import db.CourseReader;
-import db.TemplateReader;
 import Course.CourseDB;
 import logic.Course;
 import logic.GradingSystem;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Objects;
-import javax.swing.*;
 
 public class CoursePanel extends JPanel {
     private JButton btnCreateCourse;
@@ -61,7 +58,7 @@ public class CoursePanel extends JPanel {
         label = new JLabel("Select Course");
         add(label);
         back = new JButton("Back");
-        add(back);
+//        add(back);
         btnCreateCourse = new JButton("Create Course");
         add(btnCreateCourse);
         btnDeleteCourse = new JButton("Delete Course");

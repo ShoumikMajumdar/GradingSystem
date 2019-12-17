@@ -203,7 +203,7 @@ public class UIController extends JFrame {
             try{
                 String name = tf_name.getText();
                 int maxPoints = Integer.parseInt(tf_maxPoints.getText());
-                float percentage = Float.parseFloat(tf_maxPoints.getText());
+                float percentage = Float.parseFloat(tf_percent.getText());
                 Component child = Component.create(name, maxPoints, percentage);
                 Component.addChild(ComponentId, child.id);
             }catch (NumberFormatException e){
