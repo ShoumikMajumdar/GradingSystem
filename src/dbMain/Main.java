@@ -166,6 +166,17 @@ public class Main {
         ComponentDB component = componentreader.queryComponent(3);
         System.out.println(component.toString());
 
+        // API 6. update percent given componnet id
+        componentreader.changePercent(1,45);
+
+        // API 7. update component name given componnet id
+        componentreader.changeName(1,"changed name");
+
+        // API 8. update component name given componnet id
+        componentreader.changePoints(1,666);
+
+
+
 
 
 

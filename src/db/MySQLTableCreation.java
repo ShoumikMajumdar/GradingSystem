@@ -105,7 +105,8 @@ public class MySQLTableCreation {
                     + "percent DOUBLE, "
                     + "points DOUBLE, "
                     + "parent INTEGER, "
-                    + "PRIMARY KEY (component_id, component_name) )";
+                    //+ "PRIMARY KEY (component_id, component_name) )";
+                    + "PRIMARY KEY (component_id))";
             stmt.executeUpdate(sql);
 
             // scores table

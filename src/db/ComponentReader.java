@@ -62,16 +62,14 @@ public class ComponentReader extends BaseDBReader {
             stmt.setInt(2, child_id);
             stmt.executeUpdate();
 
-
-
-
-
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
+
 
     // API 3. delete child
 
@@ -182,6 +180,66 @@ public class ComponentReader extends BaseDBReader {
 
         return builder.build();
 
+    }
+
+    //API 6 . input componenet id, update percent
+
+    public boolean changePercent(int component_id, double percent ){
+
+        try {
+            String sql = "UPDATE component_table " +
+                    "SET  percent  = ? " +
+                    "WHERE component_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1, percent);
+            stmt.setInt(2, component_id);
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //API 7. input component id, update component name
+
+    public boolean changeName(int component_id, String name){
+
+        try {
+            String sql = "UPDATE component_table " +
+                    "SET  component_name  = ? " +
+                    "WHERE component_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setInt(2, component_id);
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //API 8. input component id, update points
+
+    public boolean changePoints(int component_id, double points){
+
+        try {
+            String sql = "UPDATE component_table " +
+                    "SET  points  = ? " +
+                    "WHERE component_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1, points);
+            stmt.setInt(2, component_id);
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
