@@ -157,8 +157,8 @@ public class ComponentReader extends BaseDBReader {
             while (rs.next()){
                 componentID = rs.getInt(1);
                 componentName = rs.getString(2);
-                percent = rs.getInt(3);
-                points = rs.getInt(4);
+                percent = rs.getDouble(3);
+                points = rs.getDouble(4);
 
 
             }
