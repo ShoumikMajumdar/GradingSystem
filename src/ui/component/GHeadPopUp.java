@@ -35,7 +35,7 @@ public class GHeadPopUp extends JPopupMenu{
             add(editR);
         }
         add(editCol);
-        add(changeColPoints);
+//        add(changeColPoints);
     }
 
     public class PopUpListener implements ActionListener {
