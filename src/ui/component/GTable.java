@@ -64,7 +64,10 @@ public class GTable extends JPanel{
     private void buildTemplateHeader(Component root, int parentId, int x, int y, int w, int max_h){
         if(!root.children.isEmpty()) {
             GridBagConstraints gbc_new = getConstraints(x, y, w, 1);
-            GButton btn = new GButton(root.name, parentId, root.id);
+            double rubric = root.percent;
+            String percent = root.percent != 1 ? (" " + rubric * 100 + "%") : "";
+            String name = root.name + percent;
+            GButton btn = new GButton(name, parentId, root.id);
             add(btn, gbc_new);
             int i = 0;
             int _w = 0;
@@ -77,7 +80,10 @@ public class GTable extends JPanel{
             }
         } else {
             GridBagConstraints gbc_new = getConstraints(x, y, w, max_h - y);
-            GButton btn = new GButton(root.name, parentId, root.id);
+            double rubric = root.percent;
+            String percent = root.percent != 1 ? (" " + rubric * 100 + "%") : "";
+            String name = root.name + percent;
+            GButton btn = new GButton(name, parentId, root.id);
             add(btn, gbc_new);
         }
     }
