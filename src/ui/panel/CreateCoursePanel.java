@@ -53,7 +53,7 @@ public class CreateCoursePanel extends JPanel {
         });
 
         Back.addActionListener(e -> {
-            uiController.switchCoursePanel();
+            uiController.switchLogin();
         });
     }
 

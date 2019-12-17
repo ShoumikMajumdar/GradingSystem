@@ -63,6 +63,17 @@ public class UIController extends JFrame {
         frame.setVisible(true);
     }
 
+    public void switchLogin(){
+        frame.getContentPane().removeAll();
+        holderPanel.removeAll();
+        holderPanel.revalidate();
+        LoginPanel loginPanel = new LoginPanel(this);
+        holderPanel.add(loginPanel);
+        frame.add(holderPanel);
+        frame.repaint();
+        frame.setVisible(true);
+    }
+
     public void switchTablePanel(int cid, int sectionId){
         frame.getContentPane().removeAll();
         holderPanel.removeAll();
