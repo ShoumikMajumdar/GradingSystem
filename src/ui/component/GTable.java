@@ -139,7 +139,7 @@ public class GTable extends JPanel{
                 grdClone.add(grd.get(x));
             }
 
-            int finalGrade = root.calculateFinalGrade(grdClone);
+            int finalGrade = (int)root.calculateFinalGrade(grdClone);
             finalGrade += curve;
             finals.add(Double.valueOf(finalGrade));
             GridBagConstraints gbcFinal = getConstraints(xStart, yStart, 1, 1);

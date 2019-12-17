@@ -96,7 +96,7 @@ public class SectionsList extends JPanel {
 
         edit.addActionListener(e -> {
             int index = list.getSelectedIndex();
-            uiController.switchTablePanel(cid,index);
+            uiController.switchTablePanel(cid, ListOfSections.get(index));
         });
 
     }

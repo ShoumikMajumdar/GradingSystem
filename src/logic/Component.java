@@ -205,7 +205,7 @@ public class Component {
         return root;
     }
 
-    public int calculateFinalGrade(ArrayList<Grade> grades) {
+    public double calculateFinalGrade(ArrayList<Grade> grades) {
         if (children.isEmpty()) {
             return grades.remove(0).points;
         }
@@ -214,7 +214,7 @@ public class Component {
             finalGrade += e.getValue().calculateFinalGrade(grades) * e.getValue().percent;
         }
 
-        return (int)finalGrade;
+        return finalGrade;
     }
 
     /**

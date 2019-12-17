@@ -55,6 +55,7 @@ public class TablePanel extends JPanel {
                 }
 
                 GradingSystem.setCurve(sid, x);
+                uiController.refreshTable();
             });
 
         txtSearch.addActionListener(e -> {
