@@ -175,6 +175,10 @@ public class Component {
     }
 
     public static Component filterComponent(Component root, String keyword) {
+        if (keyword.equals("")) {
+            return root;
+        }
+
         if (root.name.indexOf(keyword) != -1) {
             return root;
         }
@@ -193,9 +197,11 @@ public class Component {
         if (!apply) {
             return null;
         }
+
         for (Component c : remove) {
-            root.children.remove(c);
+            root.removeChild(c);
         }
+
         return root;
     }
 

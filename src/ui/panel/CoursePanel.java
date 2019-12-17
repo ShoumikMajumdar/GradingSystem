@@ -52,19 +52,19 @@ public class CoursePanel extends JPanel {
     }
 
     private void addComponent() {
+        add(jsp);
         jp = new JPanel();
-        jp.setLayout(new BorderLayout());
-        jp.add(jsp);
+        jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
         label = new JLabel("Select Course");
-        add(label);
+        jp.add(label);
         back = new JButton("Back");
-        add(back);
+        // jp.add(back);
         btnCreateCourse = new JButton("Create Course");
-        add(btnCreateCourse);
+        jp.add(btnCreateCourse);
         btnDeleteCourse = new JButton("Delete Course");
-        add(btnDeleteCourse);
+        jp.add(btnDeleteCourse);
         btnEditCourse = new JButton("Edit");
-        add(btnEditCourse);
+        jp.add(btnEditCourse);
         add(jp);
     }
 
@@ -94,7 +94,7 @@ public class CoursePanel extends JPanel {
         });
 
         back.addActionListener(e -> {
-            uiController.switchLogin();
+            uiController.switchMainPanel();
         });
 
     }

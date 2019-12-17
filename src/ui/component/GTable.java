@@ -21,13 +21,17 @@ public class GTable extends JPanel{
         this.courseId = courseId;
         this.sectionId = sectionId;
         setLayout(new GridBagLayout());
-        update();
+        update("");
     }
 
-    public void update() {
+    public void update(String keyword) {
         removeAll();
 
         root = Course.getRoot(courseId);
+
+        if (!keyword.equals("")) {
+            root = Component.filterComponent(root, keyword);
+        }
 
         buildTableHeader(root);
 

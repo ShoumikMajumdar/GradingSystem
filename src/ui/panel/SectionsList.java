@@ -57,14 +57,15 @@ public class SectionsList extends JPanel {
     private void addComponent() {
         add(jsp);
         jp = new JPanel();
+        jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
         btnCreateSection = new JButton("Add Section");
-        add(btnCreateSection);
+        jp.add(btnCreateSection);
         btnDeleteSection = new JButton("Remove Section");
-        add(btnDeleteSection);
+        jp.add(btnDeleteSection);
         edit = new JButton("Edit");
-        add(edit);
+        jp.add(edit);
         back = new JButton("Back");
-        add(back);
+        jp.add(back);
         add(jp);
 
     }
